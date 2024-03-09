@@ -1,0 +1,22 @@
+<div class="grid grid-cols-2 items-center !h-[100vh]">
+  <div class="img bg-[#00C894] h-[100vh]">
+    <img
+      src="./assets/Untitled-1-01.png"
+      class="w-full m-auto"
+      alt="dar-elsoker-logo"
+    />
+  </div>
+  <div class="bg-[#F8F8F8] w-3/4 m-auto rtl">
+    <form class="py-[65px] px-[30px] grid gap-y-[30px]">
+      <p class="font-bold">تسجيل الدخول</p>
+      <input type="text" placeholder="اسم المستخدم" class="focus:ring-[#00c894]" />
+      <input type="text" placeholder="الرقم السري"  class="focus:ring-[#00c894]"/>
+      <button
+        (click)="login()"
+        class="text-white bg-[#00c894] hover:scale-95 rounded-lg w-1/2 font-semibold text-xl m-auto mt-28 py-2"
+      >
+        تسجيل الدخول
+      </button>
+    </form>
+  </div>
+</div>

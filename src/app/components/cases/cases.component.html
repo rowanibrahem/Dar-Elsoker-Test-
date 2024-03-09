@@ -1,0 +1,87 @@
+<div class="bg-[#F6F6F6;] h-[100vh] overflow-hidden">
+  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+    <div class="col-span-2 flex ms-auto">
+      <div
+        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2"
+      >
+        <span
+          class="icon-[uit--calender] ms-auto"
+          style="width: 25px; height: 25px"
+        ></span>
+        <p>{{ todayDate | date }}</p>
+      </div>
+      <div class="p-2 m-3 gap-2 flex align-middle">
+        <div class="w-9">
+          <img src="./assets/Mask group.png" class="w-full" alt="" />
+        </div>
+        <p>د/احمد السيد</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="w-full">
+    <div class="w-[90%] mx-auto relative overflow-x-auto max-h-[680px] mt-12">
+      <table
+        class="w-full m-auto shadow-md text-center rounded-lg overflow-y-scroll"
+      >
+        <thead class="text-sm font-medium text-[#1D2433] bg-[#00C8948C]">
+          <tr>
+            <th scope="col" class="py-3">التسلسل</th>
+            <th scope="col" class="py-3">المريض</th>
+            <th scope="col" class="py-3">الطول</th>
+            <th scope="col" class="py-3">الوزن</th>
+            <th scope="col" class="py-3">الحاله</th>
+            <th scope="col" class="py-3"></th>
+            <th scope="col" class="py-3"></th>
+            <th scope="col" class="py-3"></th>
+          </tr>
+        </thead>
+        <tbody class="mt-4">
+          @for (data of appoitmentData ; track $index) {
+          <tr class="bg-white border-b">
+            <th scope="row" class="font-normal text-sm py-3">
+              {{ $index + 1 }}
+            </th>
+            <td
+              class="font-normal text-sm py-3 whitespace-nowrap max-w-8 text-ellipsis"
+            >
+              {{ data.name }}
+            </td>
+            <td class="font-normal text-sm py-3">
+              {{ data.height }}
+            </td>
+            <td class="font-normal text-sm py-3">
+              {{ data.weight }}
+            </td>
+            <td class="font-normal text-sm py-3">
+              {{ data.case }}
+            </td>
+            <td class="font-normal text-sm py-3">
+              <button
+                #btnAvl
+                class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                [ngClass]="data.available ? 'true' : 'false'"
+              >
+                {{ data.available ? "تم الكشف" : "لم يكشف" }}
+              </button>
+            </td>
+            <td class="font-normal text-sm py-3">
+              <select class="bg-[#FFFFFF] border border-[#CCCCCC] rounded-lg w-[180px]">
+                <option selected>تحويل</option>
+                <option value="zox">dr.ziad</option>
+                <option value="tohken">dr.tokhyo</option>
+              </select>
+            </td>
+            <td (click)="goInfo()" role="button">
+              <span
+                class="icon-[mingcute--more-2-fill]"
+                style="width: 30px; height: 30px"
+              ></span>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

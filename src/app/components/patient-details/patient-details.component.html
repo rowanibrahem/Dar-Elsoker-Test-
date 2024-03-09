@@ -1,0 +1,90 @@
+<section class="bg-[#F6F6F6;] h-[100vh]">
+  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+    <div class="p-2 m-3 gap-2 ms-auto flex align-middle">
+      <div class="w-9">
+        <img src="./assets/Mask group.png" class="w-full" alt="" />
+      </div>
+      <p>د/احمد السيد</p>
+    </div>
+  </div>
+  <div class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6">
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-2xl text-[#00C894]">البيانات الشخصيه</p>
+      <div
+        role="button"
+        (click)="goBack()"
+        class="px-5 py-3 grid content-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+      >
+        <span
+          class="icon-[iconamoon--arrow-left-1]"
+          style="width: 30px; height: 30px"
+        ></span>
+      </div>
+    </div>
+    <form [formGroup]="detailsForm">
+      <div class="flex flex-wrap gap-y-3 w-[90%]">
+        <div class="w-[50%]">
+          <label for="firstName" class="block pb-3">الأسم الأول</label>
+          <input type="text" id="firstName" formControlName="firstName" />
+        </div>
+        <div class="w-[50%]">
+          <label for="lastName" class="block pb-3">الأسم الأخير</label>
+          <input type="text" id="lastName" formControlName="lastName" />
+        </div>
+        <div class="w-[50%]">
+          <label for="phone" class="block pb-3">رقم التليفون</label>
+          <input type="tel" id="phone" formControlName="phone" />
+        </div>
+        <div class="w-[50%]">
+          <label for="age" class="block pb-3">السن</label>
+          <input type="numder" class="py-2" id="age" formControlName="age" />
+        </div>
+        <div class="w-full">
+          <label for="adress" class="block pb-3">العنوان</label>
+          <input type="text" id="adress" formControlName="adress" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div
+    class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6 max-h-[40vh] overflow-auto"
+  >
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-2xl text-[#00C894] pb-8">زيارات المريض</p>
+    </div>
+    <ol class="relative border-s border-[#000000]">
+      <li class="mb-10 ms-6">
+        <span
+          class="absolute flex items-center justify-center bg-white w-5 h-5 border-4 rounded-full border-[#00C894] -start-[11px]"
+        >
+        </span>
+        <div
+          class="w-full bg-[#FDFDFD] border border-[#0000001A] rounded-lg grid grid-cols-4 gap-6 content-center py-3"
+        >
+          <div class="mx-auto">
+            <h2 class="font-normal text-base text-[#595959]">التاريخ</h2>
+            <p class="font-medium text-base">24 فبراير 2024</p>
+          </div>
+          <div class="mx-auto">
+            <h2 class="font-normal text-base text-[#595959]">الدكتور</h2>
+            <p class="font-medium text-base">د/غاده رءوف</p>
+          </div>
+          <div class="mx-auto">
+            <h2 class="font-normal text-base text-[#595959]">الممرضه</h2>
+            <p class="font-medium text-base">نرمين محمد</p>
+          </div>
+          <div
+            role="button"
+            (click)="patientInfo()"
+            class="w-[100px] h-[50px] rounded-lg bg-[#00C894] hover:scale-[.95] text-white grid content-center mx-auto"
+          >
+            <span
+              class="icon-[pepicons-pop--file] mx-auto"
+              style="width: 40px; height: 40px"
+            ></span>
+          </div>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>

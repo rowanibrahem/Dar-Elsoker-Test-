@@ -1,0 +1,115 @@
+<div class="rtl !overflow-hidden">
+  <button
+    data-drawer-target="default-sidebar"
+    data-drawer-toggle="default-sidebar"
+    aria-controls="default-sidebar"
+    type="button"
+    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+  >
+    <svg
+      class="w-6 h-6"
+      aria-hidden="true"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clip-rule="evenodd"
+        fill-rule="evenodd"
+        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+      ></path>
+    </svg>
+  </button>
+  <aside
+    id="default-sidebar"
+    class="fixed !right-0 !w-[15%] !left-auto h-screen transition-transform translate-x-full md:translate-x-0"
+    aria-label="Sidebar"
+  >
+    <div class="h-full py-4 overflow-hidden">
+      <div class="overflow-hidden">
+        <img
+          src="./assets/Untitled-1-01.png"
+          class="w-full "
+          alt="dar-elsoker-logo"
+        />
+      </div>
+      <ul class="space-y-2 pt-8 overflow-hidden font-medium" role="button">
+        <li>
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="active-link"
+            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+            <span
+              class="icon-[radix-icons--dashboard]"
+              style="width: 30px; height: 30px"
+            ></span>
+
+            <span class="ms-3">لوحه التحكم</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/cases"
+            routerLinkActive="active-link"
+            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+            <span
+              class="icon-[codicon--git-pull-request]"
+              style="width: 30px; height: 30px"
+            ></span>
+            <span class="ms-3">الحالات</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/doctors"
+            routerLinkActive="active-link"
+            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+            <span
+              class="icon-[healthicons--doctor-male-outline]"
+              style="width: 30px; height: 30px"
+            ></span>
+            <span class="ms-3">الاطباء</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/patient"
+            routerLinkActive="active-link"
+            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+          >
+            <span
+              class="icon-[simple-line-icons--people]"
+              style="width: 30px; height: 30px"
+            ></span>
+            <span class="ms-3">المرضي</span>
+          </a>
+        </li>
+      </ul>
+
+      <div
+        (click)="signOut()"
+        class="fixed bottom-6 text-[#C12735] flex items-center p-2 hover:bg-[#c12734bd] hover:text-[#F8F8F8] w-full rounded-lg group"
+        role="button"
+      >
+        <span>
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.25 26.25C5.5625 26.25 4.97417 26.0054 4.485 25.5163C3.99583 25.0271 3.75083 24.4383 3.75 23.75V6.25C3.75 5.5625 3.995 4.97417 4.485 4.485C4.975 3.99583 5.56333 3.75083 6.25 3.75H15V6.25H6.25V23.75H15V26.25H6.25ZM20 21.25L18.2812 19.4375L21.4688 16.25H11.25V13.75H21.4688L18.2812 10.5625L20 8.75L26.25 15L20 21.25Z"
+              fill="#C12735"
+            />
+          </svg>
+        </span>
+        <p class="ms-3">تسجيل الخروج</p>
+      </div>
+    </div>
+  </aside>
+</div>
