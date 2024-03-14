@@ -19,6 +19,7 @@
 
 * {
   font-family: "Cairo";
+  scroll-behavior: smooth;
 }
 .active-link {
   color: #00c894 !important;

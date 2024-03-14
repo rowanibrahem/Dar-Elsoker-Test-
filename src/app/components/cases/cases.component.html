@@ -20,7 +20,7 @@
   </div>
 
   <section class="w-full">
-    <div class="w-[90%] mx-auto relative overflow-x-auto max-h-[680px] mt-12">
+    <div class="w-[85%] mx-auto relative overflow-x-auto max-h-[680px] mt-12 rounded-t-lg">
       <table
         class="w-full m-auto shadow-md text-center rounded-lg overflow-y-scroll"
       >
@@ -28,49 +28,55 @@
           <tr>
             <th scope="col" class="py-3">التسلسل</th>
             <th scope="col" class="py-3">المريض</th>
-            <th scope="col" class="py-3">الطول</th>
-            <th scope="col" class="py-3">الوزن</th>
-            <th scope="col" class="py-3">الحاله</th>
+            <th scope="col" class="py-3 w-[90px]">الطول</th>
+            <th scope="col" class="py-3 w-[90px]">الوزن</th>
+            <th scope="col" class="py-3 w-[112px]">الحاله</th>
             <th scope="col" class="py-3"></th>
             <th scope="col" class="py-3"></th>
             <th scope="col" class="py-3"></th>
           </tr>
         </thead>
         <tbody class="mt-4">
-          @for (data of appoitmentData ; track $index) {
+          @for (data of visitsData | paginate: { id: 'visitsPaginate',
+          itemsPerPage: pageSize, currentPage: pageNumber, totalItems:
+          totalElements } ; track $index) {
           <tr class="bg-white border-b">
             <th scope="row" class="font-normal text-sm py-3">
               {{ $index + 1 }}
             </th>
             <td
-              class="font-normal text-sm py-3 whitespace-nowrap max-w-8 text-ellipsis"
+              class="font-normal text-sm py-3 whitespace-nowrap w-[345px] text-ellipsis"
             >
-              {{ data.name }}
+              {{ data.patient.contactInfo.firstName }}
+            </td>
+            <td class="font-normal text-sm">
+              <span class="text-xs inline-block">cm</span>
+              <p class="p-1 inline-block">{{ data.patient.height }}</p>
             </td>
             <td class="font-normal text-sm py-3">
-              {{ data.height }}
+              <span class="inline-block">kg</span>
+              <p class="inline-block p-1">{{ data.medicalRecord.weight }}</p>
             </td>
             <td class="font-normal text-sm py-3">
-              {{ data.weight }}
-            </td>
-            <td class="font-normal text-sm py-3">
-              {{ data.case }}
+              {{ data.type === "CHECKUP" ? "كشف" : "اعاده" }}
             </td>
             <td class="font-normal text-sm py-3">
               <button
                 #btnAvl
                 class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
-                [ngClass]="data.available ? 'true' : 'false'"
+                [ngClass]="data.availability ? 'true' : 'false'"
               >
-                {{ data.available ? "تم الكشف" : "لم يكشف" }}
+                {{ data.availability ? "تم الكشف" : "لم يكشف" }}
               </button>
             </td>
-            <td class="font-normal text-sm py-3">
-              <select class="bg-[#FFFFFF] border border-[#CCCCCC] rounded-lg w-[180px]">
-                <option selected>تحويل</option>
-                <option value="zox">dr.ziad</option>
-                <option value="tohken">dr.tokhyo</option>
-              </select>
+            <td class="py-[10px]">
+              <form class="font-normal text-base rounded-lg">
+                <select id="countries" class="w-[180px] rounded-lg">
+                  <option selected>تحويل</option>
+                  <option value="ziad">د/زياد</option>
+                  <option value="tokhen">د/طوخين</option>
+                </select>
+              </form>
             </td>
             <td (click)="goInfo()" role="button">
               <span
@@ -82,6 +88,23 @@
           }
         </tbody>
       </table>
+    </div>
+    <div class="text-center py-[10px]">
+      <pagination-controls
+        id="visitsPaginate"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        [maxSize]="9"
+        [directionLinks]="true"
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel="الصفحه السابقه"
+        nextLabel="الصفحه التاليه"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page"
+      >
+      </pagination-controls>
     </div>
   </section>
 </div>

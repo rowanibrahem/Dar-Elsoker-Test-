@@ -1,5 +1,7 @@
 <div class="bg-[#F6F6F6;] h-[100vh]">
-  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+  <div
+    class="flex justify-between items-center bg-white w-[99.5%] !h-[80px] mx-auto"
+  >
     <div
       class="relative m-3 p-2 border border-spacing-1 rounded-lg border-[#00000040]"
     >
@@ -19,15 +21,17 @@
     </div>
     <div class="col-span-2 flex">
       <div
+        datepicker
+        datepicker-autohide
         class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2"
       >
         <span
           class="icon-[uit--calender] ms-auto"
           style="width: 25px; height: 25px"
         ></span>
-        <p>{{ currentDate | date }}</p>
+        <p>{{ todayDate | date }}</p>
       </div>
-      <div class="p-2 m-3 gap-2 flex align-middle">
+      <div class="p-2 m-3 gap-2 flex items-center">
         <div class="w-9">
           <img src="./assets/Mask group.png" class="w-full" alt="" />
         </div>
@@ -38,69 +42,121 @@
 
   <section class="w-full">
     <div class="grid grid-cols-4 gap-4 py-6 w-[90%] m-auto">
-      @for(item of cardData; track item){
       <div class="shadow-lg rounded-xl bg-white">
         <div class="grid grid-cols-8 content-center py-2 px-2">
-          <img [src]="item.image" alt="icons" />
+          <img src="./assets/simple-line-icons_people.png" alt="icons" />
           <p
-            class="col-span-6 text-2xl font-medium whitespace-nowrap text-ellipsis"
+            class="col-span-6 text-2xl font-medium whitespace-nowrap max-w-[120px] mx-auto overflow-hidden text-ellipsis"
           >
-            {{ item.desc }}
+            حالات اليوم
           </p>
           <span
+            (click)="govisits('ALL')"
+            #ALL
+            role="button"
             class="icon-[mingcute--more-2-fill]"
             style="width: 30px; height: 30px"
           ></span>
         </div>
         <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
-          {{ item.Patient }}
+          {{ statisticsData.todayVisits }}
         </h3>
-        <span class="grid justify-center ms-[40%] pb-8">{{ item.title }}</span>
+        <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
       </div>
-      }
+      <div class="shadow-lg rounded-xl bg-white">
+        <div class="grid grid-cols-8 content-center py-2 px-2">
+          <img src="./assets/lets-icons_done-ring-round.svg" alt="icons" />
+          <p
+            class="col-span-6 text-2xl font-medium whitespace-nowrap max-w-[120px] mx-auto overflow-hidden text-ellipsis"
+          >
+            تم الكشف
+          </p>
+          <span
+            (click)="govisits('COMPLETED')"
+            #COMPLETED
+            role="button"
+            class="icon-[mingcute--more-2-fill]"
+            style="width: 30px; height: 30px"
+          ></span>
+        </div>
+        <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
+          {{ statisticsData.completedVisits }}
+        </h3>
+        <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
+      </div>
+      <div class="shadow-lg rounded-xl bg-white">
+        <div class="grid grid-cols-8 content-center py-2 px-2">
+          <img src="./assets/mingcute_transfer-line.svg" alt="icons" />
+          <p
+            class="col-span-6 text-2xl font-medium whitespace-nowrap max-w-[200px] mx-auto overflow-hidden text-ellipsis"
+          >
+            الحالات المحوله
+          </p>
+          <span
+            (click)="govisits('REDIRECTED')"
+            #REDIRECTED
+            role="button"
+            class="icon-[mingcute--more-2-fill]"
+            style="width: 30px; height: 30px"
+          ></span>
+        </div>
+        <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
+          {{ statisticsData.redirectedVisits }}
+        </h3>
+        <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
+      </div>
     </div>
 
-    <div class="overflow-x-auto py-4">
-      <table class="w-[90%] m-auto shadow-md text-center rounded-lg">
+    <div class="overflow-x-auto max-h-[65vh]">
+      <table
+        class="w-[90%] m-auto shadow-md text-center rounded-lg overflow-auto max-h-[62vh]"
+      >
         <thead class="text-sm font-medium text-[#1D2433] bg-[#00C8948C]">
           <tr>
-            <th scope="col" class="py-3">التسلسل</th>
-            <th scope="col" class="py-3">الدكتور</th>
-            <th scope="col" class="py-3">التخصص</th>
-            <th scope="col" class="py-3">رقم التليفون</th>
-            <th scope="col" class="py-3">الحالات المحوله</th>
-            <th scope="col" class="py-3">تم الكشف</th>
-            <th scope="col" class="py-3"></th>
+            <th scope="col" class="py-[10px]">التسلسل</th>
+            <th scope="col" class="py-[10px]">الدكتور</th>
+            <th scope="col" class="py-[10px]">التخصص</th>
+            <th scope="col" class="py-[10px]">رقم التليفون</th>
+            <th scope="col" class="py-[10px]">الحالات المحوله</th>
+            <th scope="col" class="py-[10px]">تم الكشف</th>
+            <th scope="col" class="py-[10px]"></th>
           </tr>
         </thead>
         <tbody>
           @for (data of dashTable | search : searchvalue ; track $index) {
           <tr class="bg-white border-b">
-            <th scope="row" class="py-4">
+            <th scope="row">
               {{ $index + 1 }}
             </th>
-            <td class="py-4 whitespace-nowrap max-w-8 text-ellipsis">
-              {{ data.contactInfo.firstName }}
+            <td class="py-[10px] whitespace-nowrap text-ellipsis">
+              {{ data.fullName }}
             </td>
-            <td class="py-4">
+            <td>
               {{ data.specialization }}
             </td>
-            <td class="py-4">
+            <td>
               {{ data.contactInfo.phone }}
             </td>
-            <td class="py-4">
+            <td>
               {{ data.totalRedirectedPatient }}
             </td>
-            <td class="py-4">
+            <td>
               {{ data.totalCompletedRedirections }}
             </td>
-            <td class="py-4">
+            <td>
               <button
+                (click)="updateDocter(data.id, data.availability)"
                 #btnAvl
                 class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
                 [ngClass]="data.availability ? 'true' : 'false'"
               >
-                {{ data.availability ? "متاح" : "غير متاح"}}
+                <span>
+                  @if (isLoading && doctorId==data.id) {<i
+                    class="fa-solid fa-spinner fa-spin"
+                  ></i
+                  >}
+                </span>
+                {{ data.availability ? "متاح" : "غير متاح" }}
               </button>
             </td>
           </tr>

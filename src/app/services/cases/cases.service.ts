@@ -10,9 +10,28 @@ export class CasesService {
 
   baseUrl: string = 'https://api-dar-elsokar.ebdaa-business.com/api/v1/';
 
-  getStatisticsByDate(date: Date): Observable<any> {
-    return this._HttpClient.get(this.baseUrl + date);
+  getStatisticsByDate(date: string): Observable<any> {
+    return this._HttpClient.get(
+      `${this.baseUrl}visits/statistics?date=${date}`
+    );
   }
 
-  
+  allByDateAndStatus(date: string, value: string): Observable<any> {
+    return this._HttpClient.patch(
+      `${this.baseUrl}/visits/by-date/${date}?status=${value}`,
+      {
+        date: date,
+      }
+    );
+  }
+
+  allCompletedByDate(date: string): Observable<any> {
+    return this._HttpClient.get(
+      `${this.baseUrl}visits/completed-by-date/${date}`
+    );
+  }
+
+  getVisitsPage(pageNum: number = 0): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}visits?page=${pageNum}`);
+  }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { SearchPipe } from '../../search.pipe';
 import {
   FormControl,
@@ -24,7 +24,7 @@ export class DoctorsComponent implements OnInit {
   currentDate: Date = new Date();
   selectedDate: Date = new Date();
   menu: any;
-  constructor(private _DoctorsService: DoctorsService) {}
+  constructor(private _DoctorsService: DoctorsService, _Renderer2: Renderer2) {}
   ngOnInit(): void {
     this.currentDate.toLocaleDateString();
     this.getAllDoctors();
@@ -35,7 +35,6 @@ export class DoctorsComponent implements OnInit {
   getAllDoctors() {
     this._DoctorsService.getAllDoctor().subscribe({
       next: (res) => {
-        // console.log(res);
         this.doctorsData = res;
       },
       error: (err) => {
@@ -57,13 +56,14 @@ export class DoctorsComponent implements OnInit {
   });
 
   savedoctor(): void {
-    // console.log(this.doctorForm.value);
     const doctorData = this.doctorForm.value;
     if (doctorData != null) {
       this._DoctorsService.saveDoctor(doctorData).subscribe({
         next: (res) => {
           console.log(res);
           this.doctorsData = res;
+          this.getAllDoctors();
+
         },
         error: (err) => {
           console.log(err);

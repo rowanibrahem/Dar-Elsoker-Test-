@@ -37,7 +37,7 @@
   </div>
 
   <section
-    class="w-[75%] mx-auto mt-12 flex flex-wrap gap-8 items-center max-h-[80vh] overflow-y-auto"
+    class="w-[90%] mx-auto mt-12 flex flex-wrap gap-8 items-center justify-center max-h-[80vh] overflow-y-auto"
   >
     @for (item of doctorsData | search:searchvalue; track $index) {
     <div class="w-[350px] bg-white rounded-lg overflow-hidden shadow-md">
@@ -90,6 +90,7 @@
       </button>
       <!-- Main modal -->
       <div
+        #modal
         id="crud-modal"
         tabindex="-1"
         aria-hidden="true"

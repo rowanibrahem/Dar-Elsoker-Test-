@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DoctorsService } from '../../services/doctors/doctors.service';
 import { CasesService } from '../../services/cases/cases.service';
+import { initFlowbite } from 'flowbite';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,22 +26,42 @@ import { CasesService } from '../../services/cases/cases.service';
 export class DashboardComponent implements OnInit {
   constructor(
     private _DoctorsService: DoctorsService,
-    private _CasesService: CasesService
+    private _CasesService: CasesService,
+    private _OAuthService: OAuthService,
+    private _Router: Router // private _Renderer2: Renderer2
   ) {}
-  dashTable: any[] = [];
-  cardData: any[] = [];
+  dashTable: any = [];
+  statisticsData: any = {};
   searchvalue: string = '';
   currentDate: Date = new Date();
+  _availability!: boolean;
+  isLoading: boolean = false;
+  doctorId: any;
+  el: ElementRef | undefined;
 
   ngOnInit(): void {
-    this._CasesService.getStatisticsByDate(this.currentDate).subscribe({
-      next:(res)=>{
-        console.log();
-        
-      }
-    })
+    this.getDoctorData();
+    this.getStatisticsData();
+    initFlowbite();
+    if (localStorage.getItem('_token') == null) {
+      const _token = this._OAuthService.getAccessToken();
+      localStorage.setItem('_token', _token);
+    }
+  }
 
+  getStatisticsData() {
+    this._CasesService.getStatisticsByDate(this.todayDate).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.statisticsData = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
+  getDoctorData() {
     this._DoctorsService.getAllDoctor().subscribe({
       next: (res) => {
         console.log(res);
@@ -47,6 +70,26 @@ export class DashboardComponent implements OnInit {
       error: (err) => {
         console.log(err);
       },
+    });
+  }
+
+  updateDocter(id: any, value: boolean) {
+    this.doctorId = id;
+    let value2 = value ? false : true;
+    this.isLoading = true;
+    this._DoctorsService.updateDoctor(id, value2).subscribe({
+      next: (res) => {
+        this.getDoctorData();
+        this.isLoading = false;
+        this.doctorId = '';
+      },
+    });
+  }
+
+  govisits(id: string) {
+    this._Router.navigate(['/cases'], {
+      queryParams: { value: id },
+      // queryParamsHandling: 'preserve',
     });
   }
 

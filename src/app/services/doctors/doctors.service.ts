@@ -9,7 +9,7 @@ export class DoctorsService {
   constructor(private _HttpClient: HttpClient) {}
 
   baseUrl: string = `https://api-dar-elsokar.ebdaa-business.com/api/v1/`;
-  
+
   getAllDoctor(): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}doctors/all`);
   }
@@ -18,7 +18,13 @@ export class DoctorsService {
     return this._HttpClient.post(`${this.baseUrl}doctors`, doctorData);
   }
 
-  // updateDoctor(id: any, value: boolean): Observable<any> {
-  //   return this._HttpClient.patch(`${this.baseUrl}doctors/`,);
-  // }
+  updateDoctor(doctorId: any, value: boolean): Observable<any> {
+    return this._HttpClient.patch(
+      `${this.baseUrl}doctors/${doctorId}/availability?availability=${value}`,
+      {
+        id: doctorId,
+        availability: value,
+      }
+    );
+  }
 }
