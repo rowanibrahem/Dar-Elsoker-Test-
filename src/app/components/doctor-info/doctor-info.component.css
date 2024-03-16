@@ -6,11 +6,7 @@ textarea {
   width: 90%;
 }
 
-.info:hover ul {
-  display: block;
-}
-
-.info ul li:hover {
-  cursor: pointer;
-  scale: 1.2;
+:disabled{
+  cursor: not-allowed;
+  background-color: #0000001a;
 }

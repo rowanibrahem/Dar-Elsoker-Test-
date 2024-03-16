@@ -1,7 +1,9 @@
 <div class="bg-[#F6F6F6;] h-[100vh]">
-  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+  <div
+    class="flex justify-between flex-wrap items-center bg-white w-[99.5%] mx-auto"
+  >
     <div
-      class="relative m-3 p-2 border border-spacing-1 rounded-lg border-[#00000040]"
+      class="relative m-3 p-2 border border-spacing-1 rounded-lg border-[#52464640] max-sm:w-full"
     >
       <div class="absolute mt-auto start-2 flex">
         <span
@@ -17,17 +19,13 @@
         [(ngModel)]="searchvalue"
       />
     </div>
-    <div class="col-span-2 flex">
+    <div class="flex max-sm:w-full">
       <div
-        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2"
+        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2 max-sm:w-1/2"
       >
-        <span
-          class="icon-[uit--calender] ms-auto"
-          style="width: 25px; height: 25px"
-        ></span>
-        <p>{{ currentDate | date }}</p>
+        <input type="date" [(ngModel)]="todayDate" class="focus:ring-[none]" />
       </div>
-      <div class="p-2 m-3 gap-2 flex align-middle">
+      <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
         <div class="w-9">
           <img src="./assets/Mask group.png" class="w-full" alt="" />
         </div>
@@ -37,13 +35,59 @@
   </div>
 
   <section
-    class="w-[90%] mx-auto mt-12 flex flex-wrap gap-8 items-center justify-center max-h-[80vh] overflow-y-auto"
+    class="w-[90%] mx-auto mt-12 flex flex-wrap gap-8 items-center justify-start max-h-[80vh] overflow-y-auto"
   >
     @for (item of doctorsData | search:searchvalue; track $index) {
     <div class="w-[350px] bg-white rounded-lg overflow-hidden shadow-md">
       <div class="relative w-[350px] h-[101px] bg-[#E0E0E0] rounded-t-lg">
-        <div class="absolute top-[25px] left-[25px]">
-          
+        <div class="info p-[20px] flex flex-row-reverse">
+          <button
+            class="icon-[mingcute--more-2-fill]"
+            style="width: 30px; height: 30px"
+          ></button>
+          <ul
+            class="hidden rounded bg-[#FFFFFF] border border-[#0000001A] w-[40%] text-xs font-normal text-[#666666] z-40 overflow-hidden"
+          >
+            <li class="flex gap-3 p-[10px] border-b">
+              <span
+                class="icon-[tabler--table]"
+                style="width: 10px; height: 10px"
+              ></span>
+              <h6>سجل المرضي</h6>
+            </li>
+            <li
+              class="flex gap-3 p-[10px] border-b"
+              id="info"
+              (click)="goWithId('info', item.id)"
+            >
+              <span
+                class="icon-[fluent--text-bullet-list-square-48-filled]"
+                style="width: 10px; height: 10px"
+              ></span>
+              <h6>بيانات الدكتور</h6>
+            </li>
+            <li
+              class="flex gap-3 p-[10px] border-b"
+              id="edit"
+              (click)="goWithId('edit', item.id)"
+            >
+              <span
+                class="icon-[akar-icons--edit]"
+                style="width: 10px; height: 10px"
+              ></span>
+              <h6>تعديل البيانات</h6>
+            </li>
+            <li
+              class="flex gap-3 p-[10px] border-b"
+              (click)="deletDoctor(item.id)"
+            >
+              <span
+                class="icon-[fluent--delete-24-regular]"
+                style="width: 10px; height: 10px"
+              ></span>
+              <h6>حذف الدكتور</h6>
+            </li>
+          </ul>
         </div>
         <div class="absolute top-[35px] left-[122px] w-[105px] h-[105px]">
           <img src="./assets/Mask group.png" alt="doctors-image" />
@@ -74,122 +118,12 @@
       </div>
     </div>
     }
-
-    <!-- Add moduel -->
-    <div class="w-[350px] text-center">
-      <!-- Modal toggle -->
-      <button
-        data-modal-target="crud-modal"
-        data-modal-toggle="crud-modal"
-        type="button"
-      >
-        <span
-          class="icon-[zondicons--add-solid] bg-[#00C894;] hover:bg-[#00B69B95;]"
-          style="width: 100px; height: 100px"
-        ></span>
-      </button>
-      <!-- Main modal -->
-      <div
-        #modal
-        id="crud-modal"
-        tabindex="-1"
-        aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full"
-      >
-        <div
-          class="relative p-4 bg-[#FFFFFF] w-[80%] m-auto mt-[5%] rounded-lg max-h-[80vh] overflow-y-auto"
-        >
-          <div class="container mx-auto px-4 py-8">
-            <form
-              [formGroup]="doctorForm"
-              (ngSubmit)="savedoctor()"
-              class="flex flex-wrap justify-between gap-y-8 font-normal text-base text-[#595959] text-start"
-            >
-              <div
-                class="w-[25%] p-[5%] grid content-center border border-dashed border-[#979797] bg-[#F6F6F6] rounded-lg"
-              >
-                <label for="imageUpload" class="cursor-pointer">
-                  <span
-                    class="icon-[material-symbols--upload] block mx-auto"
-                    style="width: 80px; height: 80px"
-                  ></span>
-                  <span class="text-2xl font-normal">تحميل صوره</span>
-                </label>
-                <input
-                  type="file"
-                  id="imageUpload"
-                  name="image"
-                  accept="image/*"
-                  class="hidden"
-                />
-              </div>
-              <div class="w-[70%] flex flex-wrap">
-                <h1 class="font-semibold text-2xl w-full pb-4 text-[#00C894]">
-                  إضافه طبيب
-                </h1>
-                <div formGroupName="contactInfo" class="w-full flex flex-wrap">
-                  <div class="w-[50%]">
-                    <label for="firstName" class="block pb-3"
-                      >الأسم الأول</label
-                    >
-                    <input
-                      type="text"
-                      id="firstName"
-                      formControlName="firstName"
-                    />
-                  </div>
-                  <div class="w-[50%]">
-                    <label for="lastName" class="block pb-3"
-                      >الأسم الأخير</label
-                    >
-                    <input
-                      type="text"
-                      id="lastName"
-                      formControlName="lastName"
-                      class=""
-                    />
-                  </div>
-                  <div class="w-[50%]">
-                    <label for="email" class="block pb-3"
-                      >االبريد الالكتروني</label
-                    >
-                    <input type="email" id="email" formControlName="email" />
-                  </div>
-                  <div class="w-[50%]">
-                    <label for="phone" class="block pb-3">رقم التليفون</label>
-                    <input type="tel" id="phone" formControlName="phone" />
-                  </div>
-                </div>
-              </div>
-              <div class="w-[50%]">
-                <label for="address" class="block pb-3">العنوان</label>
-                <input type="text" id="address" formControlName="address" />
-              </div>
-              <div class="w-[50%]">
-                <label for="specialization" class="block pb-3">التخصص</label>
-                <input
-                  type="text"
-                  id="specialization"
-                  formControlName="specialization"
-                />
-              </div>
-              <div class="w-full">
-                <label for="qualification" class="block pb-3">المؤهلات</label>
-                <textarea
-                  id="qualification"
-                  formControlName="qualification"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                class="m-auto font-bold text-2xl text-[#FFFFFF] bg-[#00C894] w-[350px] h-[80px] rounded-lg hover:scale-95"
-              >
-                إضافه
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+    <div class="w-[350px] text-center" role="button">
+      <span
+        (click)="goInfo()"
+        class="icon-[zondicons--add-solid] bg-[#00C894;] hover:bg-[#00B69B95;]"
+        style="width: 100px; height: 100px"
+      ></span>
     </div>
   </section>
 </div>

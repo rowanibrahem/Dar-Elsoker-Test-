@@ -7,3 +7,13 @@
   color: #c12735;
   background-color: #c1273529;
 }
+
+nz-date-picker,
+nz-range-picker {
+  margin: 0 8px 12px 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  width: 25px;
+  height: 25px;
+}

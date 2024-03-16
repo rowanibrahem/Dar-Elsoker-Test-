@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchPipe } from '../../search.pipe';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +9,7 @@ import { CasesService } from '../../services/cases/cases.service';
 import { initFlowbite } from 'flowbite';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
     SearchPipe,
     FormsModule,
     NgxPaginationModule,
+    NzDatePickerModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -33,11 +35,8 @@ export class DashboardComponent implements OnInit {
   dashTable: any = [];
   statisticsData: any = {};
   searchvalue: string = '';
-  currentDate: Date = new Date();
-  _availability!: boolean;
   isLoading: boolean = false;
   doctorId: any;
-  el: ElementRef | undefined;
 
   ngOnInit(): void {
     this.getDoctorData();
@@ -89,7 +88,6 @@ export class DashboardComponent implements OnInit {
   govisits(id: string) {
     this._Router.navigate(['/cases'], {
       queryParams: { value: id },
-      // queryParamsHandling: 'preserve',
     });
   }
 

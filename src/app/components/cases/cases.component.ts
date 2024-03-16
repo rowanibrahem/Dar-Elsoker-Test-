@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { CasesService } from '../../services/cases/cases.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cases',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule],
+  imports: [CommonModule, NgxPaginationModule,FormsModule,],
   templateUrl: './cases.component.html',
   styleUrl: './cases.component.css',
 })

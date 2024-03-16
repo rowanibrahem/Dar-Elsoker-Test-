@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { DoctorsService } from '../../services/doctors/doctors.service';
 import { initFlowbite } from 'flowbite';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctors',
@@ -21,14 +22,12 @@ import { initFlowbite } from 'flowbite';
 export class DoctorsComponent implements OnInit {
   searchvalue: string = '';
   doctorsData: any[] = [];
-  currentDate: Date = new Date();
-  selectedDate: Date = new Date();
-  menu: any;
-  constructor(private _DoctorsService: DoctorsService, _Renderer2: Renderer2) {}
+  constructor(
+    private _DoctorsService: DoctorsService,
+    private _Router: Router
+  ) {}
   ngOnInit(): void {
-    this.currentDate.toLocaleDateString();
     this.getAllDoctors();
-    this.savedoctor();
     initFlowbite();
   }
 
@@ -43,32 +42,36 @@ export class DoctorsComponent implements OnInit {
     });
   }
 
-  doctorForm: FormGroup = new FormGroup({
-    contactInfo: new FormGroup({
-      firstName: new FormControl(null, [Validators.required]),
-      lastName: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      phone: new FormControl(null),
-      address: new FormControl(null),
-    }),
-    specialization: new FormControl(null),
-    qualification: new FormControl(null),
-  });
-
-  savedoctor(): void {
-    const doctorData = this.doctorForm.value;
-    if (doctorData != null) {
-      this._DoctorsService.saveDoctor(doctorData).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.doctorsData = res;
-          this.getAllDoctors();
-
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+  deletDoctor(id: number) {
+    this._DoctorsService.deleteDoctor(id).subscribe({
+      next: (res) => {
+        this.getAllDoctors();
+      },
+    });
   }
+
+  goWithId(status: string, id: string) {
+    this._Router.navigate(['/doctor-info'], {
+      queryParams: { status: status, id: id },
+    });
+  }
+
+  goInfo() {
+    this._Router.navigate(['/doctor-info']);
+  }
+
+  getTodayDate(): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+
+    // Format the date as "yyyy-MM-dd"
+    const formattedDate = `${year}-${month}-${day}`;
+
+    return formattedDate;
+  }
+
+  // Example usage:
+  todayDate = this.getTodayDate();
 }

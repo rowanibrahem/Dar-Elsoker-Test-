@@ -1,16 +1,18 @@
 <div class="bg-[#F6F6F6;] h-[100vh] overflow-hidden">
-  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
-    <div class="col-span-2 flex ms-auto">
+  <div
+    class="flex justify-between flex-wrap items-center bg-white w-[99.5%] mx-auto"
+  >
+    <div class="flex ms-auto max-sm:w-full">
       <div
-        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2"
+        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2 max-sm:w-1/2"
       >
-        <span
-          class="icon-[uit--calender] ms-auto"
-          style="width: 25px; height: 25px"
-        ></span>
-        <p>{{ todayDate | date }}</p>
+        <input
+          type="date"
+          [(ngModel)]="todayDate"
+          class="focus:ring-[none]"
+        />
       </div>
-      <div class="p-2 m-3 gap-2 flex align-middle">
+      <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
         <div class="w-9">
           <img src="./assets/Mask group.png" class="w-full" alt="" />
         </div>

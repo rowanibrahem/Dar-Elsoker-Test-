@@ -14,8 +14,19 @@ export class DoctorsService {
     return this._HttpClient.get(`${this.baseUrl}doctors/all`);
   }
 
+  getDoctorByID(id: string | null): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}doctors/${id}`);
+  }
+
   saveDoctor(doctorData: object): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}doctors`, doctorData);
+  }
+  reuseDoctor(doctorData: object): Observable<any> {
+    return this._HttpClient.put(`${this.baseUrl}doctors`, doctorData);
+  }
+
+  deleteDoctor(id: number): Observable<any> {
+    return this._HttpClient.delete(`${this.baseUrl}doctors/${id}`);
   }
 
   updateDoctor(doctorId: any, value: boolean): Observable<any> {
