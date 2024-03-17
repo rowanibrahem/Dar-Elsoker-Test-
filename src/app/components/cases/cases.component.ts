@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cases',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule,FormsModule,],
+  imports: [CommonModule, NgxPaginationModule, FormsModule],
   templateUrl: './cases.component.html',
   styleUrl: './cases.component.css',
 })
@@ -20,7 +20,7 @@ export class CasesComponent implements OnInit {
   value: string | null = 'ALL';
   visitsData: any[] = [];
   pageSize: number = 0;
-  pageNumber: number = 0;
+  pageNumber: number = 1;
   totalElements: number = 0;
 
   ngOnInit(): void {
@@ -63,6 +63,14 @@ export class CasesComponent implements OnInit {
 
   goInfo() {
     this._Router.navigate(['/patient-info']);
+  }
+
+  CHECKUP() {
+    this._Router.navigate(['/personal-info']);
+  }
+
+  FOLLOWUP() {
+    this._Router.navigate(['/patient']);
   }
 
   getTodayDate(): string {

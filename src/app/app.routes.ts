@@ -8,6 +8,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { PatientDetailsComponent } from './components/patient-details/patient-details.component';
 import { PatientInfoComponent } from './components/patient-info/patient-info.component';
 import { DoctorInfoComponent } from './components/doctor-info/doctor-info.component';
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,7 @@ export const routes: Routes = [
         title: 'بيانات المريض',
       },
       { path: 'doctor-info', component: DoctorInfoComponent },
+      { path: 'personal-info', component: PersonalInfoComponent },
     ],
   },
   { path: 'login', component: LoginComponent, title: 'تسجيل الدخول' },

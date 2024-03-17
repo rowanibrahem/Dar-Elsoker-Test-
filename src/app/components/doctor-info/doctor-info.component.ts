@@ -28,8 +28,7 @@ export class DoctorInfoComponent implements OnInit {
   constructor(
     private _DoctorsService: DoctorsService,
     private _Location: Location,
-    private _active: ActivatedRoute,
-    private _Renderer2: Renderer2
+    private _active: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +63,7 @@ export class DoctorInfoComponent implements OnInit {
       });
     }
   }
+
   updateDoctor(): void {
     const doctorData = this.doctorForm.value;
     this._DoctorsService.reuseDoctor(doctorData).subscribe({
@@ -82,6 +82,8 @@ export class DoctorInfoComponent implements OnInit {
     this.disaple = true;
     this._DoctorsService.getDoctorByID(this.doctorId).subscribe({
       next: (res) => {
+        console.log(res);
+
         this.doctorsData = res;
         this.doctorForm.patchValue({
           contactInfo: {

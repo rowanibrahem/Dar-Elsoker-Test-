@@ -96,8 +96,18 @@
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-content>
+    <nz-content class="relative">
       <router-outlet></router-outlet>
+      @if (_IsLoaderService.isLoading) {
+      <div
+        class="w-[90%] mx-auto bg-none absolute top-[40%] p-0"
+        style="direction: ltr"
+      >
+        <nz-skeleton [nzActive]="true" [nzAvatar]="true"></nz-skeleton>
+        <nz-skeleton [nzActive]="true" [nzAvatar]="true"></nz-skeleton>
+        <nz-skeleton [nzActive]="true" [nzAvatar]="true"></nz-skeleton>
+      </div>
+      }
     </nz-content>
   </nz-layout>
 </nz-layout>

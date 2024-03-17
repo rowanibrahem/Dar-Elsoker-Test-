@@ -25,13 +25,11 @@ export class CasesService {
     );
   }
 
-  allCompletedByDate(date: string): Observable<any> {
-    return this._HttpClient.get(
-      `${this.baseUrl}visits/completed-by-date/${date}`
-    );
-  }
-
   getVisitsPage(pageNum: number = 0): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}visits?page=${pageNum}`);
+  }
+
+  saveVisit(visitData: {}): Observable<any> {
+    return this._HttpClient.post(`${this.baseUrl}visits`, visitData);
   }
 }

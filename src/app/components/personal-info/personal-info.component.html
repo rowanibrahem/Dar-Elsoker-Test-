@@ -9,7 +9,7 @@
   </div>
   <div class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6">
     <div class="flex justify-between items-center">
-      <p class="font-semibold text-2xl text-[#00C894]">بيانات المريض</p>
+      <p class="font-semibold text-2xl text-[#00C894]">البيانات الشخصيه</p>
       <div
         role="button"
         (click)="goBack()"
@@ -21,31 +21,65 @@
         ></span>
       </div>
     </div>
-    <form class="max-h-[75vh] grid gap-y-8 overflow-auto">
-      <div class="grid grid-cols-4 pt-8">
-        <div class="flex items-center w-2/3 gap-4">
-          <label for="" class="font-normal text-base text-[#595959]"
-            >السن</label
-          >
-          <input type="number" class="p-3" />
+    <form [formGroup]="detailsForm">
+      <div formGroupName="patient">
+        <div class="flex flex-wrap gap-y-3 w-[90%]" formGroupName="contactInfo">
+          <div class="w-[50%]">
+            <label for="firstName" class="block pb-3">الأسم الأول</label>
+            <input type="text" id="firstName" formControlName="firstName" />
+          </div>
+          <div class="w-[50%]">
+            <label for="lastName" class="block pb-3">الأسم الأخير</label>
+            <input type="text" id="lastName" formControlName="lastName" />
+          </div>
+          <div class="w-[50%]">
+            <label for="phone" class="block pb-3">رقم التليفون</label>
+            <input type="tel" id="phone" formControlName="phone" />
+          </div>
+          <div class="w-[50%]">
+            <label for="age" class="block pb-3">السن</label>
+            <input type="numder" class="py-2" id="age" formControlName="age" />
+          </div>
+          <div class="w-full">
+            <label for="adress" class="block pb-3">العنوان</label>
+            <input type="text" id="adress" formControlName="adress" />
+          </div>
         </div>
+      </div>
+    </form>
+  </div>
+  <div
+    class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6 max-h-[40vh]"
+  >
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-2xl text-[#00C894]">بيانات المريض</p>
+    </div>
+    <form class="max-h-[30vh] grid gap-y-8 overflow-auto">
+      <div class="grid grid-cols-4 pt-8">
         <div class="flex items-center w-2/3 gap-4">
           <label for="" class="font-normal text-base text-[#595959]"
             >الطول</label
           >
-          <input type="number" class="p-3" />
+          <input type="number" class="p-3" formControlName="height" />
         </div>
-        <div class="flex items-center w-2/3 gap-4">
+        <div
+          class="flex items-center w-2/3 gap-4"
+          formGroupName="medicalRecord"
+        >
           <label for="" class="font-normal text-base text-[#595959]"
             >الوزن</label
           >
-          <input type="number" class="p-3" />
+          <input type="number" class="p-3" formControlName="weight" />
         </div>
         <div class="flex items-center w-2/3 gap-4">
           <label for="" class="font-normal text-base text-[#595959]"
             >مده السكر</label
           >
-          <input type="number" class="p-3" />
+          <input
+            type="number"
+            class="p-3"
+            formControlName="fastingBloodSugar"
+          />
         </div>
       </div>
 
@@ -142,7 +176,6 @@
         <label for="" class="font-normal text-base text-[#595959]">
           <div class="text-center">
             <p>الفحوصات</p>
-            <!-- <small class="underline text-[#979797]">2/12/2024</small> -->
           </div>
         </label>
         <div class="grid gap-y-4 whitespace-nowrap">
@@ -213,7 +246,6 @@
         <label for="" class="font-normal text-base text-[#595959]">
           <div class="text-center">
             <p>شكاوي</p>
-            <!-- <small class="underline text-[#979797]">2/12/2024</small> -->
           </div>
         </label>
         <label for="checkbox-7" class="flex items-center gap-4 cursor-pointer">
@@ -297,6 +329,12 @@
           >
         </label>
       </div>
+      <button
+        (click)="saveVisit()"
+        class="w-4/12 m-auto px-[90px] py-[18px] bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
+      >
+        إضافه
+      </button>
     </form>
   </div>
 </section>

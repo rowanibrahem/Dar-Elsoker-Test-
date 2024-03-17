@@ -6,11 +6,7 @@
       <div
         class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2 max-sm:w-1/2"
       >
-        <input
-          type="date"
-          [(ngModel)]="todayDate"
-          class="focus:ring-[none]"
-        />
+        <input type="date" [(ngModel)]="todayDate" class="focus:ring-[none]" />
       </div>
       <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
         <div class="w-9">
@@ -22,7 +18,23 @@
   </div>
 
   <section class="w-full">
-    <div class="w-[85%] mx-auto relative overflow-x-auto max-h-[680px] mt-12 rounded-t-lg">
+    <div class="w-[55%] mx-auto flex justify-between pt-[68px]">
+      <button
+        (click)="CHECKUP()"
+        class="px-[90px] py-[18px] bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
+      >
+        كشف
+      </button>
+      <button
+        (click)="FOLLOWUP()"
+        class="px-[90px] py-[18px] bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
+      >
+        إعاده
+      </button>
+    </div>
+    <div
+      class="w-[90%] mx-auto relative overflow-y-auto max-h-[63vh] mt-12 rounded-t-lg"
+    >
       <table
         class="w-full m-auto shadow-md text-center rounded-lg overflow-y-scroll"
       >
@@ -47,7 +59,7 @@
               {{ $index + 1 }}
             </th>
             <td
-              class="font-normal text-sm py-3 whitespace-nowrap w-[345px] text-ellipsis"
+              class="font-normal text-sm py-3 whitespace-nowrap max:w-[280px] text-ellipsis"
             >
               {{ data.patient.contactInfo.firstName }}
             </td>

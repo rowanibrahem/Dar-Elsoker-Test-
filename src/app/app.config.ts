@@ -9,7 +9,8 @@ import {
   OAuthService,
   provideOAuthClient,
 } from 'angular-oauth2-oidc';
-import { myhttpInterceptor } from './interceptors/myhttp.interceptor';
+import { myhttpInterceptor } from './interceptors/http/myhttp.interceptor';
+import { loaderInterceptor } from './interceptors/loader/loader.interceptor';
 
 export const authCodeFlowConfig: AuthConfig = {
   issuer: 'http://localhost:8080/realms/dar-elsoker',
@@ -33,7 +34,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([myhttpInterceptor])),
+    provideHttpClient(withInterceptors([myhttpInterceptor,loaderInterceptor])),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,
