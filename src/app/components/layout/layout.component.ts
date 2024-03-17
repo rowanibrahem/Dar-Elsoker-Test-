@@ -3,8 +3,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { initFlowbite } from 'flowbite';
-import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
-import { IsLoaderService } from '../../services/loader/is-loader.service';
+
 @Component({
   selector: 'app-layout',
   standalone: true,
@@ -13,7 +12,6 @@ import { IsLoaderService } from '../../services/loader/is-loader.service';
     RouterLinkActive,
     RouterOutlet,
     NzLayoutModule,
-    NzSkeletonModule,
   ],
   providers: [RouterLinkActive],
   templateUrl: './layout.component.html',
@@ -22,7 +20,7 @@ import { IsLoaderService } from '../../services/loader/is-loader.service';
 export class LayoutComponent implements OnInit {
   constructor(
     private _OAuthService: OAuthService,
-    public _IsLoaderService: IsLoaderService
+    
   ) {}
   
   ngOnInit(): void {
