@@ -42,16 +42,18 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of patientData | search :searchvalue; track $index) {
+          @for (item of patientData | search :searchvalue | paginate: { id:
+          'PatientPaginate', itemsPerPage: pageSize, currentPage: pageNumber,
+          totalItems: totalElements }; track $index) {
           <tr
             scope="row"
             class="bg-white font-semibold text-xl border-r-4 border-[#00C894] rounded-l-lg"
           >
             <td class="ps-[40px] border-b-[20px] border-[#F6F6F6]">
-              {{ item.name }}
+              {{ item.fullName }}
             </td>
             <td class="py-8 border-b-[20px] border-[#F6F6F6]">
-              {{ item.phone }}
+              {{ item.contactInfo.phone }}
             </td>
             <td class="border-b-[20px] border-[#F6F6F6]">{{ item.age }}</td>
             <td class="border-b-[20px] border-[#F6F6F6]">
@@ -74,6 +76,8 @@
                   style="width: 30px; height: 30px"
                 ></span>
                 <span
+                  role="button"
+                  (click)="deletePatient(item.id)"
                   class="icon-[fluent--delete-24-regular] text-[#C12735]"
                   style="width: 30px; height: 30px"
                 ></span>
@@ -83,6 +87,23 @@
           }
         </tbody>
       </table>
+    </div>
+    <div class="text-center py-[10px]">
+      <pagination-controls
+        id="PatientPaginate"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        [maxSize]="7"
+        [directionLinks]="true"
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel="الصفحه السابقه"
+        nextLabel="الصفحه التاليه"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page"
+      >
+      </pagination-controls>
     </div>
   </section>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchPipe } from '../../pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
@@ -46,6 +46,10 @@ export class DashboardComponent implements OnInit {
       const _token = this._OAuthService.getAccessToken();
       localStorage.setItem('_token', _token);
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getStatisticsData;
   }
 
   getStatisticsData() {

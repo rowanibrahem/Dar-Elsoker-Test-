@@ -20,7 +20,7 @@ export class CasesComponent implements OnInit {
   value: string | null = 'ALL';
   visitsData: any[] = [];
   pageSize: number = 0;
-  pageNumber: number = 1;
+  pageNumber: number = 0;
   totalElements: number = 0;
 
   ngOnInit(): void {

@@ -25,7 +25,7 @@ export class CasesService {
     );
   }
 
-  getVisitsPage(pageNum: number = 0): Observable<any> {
+  getVisitsPage(pageNum: number = 1): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}visits?page=${pageNum}`);
   }
 

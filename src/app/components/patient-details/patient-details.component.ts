@@ -14,7 +14,7 @@ export class PatientDetailsComponent implements OnInit {
     private _ActivatedRoute: ActivatedRoute,
     private _Router: Router
   ) {}
-  patientId!: string | null;
+  patientId: any;
 
   ngOnInit(): void {
     this._ActivatedRoute.paramMap.subscribe({
@@ -28,8 +28,8 @@ export class PatientDetailsComponent implements OnInit {
     this._Router.navigate(['/patient']);
   }
 
-  patientInfo(){
-    this._Router.navigate(['/patient-info'])
+  patientInfo() {
+    this._Router.navigate(['/patient-info']);
   }
 
   detailsForm: FormGroup = new FormGroup({
@@ -39,4 +39,6 @@ export class PatientDetailsComponent implements OnInit {
     age: new FormControl(''),
     adress: new FormControl(''),
   });
+
+  getPatient() {}
 }
