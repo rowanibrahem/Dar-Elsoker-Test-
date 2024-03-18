@@ -1,0 +1,12 @@
+input {
+  width: 95%;
+  height: 65px;
+  border-radius: 8px;
+  border: 0.4px;
+}
+::placeholder {
+  font-size: 12px;
+}
+form .p {
+  font-size: 24px;
+}
