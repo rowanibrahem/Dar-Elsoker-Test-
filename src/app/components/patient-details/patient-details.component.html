@@ -21,8 +21,8 @@
         ></span>
       </div>
     </div>
-    <form [formGroup]="detailsForm">
-      <div class="flex flex-wrap gap-y-3 w-[90%]">
+    <form [formGroup]="patientForm">
+      <div class="flex flex-wrap gap-y-3 w-[90%]" formGroupName="contactInfo">
         <div class="w-[50%]">
           <label for="firstName" class="block pb-3">الأسم الأول</label>
           <input type="text" id="firstName" formControlName="firstName" />
@@ -35,18 +35,26 @@
           <label for="phone" class="block pb-3">رقم التليفون</label>
           <input type="tel" id="phone" formControlName="phone" />
         </div>
-        <div class="w-[50%]">
-          <label for="age" class="block pb-3">السن</label>
-          <input type="numder" class="py-2" id="age" formControlName="age" />
-        </div>
-        <div class="w-full">
-          <label for="adress" class="block pb-3">العنوان</label>
-          <input type="text" id="adress" formControlName="adress" />
+        <div class="w-1/2">
+          <label for="address" class="block pb-3">العنوان</label>
+          <input type="text" id="address" formControlName="address" />
         </div>
       </div>
+      <div class="w-[45%]">
+        <label for="age" class="block pb-3">السن</label>
+        <input type="numder" class="py-2" id="age" formControlName="age" />
+      </div>
     </form>
+    @if (status=="edit") {
+    <button
+      (click)="updatePatient()"
+      class="px-5 py-3 grid content-center bg-[#00C894] font-extrabold text-2xl mt-4 m-auto text-white rounded-lg hover:scale-[.95]"
+    >
+      تعديل
+    </button>
+    }
   </div>
-  <div
+  <!-- <div
     class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6 max-h-[40vh] overflow-auto"
   >
     <div class="flex justify-between items-center">
@@ -86,5 +94,5 @@
         </div>
       </li>
     </ol>
-  </div>
+  </div> -->
 </section>

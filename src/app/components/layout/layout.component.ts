@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Route, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { initFlowbite } from 'flowbite';
@@ -20,8 +20,15 @@ import { initFlowbite } from 'flowbite';
 export class LayoutComponent implements OnInit {
   constructor(
     private _OAuthService: OAuthService,
+    private _Route:Router
     
   ) {}
+
+  govisits() {
+    this._Route.navigate(['/cases'], {
+      queryParams: { value: 'ALL' },
+    });
+  }
   
   ngOnInit(): void {
     initFlowbite();

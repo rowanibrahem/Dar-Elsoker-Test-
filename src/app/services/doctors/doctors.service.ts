@@ -29,6 +29,10 @@ export class DoctorsService {
     return this._HttpClient.delete(`${this.baseUrl}doctors/${id}`);
   }
 
+  allDoctorRedirections(id: string | null): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}doctors/${id}/redirections`);
+  }
+  
   updateDoctor(doctorId: any, value: boolean): Observable<any> {
     return this._HttpClient.patch(
       `${this.baseUrl}doctors/${doctorId}/availability?availability=${value}`,

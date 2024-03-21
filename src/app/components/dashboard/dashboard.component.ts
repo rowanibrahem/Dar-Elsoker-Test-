@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit {
 
   govisits(id: string) {
     this._Router.navigate(['/cases'], {
-      queryParams: { value: id },
+      queryParams: { status: id },
     });
   }
 

@@ -13,9 +13,23 @@ export class PatientService {
     return this._HttpClient.get(`${this.baseUrl}patients?page=${pageNum}`);
   }
 
-  getPatientById(id: any): Observable<any> {
-    return this._HttpClient.get(`${this.baseUrl}/patients/${id}`);
+  getPatientById(id: string | null): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}patients/${id}`);
   }
+
+  updatePatient(patientData: {}): Observable<any> {
+    return this._HttpClient.put(`${this.baseUrl}patients`, patientData);
+  }
+
+  savePatient(patientData: {}): Observable<any> {
+    return this._HttpClient.post(`${this.baseUrl}patients`, patientData);
+  }
+
+  // getPatientMedicalRecords(id: string | null): Observable<any> {
+  //   return this._HttpClient.get(
+  //     `${this.baseUrl}/patients/${id}/medical-records`
+  //   );
+  // }
 
   deletePatient(id: number): Observable<any> {
     return this._HttpClient.delete(`${this.baseUrl}patients/${id}`);

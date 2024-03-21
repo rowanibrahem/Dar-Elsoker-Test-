@@ -1,5 +1,5 @@
 <div
-  class="p-4 bg-[#FFFFFF] w-[80%] m-auto mt-[5%] rounded-lg max-h-[80vh] overflow-y-auto"
+  class="p-4 bg-[#FFFFFF] w-[80%] m-auto mt-[5%] rounded-lg max-h-[90vh] overflow-y-auto"
 >
   <div class="flex flex-row-reverse items-center pb-4 max-h-[80]">
     <div
@@ -40,7 +40,7 @@
       <h1 class="font-semibold text-2xl w-full pb-4 text-[#00C894]">
         إضافه طبيب
       </h1>
-      <div formGroupName="contactInfo" class="w-full flex flex-wrap">
+      <div formGroupName="contactInfo" class="flex flex-wrap">
         <div class="w-[50%]">
           <label for="firstName" class="block pb-3">الأسم الأول</label>
           <input type="text" id="firstName" formControlName="firstName" />
@@ -62,13 +62,13 @@
           <label for="phone" class="block pb-3">رقم التليفون</label>
           <input type="tel" id="phone" formControlName="phone" />
         </div>
+        <div class="w-full">
+          <label for="address" class="block pb-3">العنوان</label>
+          <input type="text" id="address" formControlName="address" />
+        </div>
       </div>
     </div>
-    <div class="w-[50%]">
-      <label for="address" class="block pb-3">العنوان</label>
-      <input type="text" id="address" formControlName="address" />
-    </div>
-    <div class="w-[50%]">
+    <div class="w-full">
       <label for="specialization" class="block pb-3">التخصص</label>
       <input type="text" id="specialization" formControlName="specialization" />
     </div>

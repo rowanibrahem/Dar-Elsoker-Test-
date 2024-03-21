@@ -24,6 +24,7 @@
         class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2 max-sm:w-1/2"
       >
         <input
+          (change)="getStatisticsData()"
           type="date"
           [(ngModel)]="todayDate"
           class="focus:ring-[none]"
@@ -57,7 +58,7 @@
           ></span>
         </div>
         <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
-          {{ statisticsData.todayVisits }}
+          {{ statisticsData.todayVisits || "0" }}
         </h3>
         <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
       </div>
@@ -78,7 +79,7 @@
           ></span>
         </div>
         <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
-          {{ statisticsData.completedVisits }}
+          {{ statisticsData.completedVisits || "0" }}
         </h3>
         <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
       </div>
@@ -99,13 +100,13 @@
           ></span>
         </div>
         <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
-          {{ statisticsData.redirectedVisits }}
+          {{ statisticsData.redirectedVisits || "0" }}
         </h3>
         <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
       </div>
     </div>
 
-    <div class="overflow-x-auto max-h-[65vh]">
+    <div class="overflow-x-auto max-h-[60vh]">
       <table
         class="w-[90%] m-auto shadow-md text-center rounded-lg overflow-auto max-h-[62vh]"
       >

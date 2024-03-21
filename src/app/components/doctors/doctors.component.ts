@@ -56,6 +56,11 @@ export class DoctorsComponent implements OnInit {
     });
   }
 
+  getPatientRedirect(status: string, id: string) {
+    this._Router.navigate(['/cases'], {
+      queryParams: { status: status, id: id },
+    });
+  }
   goInfo() {
     this._Router.navigate(['/doctor-info']);
   }

@@ -27,13 +27,15 @@ export class PersonalInfoComponent {
       contactInfo: new FormGroup({
         firstName: new FormControl(null, [Validators.required]),
         lastName: new FormControl(null, [Validators.required]),
-        email: new FormControl(null, [Validators.required, Validators.email]),
+        // email: new FormControl(null, [Validators.required, Validators.email]),
         phone: new FormControl(null),
         address: new FormControl(null),
       }),
-      height: new FormControl(0),
+      age: new FormControl(0),
     }),
+    type: new FormControl('CHECKUP'),
     medicalRecord: new FormGroup({
+      timeOfDiabetes: new FormControl(0.0),
       weight: new FormControl(0.0),
       diet: new FormControl(null),
       fastingBloodSugar: new FormControl(0),
@@ -53,11 +55,11 @@ export class PersonalInfoComponent {
   saveVisit() {
     const visitData = this.detailsForm.value;
     // if (visitData != null) {
-      this._CasesService.saveVisit(visitData).subscribe({
-        next: (res) => {
-          this.goBack();
-        },
-      });
+    this._CasesService.checkUP(visitData).subscribe({
+      next: (res) => {
+        this.goBack();
+      },
+    });
     // }
   }
 

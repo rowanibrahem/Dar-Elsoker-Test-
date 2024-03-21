@@ -32,6 +32,10 @@ input {
   outline: none;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
  ::-webkit-scrollbar {
   width: 2px;
 }
