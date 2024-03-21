@@ -40,10 +40,16 @@ export class PatientComponent implements OnInit {
       queryParams: { id: id, status: status },
     });
   }
-  
+
   goPatientinfo(id: string, status: string) {
     this._Router.navigate(['/patient-info'], {
       queryParams: { id: id, status: status },
+    });
+  }
+
+  goToSave(status: string) {
+    this._Router.navigate(['/patient-details'], {
+      queryParams: { status: status },
     });
   }
 

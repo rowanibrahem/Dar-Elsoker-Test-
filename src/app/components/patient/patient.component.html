@@ -28,7 +28,15 @@
   </div>
 
   <section class="w-[90%] mx-auto rtl">
-    <h2 class="py-5 font-normal text-2xl">بيانات المرضي</h2>
+    <div class="flex items-center justify-between">
+      <h2 class="py-5 font-normal text-2xl">بيانات المرضي</h2>
+      <span
+        (click)="goToSave('create')"
+        role="button"
+        class="icon-[gg--add] text-[#00C894]"
+        style="width: 40px; height: 40px"
+      ></span>
+    </div>
 
     <div class="overflow-x-auto text-right px-2 !max-h-[80vh]">
       <table class="w-full">
@@ -50,7 +58,9 @@
             <td class="ps-[40px] border-b-[20px] border-[#F6F6F6]">
               {{ item.fullName }}
             </td>
-            <td class="py-8 border-b-[20px] max-w-[120px] overflow-hidden text-ellipsis border-[#F6F6F6]">
+            <td
+              class="py-8 border-b-[20px] max-w-[120px] overflow-hidden text-ellipsis border-[#F6F6F6]"
+            >
               {{ item.contactInfo.phone }}
             </td>
             <td class="border-b-[20px] border-[#F6F6F6]">{{ item.age }}</td>

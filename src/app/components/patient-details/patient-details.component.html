@@ -52,6 +52,13 @@
     >
       تعديل
     </button>
+    } @if (status=="create") {
+    <button
+      (click)="savePatient()"
+      class="px-5 py-3 grid content-center bg-[#00C894] font-extrabold text-2xl mt-4 m-auto text-white rounded-lg hover:scale-[.95]"
+    >
+      اضافه
+    </button>
     }
   </div>
   <!-- <div

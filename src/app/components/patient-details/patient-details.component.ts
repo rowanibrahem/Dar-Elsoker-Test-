@@ -62,6 +62,16 @@ export class PatientDetailsComponent implements OnInit {
     });
   }
 
+  savePatient() {
+    const patientData = this.patientForm.value;
+    this._PatientService.savePatient(patientData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.goBack();
+      },
+    });
+  }
+
   getPatient() {
     this._PatientService.getPatientById(this.patientId).subscribe({
       next: (res) => {

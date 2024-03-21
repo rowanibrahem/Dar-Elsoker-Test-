@@ -50,6 +50,6 @@ export class CasesService {
   }
 
   checkUP(visitData: {}): Observable<any> {
-    return this._HttpClient.post(`${this.baseUrl}visits/check-up`, visitData);
+    return this._HttpClient.post(`${this.baseUrl}visits`, visitData);
   }
 }
