@@ -62,7 +62,7 @@ export class DoctorsComponent implements OnInit {
     });
   }
   goInfo() {
-    this._Router.navigate(['/doctor-info']);
+    this._Router.navigate(['/doctor-info'],{queryParams:{status:'save'}});
   }
 
   getTodayDate(): string {

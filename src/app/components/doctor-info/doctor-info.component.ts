@@ -31,7 +31,7 @@ export class DoctorInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.status === 'info' ? this.getDoctorByID() : this.updateDoctor();
+    this.getDoctorByID();
   }
 
   doctorForm: FormGroup = new FormGroup({
@@ -65,8 +65,7 @@ export class DoctorInfoComponent implements OnInit {
 
   updateDoctor(): void {
     const doctorData = this.doctorForm.value;
-    this.getDoctorByID(false);
-    this._DoctorsService.reuseDoctor(doctorData).subscribe({
+    this._DoctorsService.reuseDoctor(doctorData, this.doctorId).subscribe({
       next: (res) => {
         console.log(res);
         this.doctorsData = res;

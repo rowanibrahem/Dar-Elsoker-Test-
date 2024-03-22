@@ -49,7 +49,7 @@ export class CasesService {
     return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
   }
 
-  checkUP(visitData: {}): Observable<any> {
+  checkUP(visitData: any): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}visits`, visitData);
   }
 }
