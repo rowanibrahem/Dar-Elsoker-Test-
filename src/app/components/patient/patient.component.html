@@ -28,7 +28,15 @@
   </div>
 
   <section class="w-[90%] mx-auto rtl">
-    <h2 class="py-5 font-normal text-2xl">بيانات المرضي</h2>
+    <div class="flex items-center justify-between">
+      <h2 class="py-5 font-normal text-2xl">بيانات المرضي</h2>
+      <span
+        (click)="goToSave('create')"
+        role="button"
+        class="icon-[gg--add] text-[#00C894]"
+        style="width: 40px; height: 40px"
+      ></span>
+    </div>
 
     <div class="overflow-x-auto text-right px-2 !max-h-[80vh]">
       <table class="w-full">
@@ -42,9 +50,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of patientData | search :searchvalue | paginate: { id:
-          'PatientPaginate', itemsPerPage: pageSize, currentPage: pageNumber,
-          totalItems: totalElements }; track $index) {
+          @for (item of patientData | search :searchvalue ; track $index) {
           <tr
             scope="row"
             class="bg-white font-semibold text-xl border-r-4 border-[#00C894] rounded-l-lg"
@@ -52,14 +58,16 @@
             <td class="ps-[40px] border-b-[20px] border-[#F6F6F6]">
               {{ item.fullName }}
             </td>
-            <td class="py-8 border-b-[20px] border-[#F6F6F6]">
+            <td
+              class="py-8 border-b-[20px] max-w-[120px] overflow-hidden text-ellipsis border-[#F6F6F6]"
+            >
               {{ item.contactInfo.phone }}
             </td>
             <td class="border-b-[20px] border-[#F6F6F6]">{{ item.age }}</td>
             <td class="border-b-[20px] border-[#F6F6F6]">
               <div
+                (click)="goPatientDetails(item.id, 'show')"
                 role="button"
-                [routerLink]="['/patient-details', item.id]"
                 class="w-[200px] h-[40px] bg-[#F6F6F6] rounded-sm m-auto border border-[#00000033] flex justify-evenly items-center"
               >
                 <span
@@ -69,9 +77,17 @@
                 <p>ملف المريض</p>
               </div>
             </td>
-            <td class="border-b-[20px] border-[#F6F6F6]">
-              <div class="grid grid-cols-2 gap-1 px-4">
+            <td class="border-b-[20px] border-[#F6F6F6] px-6">
+              <div class="flex flex-wrap gap-3 w-full">
                 <span
+                  (click)="goPatientinfo(item.id, 'FOLLOWUP')"
+                  role="button"
+                  class="icon-[gg--add] text-[#00C894]"
+                  style="width: 30px; height: 30px"
+                ></span>
+                <span
+                  role="button"
+                  (click)="goPatientDetails(item.id, 'edit')"
                   class="icon-[akar-icons--edit] text-[#00C894]"
                   style="width: 30px; height: 30px"
                 ></span>
@@ -88,7 +104,7 @@
         </tbody>
       </table>
     </div>
-    <div class="text-center py-[10px]">
+    <!-- <div class="text-center py-[10px]">
       <pagination-controls
         id="PatientPaginate"
         (pageChange)="pageChanged($event)"
@@ -104,6 +120,6 @@
         screenReaderCurrentLabel="You're on page"
       >
       </pagination-controls>
-    </div>
+    </div> -->
   </section>
 </div>

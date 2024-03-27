@@ -25,7 +25,7 @@ export const routes: Routes = [
       { path: 'doctors', component: DoctorsComponent, title: 'الاطباء' },
       { path: 'patient', component: PatientComponent, title: 'المرضي' },
       {
-        path: 'patient-details/:id',
+        path: 'patient-details',
         component: PatientDetailsComponent,
         title: 'ملف المريض',
       },

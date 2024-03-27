@@ -35,6 +35,24 @@ export class PatientComponent implements OnInit {
     this.getPatient();
   }
 
+  goPatientDetails(id: string, status: string) {
+    this._Router.navigate(['/patient-details'], {
+      queryParams: { id: id, status: status },
+    });
+  }
+
+  goPatientinfo(id: string, status: string) {
+    this._Router.navigate(['/patient-info'], {
+      queryParams: { id: id, status: status },
+    });
+  }
+
+  goToSave(status: string) {
+    this._Router.navigate(['/patient-details'], {
+      queryParams: { status: status },
+    });
+  }
+
   getPatient() {
     this._PatientService.getPatientPage().subscribe({
       next: (res) => {
@@ -56,23 +74,23 @@ export class PatientComponent implements OnInit {
         console.log(res);
         this.getPatient();
       },
-      error: (err) => {
-        console.log(err);
-      },
+      // error: (err) => {
+      //   console.log(err);
+      // },
     });
   }
 
-  pageChanged(event: number): void {
-    this._PatientService.getPatientPage(event).subscribe({
-      next: (res) => {
-        this.patientData = res.content;
-        this.pageSize = res.pageable.pageSize;
-        this.pageNumber = res.pageable.pageNumber;
-        this.totalElements = res.totalElements;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+  // pageChanged(event: number): void {
+  //   this._PatientService.getPatientPage(event).subscribe({
+  //     next: (res) => {
+  //       this.patientData = res.content;
+  //       this.pageSize = res.pageable.pageSize;
+  //       this.pageNumber = res.pageable.pageNumber;
+  //       this.totalElements = res.totalElements;
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     },
+  //   });
+  // }
 }

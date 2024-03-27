@@ -5,3 +5,8 @@ textarea {
   background-color: #f6f6f633;
   width: 90%;
 }
+
+:disabled {
+  cursor: not-allowed;
+  background-color: #0000001a;
+}

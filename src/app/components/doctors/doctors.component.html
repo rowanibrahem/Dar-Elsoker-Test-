@@ -48,7 +48,10 @@
           <ul
             class="hidden rounded bg-[#FFFFFF] border border-[#0000001A] w-[40%] text-xs font-normal text-[#666666] z-40 overflow-hidden"
           >
-            <li class="flex gap-3 p-[10px] border-b">
+            <li
+              class="flex gap-3 p-[10px] border-b"
+              (click)="getPatientRedirect('redirections', item.id)"
+            >
               <span
                 class="icon-[tabler--table]"
                 style="width: 10px; height: 10px"

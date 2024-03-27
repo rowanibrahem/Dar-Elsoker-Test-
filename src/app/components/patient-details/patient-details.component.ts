@@ -1,5 +1,11 @@
+import { PatientService } from './../../services/patient/patient.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,34 +17,77 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PatientDetailsComponent implements OnInit {
   constructor(
+    private _PatientService: PatientService,
     private _ActivatedRoute: ActivatedRoute,
     private _Router: Router
   ) {}
-  patientId: any;
+  patientId: string | null =
+    this._ActivatedRoute.snapshot.queryParamMap.get('id');
+  status: string | null =
+    this._ActivatedRoute.snapshot.queryParamMap.get('status');
+  patientData: any;
 
   ngOnInit(): void {
-    this._ActivatedRoute.paramMap.subscribe({
-      next: (params) => {
-        this.patientId = params.get('id');
-        console.log(this.patientId);
-      },
-    });
+    this.getPatient();
   }
   goBack() {
     this._Router.navigate(['/patient']);
   }
 
   patientInfo() {
-    this._Router.navigate(['/patient-info']);
+    this._Router.navigate(['/patient-info'], {
+      queryParams: { id: this.patientId },
+    });
   }
 
-  detailsForm: FormGroup = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    phone: new FormControl(''),
-    age: new FormControl(''),
-    adress: new FormControl(''),
+  patientForm: FormGroup = new FormGroup({
+    id: new FormControl(this.patientId),
+    contactInfo: new FormGroup({
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      phone: new FormControl(null),
+      address: new FormControl(null),
+    }),
+    age: new FormControl(0),
   });
 
-  getPatient() {}
+  updatePatient() {
+    const patientData = this.patientForm.value;
+    this._PatientService.updatePatient(patientData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.goBack();
+      },
+    });
+  }
+
+  savePatient() {
+    const patientData = this.patientForm.value;
+    this._PatientService.savePatient(patientData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.goBack();
+      },
+    });
+  }
+
+  getPatient() {
+    this._PatientService.getPatientById(this.patientId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.patientData = res;
+        this.patientForm.patchValue({
+          contactInfo: {
+            firstName: this.patientData.contactInfo.firstName,
+            lastName: this.patientData.contactInfo.lastName,
+            email: this.patientData.contactInfo.email,
+            phone: this.patientData.contactInfo.phone,
+            address: this.patientData.contactInfo.address,
+          },
+          age: this.patientData.age,
+        });
+      },
+    });
+  }
 }

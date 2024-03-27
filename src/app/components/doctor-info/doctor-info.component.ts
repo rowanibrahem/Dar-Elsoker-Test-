@@ -20,7 +20,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DoctorInfoComponent implements OnInit {
   doctorsData: any;
-  contactInfo: any;
   disaple: boolean = false;
   status: string | null = this._active.snapshot.queryParamMap.get('status');
   doctorId: string | null = this._active.snapshot.queryParamMap.get('id');
@@ -32,7 +31,7 @@ export class DoctorInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.status === 'info' ? this.getDoctorByID() : this.updateDoctor();
+    this.getDoctorByID();
   }
 
   doctorForm: FormGroup = new FormGroup({
@@ -66,7 +65,7 @@ export class DoctorInfoComponent implements OnInit {
 
   updateDoctor(): void {
     const doctorData = this.doctorForm.value;
-    this._DoctorsService.reuseDoctor(doctorData).subscribe({
+    this._DoctorsService.reuseDoctor(doctorData, this.doctorId).subscribe({
       next: (res) => {
         console.log(res);
         this.doctorsData = res;
@@ -78,8 +77,8 @@ export class DoctorInfoComponent implements OnInit {
     });
   }
 
-  getDoctorByID() {
-    this.disaple = true;
+  getDoctorByID(value: boolean = true) {
+    this.disaple = value;
     this._DoctorsService.getDoctorByID(this.doctorId).subscribe({
       next: (res) => {
         console.log(res);

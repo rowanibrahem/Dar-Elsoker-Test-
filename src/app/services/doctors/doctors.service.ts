@@ -21,12 +21,19 @@ export class DoctorsService {
   saveDoctor(doctorData: object): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}doctors`, doctorData);
   }
-  reuseDoctor(doctorData: object): Observable<any> {
-    return this._HttpClient.put(`${this.baseUrl}doctors`, doctorData);
+  reuseDoctor(doctorData: object, id: string | null): Observable<any> {
+    return this._HttpClient.put(`${this.baseUrl}doctors`, {
+      id: id,
+      doctorData,
+    });
   }
 
   deleteDoctor(id: number): Observable<any> {
     return this._HttpClient.delete(`${this.baseUrl}doctors/${id}`);
+  }
+
+  allDoctorRedirections(id: string | null): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}doctors/${id}/redirections`);
   }
 
   updateDoctor(doctorId: any, value: boolean): Observable<any> {

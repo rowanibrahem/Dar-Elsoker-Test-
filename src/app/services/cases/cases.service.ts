@@ -16,12 +16,28 @@ export class CasesService {
     );
   }
 
-  allByDateAndStatus(date: string, value: string): Observable<any> {
+  updateVisit(visitId: any, value: boolean): Observable<any> {
     return this._HttpClient.patch(
-      `${this.baseUrl}/visits/by-date/${date}?status=${value}`,
+      `${this.baseUrl}visits/${visitId}/visit-completed?completed=${value}`,
       {
-        date: date,
+        id: visitId,
+        visitCompleted: value,
       }
+    );
+  }
+
+  rediretToDoctor(visitId: any, doctorId: any): Observable<any> {
+    return this._HttpClient.patch(
+      `${this.baseUrl}visits/${visitId}/doctor-redirected-to/${doctorId}`,
+      {
+        id: visitId,
+      }
+    );
+  }
+
+  allByDateAndStatus(date: string, value: string | null): Observable<any> {
+    return this._HttpClient.get(
+      `${this.baseUrl}visits/by-date/${date}?status=${value}`
     );
   }
 
@@ -29,7 +45,11 @@ export class CasesService {
     return this._HttpClient.get(`${this.baseUrl}visits?page=${pageNum}`);
   }
 
-  saveVisit(visitData: {}): Observable<any> {
+  getPatientMedicalRecords(id: string | null): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
+  }
+
+  checkUP(visitData: any): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}visits`, visitData);
   }
 }
