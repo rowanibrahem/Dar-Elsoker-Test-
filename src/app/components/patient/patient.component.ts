@@ -22,9 +22,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class PatientComponent implements OnInit {
   searchvalue: string = '';
   patientData: any[] = [];
-  pageSize: number = 0;
-  pageNumber: number = 0;
-  totalElements: number = 0;
 
   constructor(
     private _PatientService: PatientService,
@@ -57,10 +54,7 @@ export class PatientComponent implements OnInit {
     this._PatientService.getPatientPage().subscribe({
       next: (res) => {
         console.log(res);
-        this.patientData = res.content;
-        this.pageSize = res.pageable.pageSize;
-        this.pageNumber = res.pageable.pageNumber;
-        this.totalElements = res.totalElements;
+        this.patientData = res;
       },
       error: (err) => {
         console.log(err);

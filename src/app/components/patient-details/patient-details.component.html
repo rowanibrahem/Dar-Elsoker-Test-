@@ -61,13 +61,14 @@
     </button>
     }
   </div>
-  <!-- <div
+  <div
     class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6 max-h-[40vh] overflow-auto"
   >
     <div class="flex justify-between items-center">
       <p class="font-semibold text-2xl text-[#00C894] pb-8">زيارات المريض</p>
     </div>
     <ol class="relative border-s border-[#000000]">
+      @for (visit of visitData; track $index) {
       <li class="mb-10 ms-6">
         <span
           class="absolute flex items-center justify-center bg-white w-5 h-5 border-4 rounded-full border-[#00C894] -start-[11px]"
@@ -78,11 +79,15 @@
         >
           <div class="mx-auto">
             <h2 class="font-normal text-base text-[#595959]">التاريخ</h2>
-            <p class="font-medium text-base">24 فبراير 2024</p>
+            <p class="font-medium text-base">
+              {{ visit.creationDateTime | date }}
+            </p>
           </div>
           <div class="mx-auto">
             <h2 class="font-normal text-base text-[#595959]">الدكتور</h2>
-            <p class="font-medium text-base">د/غاده رءوف</p>
+            <p class="font-medium text-base">
+              {{ visit.doctorRedirectedTo.fullName || "د/غاده رءوف" }}
+            </p>
           </div>
           <div class="mx-auto">
             <h2 class="font-normal text-base text-[#595959]">الممرضه</h2>
@@ -90,7 +95,7 @@
           </div>
           <div
             role="button"
-            (click)="patientInfo()"
+            (click)="patientInfo(visit.id)"
             class="w-[100px] h-[50px] rounded-lg bg-[#00C894] hover:scale-[.95] text-white grid content-center mx-auto"
           >
             <span
@@ -100,6 +105,7 @@
           </div>
         </div>
       </li>
+      }
     </ol>
-  </div> -->
+  </div>
 </section>

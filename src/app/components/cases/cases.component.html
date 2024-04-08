@@ -23,22 +23,22 @@
   </div>
 
   <section class="w-full overflow-hidden">
-    <div class="mx-auto flex gap-4 max-sm:w-full pt-[68px]">
-      <!-- <button
+    <!-- <div class="mx-auto flex gap-4 max-sm:w-full pt-[68px]">
+      <button
         (click)="CHECKUP()"
         class="px-[15%] py-[18px] max-sm:w-1/2 bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
       >
         كشف
-      </button> -->
+      </button>
       <button
         (click)="FOLLOWUP()"
         class="px-[10%] py-[18px] m-auto max-sm:w-1/2 bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
       >
         إضافه كشف
       </button>
-    </div>
+    </div> -->
     <div
-      class="w-[90%] mx-auto relative overflow-y-auto max-h-[63vh] mt-12 rounded-t-lg"
+      class="w-[90%] mx-auto relative overflow-y-auto max-h-[80vh] mt-12 rounded-t-lg"
     >
       <table
         class="w-full m-auto shadow-md text-center rounded-lg overflow-y-scroll"
@@ -99,26 +99,21 @@
                   id="countries"
                   class="w-[180px] rounded-lg checked:text-[#00b69b] text-black"
                 >
-                  <option class="text-black" selected>تحويل</option>
+                  <option class="text-black">تحويل</option>
                   @for (item of doctorData; track $index) {
-                  <option
-                    [selected]="doctorName"
-                    [value]="item.id"
-                    role="button"
-                    class="text-black"
-                  >
+                  <option [value]="item.id" role="button" class="text-black">
                     {{ item.fullName }}
                   </option>
                   }
                 </select>
               </form>
             </td>
-            <!-- <td (click)="goInfo(data.id)" role="button">
+            <td (click)="goInfo(data.id, 'info')" role="button">
               <span
                 class="icon-[mingcute--more-2-fill]"
                 style="width: 30px; height: 30px"
               ></span>
-            </td> -->
+            </td>
           </tr>
           }
         </tbody>

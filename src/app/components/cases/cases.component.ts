@@ -69,15 +69,17 @@ export class CasesComponent implements OnInit {
 
   upDateVisite(id: any, value: boolean) {
     this.visitId = id;
-    let value2 = value ? false : true;
-    this.isLoading = true;
-    this._CasesService.updateVisit(id, value2).subscribe({
-      next: (res) => {
-        this.getVisitsByStatus();
-        this.isLoading = false;
-        this.visitId = '';
-      },
-    });
+    if (!value) {
+      let value2 = true;
+      this.isLoading = true;
+      this._CasesService.updateVisit(id, value2).subscribe({
+        next: (res) => {
+          this.getVisitsByStatus();
+          this.isLoading = false;
+          this.visitId = '';
+        },
+      });
+    }
   }
 
   redirectVisit(visitId: any, event: any) {
@@ -124,9 +126,9 @@ export class CasesComponent implements OnInit {
   //   });
   // }
 
-  goInfo(id: string | null) {
+  goInfo(id: string | null, status: string | null) {
     this._Router.navigate(['/patient-info'], {
-      queryParams: { id: id },
+      queryParams: { id: id, status: status },
     });
   }
 

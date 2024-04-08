@@ -11,11 +11,18 @@ import {
 import { DoctorsService } from '../../services/doctors/doctors.service';
 import { initFlowbite } from 'flowbite';
 import { Router } from '@angular/router';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [CommonModule, SearchPipe, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    SearchPipe,
+    FormsModule,
+    ReactiveFormsModule,
+    NzMessageModule,
+  ],
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.css',
 })
@@ -24,7 +31,8 @@ export class DoctorsComponent implements OnInit {
   doctorsData: any[] = [];
   constructor(
     private _DoctorsService: DoctorsService,
-    private _Router: Router
+    private _Router: Router,
+    private msg: NzMessageService
   ) {}
   ngOnInit(): void {
     this.getAllDoctors();
@@ -47,6 +55,9 @@ export class DoctorsComponent implements OnInit {
       next: (res) => {
         this.getAllDoctors();
       },
+      error: (err) => {
+        this.msg.success;
+      },
     });
   }
 
@@ -62,7 +73,9 @@ export class DoctorsComponent implements OnInit {
     });
   }
   goInfo() {
-    this._Router.navigate(['/doctor-info'],{queryParams:{status:'save'}});
+    this._Router.navigate(['/doctor-info'], {
+      queryParams: { status: 'save' },
+    });
   }
 
   getTodayDate(): string {

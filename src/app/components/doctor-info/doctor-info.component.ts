@@ -28,7 +28,7 @@ export class DoctorInfoComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _Location: Location,
     private _active: ActivatedRoute
-  ) {}
+  ) {}    
 
   ngOnInit(): void {
     this.getDoctorByID();

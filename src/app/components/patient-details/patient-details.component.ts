@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { PatientService } from './../../services/patient/patient.service';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -11,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-patient-details',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DatePipe],
   templateUrl: './patient-details.component.html',
   styleUrl: './patient-details.component.css',
 })
@@ -26,17 +27,19 @@ export class PatientDetailsComponent implements OnInit {
   status: string | null =
     this._ActivatedRoute.snapshot.queryParamMap.get('status');
   patientData: any;
+  visitData: any;
 
   ngOnInit(): void {
     this.getPatient();
+    this.patientVisits();
   }
   goBack() {
     this._Router.navigate(['/patient']);
   }
 
-  patientInfo() {
+  patientInfo(visitId:string) {
     this._Router.navigate(['/patient-info'], {
-      queryParams: { id: this.patientId },
+      queryParams: { id: visitId },
     });
   }
 
@@ -87,6 +90,19 @@ export class PatientDetailsComponent implements OnInit {
           },
           age: this.patientData.age,
         });
+      },
+    });
+  }
+
+  patientVisits() {
+    this._PatientService.allPatientVisits(this.patientId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.visitData = res;
+        console.log(this.visitData.doctorRedirectedTo.fullName);
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }
