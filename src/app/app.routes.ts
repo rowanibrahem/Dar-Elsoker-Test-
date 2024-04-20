@@ -9,6 +9,7 @@ import { PatientDetailsComponent } from './components/patient-details/patient-de
 import { PatientInfoComponent } from './components/patient-info/patient-info.component';
 import { DoctorInfoComponent } from './components/doctor-info/doctor-info.component';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,11 @@ export const routes: Routes = [
       },
       { path: 'doctor-info', component: DoctorInfoComponent },
       { path: 'personal-info', component: PersonalInfoComponent },
+      {
+        path: 'prescriptions',
+        component: PrescriptionsComponent,
+        title: 'إضافه روشته',
+      },
     ],
   },
   { path: 'login', component: LoginComponent, title: 'تسجيل الدخول' },

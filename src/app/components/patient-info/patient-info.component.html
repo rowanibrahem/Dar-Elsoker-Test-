@@ -1,13 +1,18 @@
 <section class="bg-[#F6F6F6;] h-[100vh]">
   <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
-    <div class="p-2 m-3 gap-2 ms-auto flex items-center">
+    <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
       <div class="w-9">
-        <img src="./assets/Mask group.png" class="w-full" alt="" />
+        <span
+          class="icon-[healthicons--ui-user-profile]"
+          style="width: 35px; height: 35px"
+        ></span>
       </div>
-      <p>د/احمد السيد</p>
+      <p>د/غادة احمد رءوف</p>
     </div>
   </div>
-  <div class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6">
+  <div
+    class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6 max-h-[85vh] overflow-auto"
+  >
     <div class="flex justify-between items-center">
       <p class="font-semibold text-2xl text-[#00C894]">بيانات المريض</p>
       <div
@@ -21,10 +26,7 @@
         ></span>
       </div>
     </div>
-    <form
-      class="max-h-[75vh] grid gap-y-8 overflow-auto"
-      [formGroup]="recordForm"
-    >
+    <form class="grid gap-y-8" [formGroup]="recordForm">
       <div class="grid gap-y-8" formGroupName="medicalRecord">
         <div class="grid grid-cols-4 pt-8">
           <!-- <div class="flex items-center w-2/3 gap-4">
@@ -372,6 +374,16 @@
           </label>
         </div>
       </div>
+      <button
+        (click)="addPrescriptions()"
+        class="w-[20%] m-auto font-bold text-2xl my-8 py-3 flex items-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+      >
+        <span
+          class="icon-[material-symbols-light--prescriptions-outline] mx-[25px]"
+          style="width: 50px; height: 50px"
+        ></span>
+        إضافه روشته
+      </button>
       @if (!disaple) {
       <button
         (click)="saveVisit()"

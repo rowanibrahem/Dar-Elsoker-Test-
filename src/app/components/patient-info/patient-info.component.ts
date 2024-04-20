@@ -94,6 +94,12 @@ export class PatientInfoComponent implements OnInit {
     });
   }
 
+  addPrescriptions() {
+    this._Router.navigate(['/prescriptions'], {
+      queryParams: { id: this.patientId },
+    });
+  }
+
   getPatientRecords(value: boolean = true) {
     this.disaple = value;
     this._CasesService.getPatientMedicalRecords(this.patientId).subscribe({

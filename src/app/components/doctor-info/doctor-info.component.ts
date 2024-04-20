@@ -10,11 +10,12 @@ import {
 import { DoctorsService } from '../../services/doctors/doctors.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-doctor-info',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NzMessageModule],
   templateUrl: './doctor-info.component.html',
   styleUrl: './doctor-info.component.css',
 })
@@ -27,40 +28,47 @@ export class DoctorInfoComponent implements OnInit {
   constructor(
     private _DoctorsService: DoctorsService,
     private _Location: Location,
-    private _active: ActivatedRoute
-  ) {}    
+    private _active: ActivatedRoute,
+    private msg: NzMessageService
+  ) {}
 
   ngOnInit(): void {
     this.getDoctorByID();
+    this.updateDoctor();
   }
 
   doctorForm: FormGroup = new FormGroup({
-    fullName: new FormControl(''),
     contactInfo: new FormGroup({
-      firstName: new FormControl(null, [Validators.required]),
-      lastName: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      phone: new FormControl(null),
-      address: new FormControl(null),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^01[0125][0-9]{8}$/),
+      ]),
+      address: new FormControl(''),
+      email: new FormControl('', [Validators.required, Validators.email]),
     }),
-    specialization: new FormControl(null),
-    qualification: new FormControl(null),
+    specialization: new FormControl(''),
+    qualification: new FormControl(''),
   });
 
   savedoctor(): void {
     const doctorData = this.doctorForm.value;
-    if (doctorData != null) {
-      this._DoctorsService.saveDoctor(doctorData).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.doctorsData = res;
-          this._Location.back();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+    this._DoctorsService.saveDoctor(doctorData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.doctorsData = res;
+        this._Location.back();
+      },
+      error: (err) => {
+        console.log(err);
+        for (const key in err.error) {
+          if (err.error.hasOwnProperty(key)) {
+            this.msg.error(err.error[key]);
+          }
+        }
+      },
+    });
   }
 
   updateDoctor(): void {

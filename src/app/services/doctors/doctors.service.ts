@@ -21,11 +21,9 @@ export class DoctorsService {
   saveDoctor(doctorData: object): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}doctors`, doctorData);
   }
+
   reuseDoctor(doctorData: object, id: string | null): Observable<any> {
-    return this._HttpClient.put(`${this.baseUrl}doctors`, {
-      id: id,
-      doctorData,
-    });
+    return this._HttpClient.put(`${this.baseUrl}doctors/${id}`, doctorData);
   }
 
   deleteDoctor(id: number): Observable<any> {

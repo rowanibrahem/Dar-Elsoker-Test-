@@ -7,3 +7,7 @@
   color: #c12735;
   background-color: #c1273529;
 }
+
+option::selection {
+  color: #00b69b;
+}

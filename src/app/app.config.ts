@@ -1,9 +1,17 @@
-import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import {
   AuthConfig,
   OAuthService,
@@ -11,6 +19,8 @@ import {
 } from 'angular-oauth2-oidc';
 import { myhttpInterceptor } from './interceptors/http/myhttp.interceptor';
 import { loaderInterceptor } from './interceptors/loader/loader.interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 export const authCodeFlowConfig: AuthConfig = {
   issuer: 'http://localhost:8080/realms/dar-elsoker',
@@ -33,8 +43,11 @@ function initializeOAuth(oauthService: OAuthService): Promise<void> {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+    provideAnimations(),
+    importProvidersFrom(FormsModule),
+    importProvidersFrom(HttpClientModule),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([myhttpInterceptor,loaderInterceptor])),
+    provideHttpClient(withInterceptors([myhttpInterceptor, loaderInterceptor])),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,

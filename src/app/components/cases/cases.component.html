@@ -15,9 +15,12 @@
       </div>
       <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
         <div class="w-9">
-          <img src="./assets/Mask group.png" class="w-full" alt="" />
+          <span
+            class="icon-[healthicons--ui-user-profile]"
+            style="width: 35px; height: 35px"
+          ></span>
         </div>
-        <p>د/احمد السيد</p>
+        <p>د/غادة احمد رءوف</p>
       </div>
     </div>
   </div>
@@ -97,12 +100,17 @@
                 <select
                   (change)="redirectVisit(data.id, $event)"
                   id="countries"
-                  class="w-[180px] rounded-lg checked:text-[#00b69b] text-black"
+                  class="w-[180px] rounded-lg text-black"
                 >
+                  @if (data.doctorRedirectedTo==null) {
                   <option class="text-black">تحويل</option>
                   @for (item of doctorData; track $index) {
                   <option [value]="item.id" role="button" class="text-black">
                     {{ item.fullName }}
+                  </option>
+                  } } @if(data.doctorRedirectedTo!=null){
+                  <option class="!text-[#00C894] font-normal text-xs">
+                    د/ {{ data.doctorRedirectedTo.fullName }}
                   </option>
                   }
                 </select>

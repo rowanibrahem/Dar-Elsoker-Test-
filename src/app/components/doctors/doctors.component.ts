@@ -54,9 +54,10 @@ export class DoctorsComponent implements OnInit {
     this._DoctorsService.deleteDoctor(id).subscribe({
       next: (res) => {
         this.getAllDoctors();
+        this.msg.success('تم حذف الطبيب');
       },
       error: (err) => {
-        this.msg.success;
+        this.msg.error('هذا الطبيب لديه حالات محوله لا يمكن حذفه');
       },
     });
   }
