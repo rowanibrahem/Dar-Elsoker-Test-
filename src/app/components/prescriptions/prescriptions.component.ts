@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzCascaderOption } from 'ng-zorro-antd/cascader';
+import { NgxPrintModule } from 'ngx-print';
 
 const options = [
   {
@@ -85,7 +86,7 @@ const otherOptions = [
 @Component({
   selector: 'app-prescriptions',
   standalone: true,
-  imports: [NzCascaderModule, FormsModule],
+  imports: [NzCascaderModule, FormsModule, NgxPrintModule],
   templateUrl: './prescriptions.component.html',
   styleUrl: './prescriptions.component.css',
 })

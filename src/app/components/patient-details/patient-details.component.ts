@@ -37,7 +37,7 @@ export class PatientDetailsComponent implements OnInit {
     this._Router.navigate(['/patient']);
   }
 
-  patientInfo(visitId:string) {
+  patientInfo(visitId: string) {
     this._Router.navigate(['/patient-info'], {
       queryParams: { id: visitId },
     });
@@ -57,10 +57,13 @@ export class PatientDetailsComponent implements OnInit {
 
   updatePatient() {
     const patientData = this.patientForm.value;
-    this._PatientService.updatePatient(patientData).subscribe({
+    this._PatientService.updatePatient(patientData, this.patientId).subscribe({
       next: (res) => {
         console.log(res);
         this.goBack();
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }
