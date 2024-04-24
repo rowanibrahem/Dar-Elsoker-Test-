@@ -33,5 +33,6 @@ export class LayoutComponent implements OnInit {
 
   signOut() {
     this._OAuthService.logOut();
+    this._Route.navigate(['/login']);
   }
 }
