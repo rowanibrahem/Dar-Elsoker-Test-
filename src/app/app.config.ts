@@ -21,6 +21,7 @@ import { myhttpInterceptor } from './interceptors/http/myhttp.interceptor';
 import { loaderInterceptor } from './interceptors/loader/loader.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
 export const authCodeFlowConfig: AuthConfig = {
   issuer: 'http://localhost:8080/realms/dar-elsoker',
@@ -59,5 +60,6 @@ export const appConfig: ApplicationConfig = {
       multi: true,
       deps: [OAuthService],
     },
+    provideNzI18n(en_US)
   ],
 };

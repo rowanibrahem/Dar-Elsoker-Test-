@@ -374,6 +374,7 @@
           </label>
         </div>
       </div>
+      @if (status == "info") {
       <button
         (click)="addPrescriptions()"
         class="w-[20%] m-auto font-bold text-2xl my-8 py-3 flex items-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
@@ -384,7 +385,7 @@
         ></span>
         إضافه روشته
       </button>
-      @if (!disaple) {
+      } @if (!disaple) {
       <button
         (click)="saveVisit()"
         class="w-[40%] m-auto font-bold text-lg px-5 py-3 grid content-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"

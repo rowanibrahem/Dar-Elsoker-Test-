@@ -5,10 +5,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { DoctorsService } from '../../services/doctors/doctors.service';
+import { CustomSelectComponent } from '../custom-select/custom-select.component';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+
 @Component({
   selector: 'app-cases',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule, FormsModule],
+  imports: [
+    CommonModule,
+    NgxPaginationModule,
+    FormsModule,
+    CustomSelectComponent,
+    NzEmptyModule
+  ],
   templateUrl: './cases.component.html',
   styleUrl: './cases.component.css',
 })

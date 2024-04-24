@@ -50,16 +50,16 @@
           <tr>
             <th scope="col" class="py-3">التسلسل</th>
             <th scope="col" class="py-3">المريض</th>
-            <th scope="col" class="py-3 w-[90px]">الطول</th>
-            <th scope="col" class="py-3 w-[90px]">الوزن</th>
-            <th scope="col" class="py-3 w-[112px]">الحاله</th>
+            <th scope="col" class="py-3">الطول</th>
+            <th scope="col" class="py-3">الوزن</th>
+            <th scope="col" class="py-3">الحاله</th>
             <th scope="col" class="py-3"></th>
             <th scope="col" class="py-3"></th>
             <th scope="col" class="py-3"></th>
           </tr>
         </thead>
         <tbody class="mt-4">
-          @for (data of visitsData ; track $index) {
+          @if(visitsData.length > 0) { @for(data of visitsData ; track $index) {
           <tr class="bg-white border-b">
             <th scope="row" class="font-normal text-sm py-3">
               {{ $index + 1 }}
@@ -123,9 +123,14 @@
               ></span>
             </td>
           </tr>
-          }
+          } }
         </tbody>
       </table>
+      @if(visitsData.length == 0){
+      <div class="flex items-center justify-center h-60">
+        <nz-empty></nz-empty>
+      </div>
+      }
     </div>
     <!-- <div class="text-center py-[10px]">
       <pagination-controls

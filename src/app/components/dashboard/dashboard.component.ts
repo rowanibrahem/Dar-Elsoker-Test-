@@ -10,6 +10,7 @@ import { initFlowbite } from 'flowbite';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     FormsModule,
     NgxPaginationModule,
     NzDatePickerModule,
+    NzEmptyModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

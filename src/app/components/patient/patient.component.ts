@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient/patient.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 @Component({
   selector: 'app-patient',
   standalone: true,
@@ -15,6 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     RouterLink,
     NgxPaginationModule,
+    NzEmptyModule,
   ],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.css',
