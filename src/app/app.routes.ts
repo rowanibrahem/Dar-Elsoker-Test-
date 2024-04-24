@@ -12,11 +12,12 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
 import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,
