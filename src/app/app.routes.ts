@@ -46,5 +46,5 @@ export const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent, title: 'تسجيل الدخول' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
 ];

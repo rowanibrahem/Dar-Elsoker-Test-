@@ -1,6 +1,0 @@
-<div class="custom-select">
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Search..." class="search-input">
-  <select class="select-options" [(ngModel)]="selected" (change)="selectOption($event.target)">
-     <option *ngFor="let option of list | filter:searchTerm" [value]="option.id">{{option.name}}</option>
-  </select>
- </div>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { SearchPipe } from '../../pipes/search.pipe';
+import { SearchPipe } from '../../pipes/search/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient/patient.service';
 import { Router, RouterLink } from '@angular/router';

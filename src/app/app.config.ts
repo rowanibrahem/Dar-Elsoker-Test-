@@ -24,20 +24,20 @@ import { FormsModule } from '@angular/forms';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
 export const authCodeFlowConfig: AuthConfig = {
-  issuer: 'http://localhost:8080/realms/dar-elsoker',
+  issuer: 'https://outh.ebdaa-business.com/realms/dar-elsokar',
   tokenEndpoint:
-    'http://localhost:8080/realms/dar-elsoker/protocol/openid-connect/token',
+    'https://outh.ebdaa-business.com/realms/dar-elsokar/protocol/openid-connect/token',
   redirectUri: window.location.origin,
-  clientId: 'dar-elsoker-frontend',
+  clientId: 'dar-elsokar-frontend',
   responseType: 'code',
   scope: 'openid profile',
 };
 
-function initializeOAuth(oauthService: OAuthService): Promise<void> {
+export function initializeOAuth(oauthService: OAuthService): Promise<void> {
   return new Promise((resolve) => {
     oauthService.configure(authCodeFlowConfig);
     oauthService.setupAutomaticSilentRefresh();
-    oauthService.loadDiscoveryDocumentAndLogin().then(() => resolve());
+    oauthService.loadDiscoveryDocumentAndLogin()
   });
 }
 
@@ -48,18 +48,19 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([myhttpInterceptor, loaderInterceptor])),
+    provideClientHydration(),
+    // provideHttpClient(withInterceptors([myhttpInterceptor, loaderInterceptor])),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,
       useFactory: (oauthService: OAuthService) => {
         return () => {
-          initializeOAuth(oauthService);
+          initializeOAuth(oauthService);  
         };
       },
       multi: true,
       deps: [OAuthService],
     },
-    provideNzI18n(en_US)
+    provideNzI18n(en_US),
   ],
 };
