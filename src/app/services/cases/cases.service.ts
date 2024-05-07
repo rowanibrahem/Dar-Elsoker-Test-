@@ -45,6 +45,10 @@ export class CasesService {
     return this._HttpClient.get(`${this.baseUrl}visits?page=${pageNum}`);
   }
 
+  getVisitById(id: string | null): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
+  }
+
   getPatientMedicalRecords(id: string | null): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
   }

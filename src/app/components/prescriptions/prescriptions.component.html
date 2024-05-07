@@ -70,16 +70,145 @@
           }
         </div>
       </form>
-      <div class="flex justify-evenly mt-[10%] w-[90%] mx-auto">
-        <div id="print-section" class="hidden">
-          <img src="./assets/header.png" alt="header img" class="w-full" />
-          <h2 class="text-9xl">Best FrontEnd at the world</h2>
-          <img
-            src="./assets/footer.png"
-            alt="footer img"
-            class="fixed bottom-0 w-full"
-          />
+
+      <div
+        id="print-section"
+        class="!hidden"
+        style="
+          width: 420px;
+          height: 595px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        "
+      >
+        <img
+          src="./assets/بود.jpg"
+          alt="header prescriptions"
+          style="width: 100%"
+        />
+        <div style="width: 100%; height: 60%">
+          <div style="display: flex; justify-content: space-evenly">
+            @for (data of patientData; track $index) {
+            <ul style="list-style: none; direction: rtl">
+              <li
+                style="
+                  padding: 0;
+                  margin: 0;
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <span style="color: #224798; font-weight: 800">التاريخ:</span>
+                <p style="border-bottom: 1px dashed black">{{ todayDate }}</p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">العيادة:</label>
+                <p style="border-bottom: 1px dashed black">دار السكر</p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">الطبيب:</label>
+                <p style="border-bottom: 1px dashed black">د/ غادة رءوف</p>
+              </li>
+            </ul>
+            <ul style="list-style: none; direction: rtl; padding: 0">
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">الاسم:</label>
+                <p style="border-bottom: 1px dashed black">
+                  {{ data.patient.fullName }}
+                </p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">السن:</label>
+                <p style="border-bottom: 1px dashed black">
+                  {{ data.patient.age }}
+                </p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">الوزن:</label>
+                <p style="border-bottom: 1px dashed black">
+                  {{ data.medicalRecord.weight }}
+                </p>
+              </li>
+            </ul>
+            }
+          </div>
+
+          <table style="width: 90%; margin: auto; margin-top: 20px">
+            <thead>
+              <tr class="text-left">
+                <th>Type</th>
+                <th>Drug Name</th>
+                <th>Concentration</th>
+                <th>Times</th>
+                <th>Period</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- @for (item of prescriptions; track $index) { -->
+              <tr class="text-left">
+                <td>Tab</td>
+                <td>Sgloken20c</td>
+                <td>50 mg</td>
+                <td>3 مرات بعد الأكل</td>
+                <td>شهر</td>
+              </tr>
+              <!-- } -->
+            </tbody>
+          </table>
         </div>
+        <img
+          src="./assets/د غاده رءوف.jpg"
+          alt="footer prescriptions"
+          style="width: 100%"
+        />
+      </div>
+
+      <div class="flex justify-evenly mt-[10%] w-[90%] mx-auto">
         <button
           class="w-[30%] m-auto font-semibold text-2xl px-3 py-3 flex items-center justify-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
           (click)="addMedicine()"

@@ -37,7 +37,7 @@ export function initializeOAuth(oauthService: OAuthService): Promise<void> {
   return new Promise((resolve) => {
     oauthService.configure(authCodeFlowConfig);
     oauthService.setupAutomaticSilentRefresh();
-    oauthService.loadDiscoveryDocumentAndLogin()
+    oauthService.loadDiscoveryDocumentAndLogin();
   });
 }
 
@@ -49,13 +49,18 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
     provideClientHydration(),
-    // provideHttpClient(withInterceptors([myhttpInterceptor, loaderInterceptor])),
+    provideHttpClient(
+      withInterceptors([
+        loaderInterceptor,
+        // myhttpInterceptor
+      ])
+    ),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,
       useFactory: (oauthService: OAuthService) => {
         return () => {
-          initializeOAuth(oauthService);  
+          initializeOAuth(oauthService);
         };
       },
       multi: true,
