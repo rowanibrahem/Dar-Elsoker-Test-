@@ -11,11 +11,29 @@ import { PrescriptionsService } from '../../services/prescriptions/prescriptions
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ActivatedRoute } from '@angular/router';
 import { CasesService } from '../../services/cases/cases.service';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+
+interface medicine {
+  medName: string;
+  type: string;
+  concentration: string;
+}
+interface MedicineObj {
+  medicine: medicine;
+  dose: string;
+  period: string;
+}
 
 @Component({
   selector: 'app-prescriptions',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgxPrintModule, NzSelectModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPrintModule,
+    NzSelectModule,
+    NzMessageModule,
+  ],
   templateUrl: './prescriptions.component.html',
   styleUrl: './prescriptions.component.css',
 })
@@ -23,23 +41,24 @@ export class PrescriptionsComponent implements OnInit {
   medicineId: number = 0;
   visitId: string | null = this._Active.snapshot.queryParamMap.get('id');
   medicinies: any;
-  form!: FormGroup;
-  prescriptions: any[] = [];
-  patientData: any[] = [];
+  prescriptions: MedicineObj[] = [];
+  patientData: any = {};
 
   constructor(
     private _PrescriptionsService: PrescriptionsService,
     private _CasesService: CasesService,
     private _Active: ActivatedRoute,
     private _printService: NgxPrintService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private msg: NzMessageService
   ) {}
+  form: FormGroup = this.fb.group({
+    inputs: this.fb.array([this.createInputGroup()]),
+  });
+
   ngOnInit(): void {
     this.getMedicine();
     this.getVisitById();
-    this.form = this.fb.group({
-      inputs: this.fb.array([this.createInputGroup()]),
-    });
   }
 
   get inputGroups() {
@@ -80,7 +99,6 @@ export class PrescriptionsComponent implements OnInit {
   getVisitById() {
     this._CasesService.getVisitById(this.visitId).subscribe({
       next: (res) => {
-        console.log(res);
         this.patientData = res;
       },
       error: (err) => {
@@ -89,28 +107,49 @@ export class PrescriptionsComponent implements OnInit {
     });
   }
 
+  log(val: any) {
+    console.log(val);
+  }
+
   print() {
-    this._PrescriptionsService
-      .addMedicine(
-        this.visitId,
-        this.medicineId,
-        this.form.value.dose,
-        this.form.value.period
-      )
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.prescriptions = res;
-          const customPrintOptions: PrintOptions = new PrintOptions({
-            printSectionId: 'print-section',
-          });
-          this._printService.print(customPrintOptions);
-          // window.print();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+    // console.log( this.inputGroups.controls.map((value,i)=>{return{
+    //   medicineId:value.get('medicine')?.value,
+    //   dose:value.get('dose')?.value,
+    //   period:value.get('period')?.value,
+    // }}));
+
+    const object = {
+      medicines: this.inputGroups.controls.map((value, i) => {
+        return {
+          medicineId: value.get('medicine')?.value,
+          dose: value.get('dose')?.value,
+          period: value.get('period')?.value,
+        };
+      }),
+    };
+    this._PrescriptionsService.addMedicine(this.visitId, object).subscribe({
+      next: async (res) => {
+        console.log(res);
+        console.log(this.visitId, this.form.value);
+
+        this.prescriptions = await res.medicines;
+        setTimeout(() => {
+          this.printFunc();
+        }, 1000);
+
+        // window.print();
+      },
+      error: (err) => {
+        this.msg.error('برجاء اكمال جميع الحقول');
+      },
+    });
+  }
+
+  async printFunc() {
+    const customPrintOptions: PrintOptions = new PrintOptions({
+      printSectionId: 'print-section',
+    });
+    this._printService.print(customPrintOptions);
   }
 
   getTodayDate(): string {

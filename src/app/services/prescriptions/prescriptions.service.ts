@@ -15,21 +15,23 @@ export class PrescriptionsService {
 
   addMedicine(
     visitId: string | null,
-    medicineId: number,
-    dose: string,
-    period: string
+    // medicineId: number,
+    // dose: string,
+    // period: string,
+    object:any
   ): Observable<any> {
     return this._HttpClient.put(
       `${this.baseUrl}visits/${visitId}/prescription`,
-      {
-        medicines: [
-          {
-            medicineId: medicineId,
-            dose: dose,
-            period: period,
-          },
-        ],
-      }
+      object
+      // {
+      //   medicines: [
+      //     {
+      //       medicineId: medicineId,
+      //       dose: dose,
+      //       period: period,
+      //     },
+      //   ],
+      // }
     );
   }
 }

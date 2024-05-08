@@ -90,7 +90,6 @@
         />
         <div style="width: 100%; height: 60%">
           <div style="display: flex; justify-content: space-evenly">
-            @for (data of patientData; track $index) {
             <ul style="list-style: none; direction: rtl">
               <li
                 style="
@@ -143,7 +142,7 @@
               >
                 <label style="color: #224798; font-weight: 800">الاسم:</label>
                 <p style="border-bottom: 1px dashed black">
-                  {{ data.patient.fullName }}
+                  {{ patientData?.patient?.fullName }}
                 </p>
               </li>
               <li
@@ -157,7 +156,7 @@
               >
                 <label style="color: #224798; font-weight: 800">السن:</label>
                 <p style="border-bottom: 1px dashed black">
-                  {{ data.patient.age }}
+                  {{ patientData?.patient?.age }}
                 </p>
               </li>
               <li
@@ -171,11 +170,11 @@
               >
                 <label style="color: #224798; font-weight: 800">الوزن:</label>
                 <p style="border-bottom: 1px dashed black">
-                  {{ data.medicalRecord.weight }}
+                  {{ patientData?.medicalRecord?.weight }}
                 </p>
               </li>
             </ul>
-            }
+            <!-- } -->
           </div>
 
           <table style="width: 90%; margin: auto; margin-top: 20px">
@@ -189,15 +188,17 @@
               </tr>
             </thead>
             <tbody>
-              <!-- @for (item of prescriptions; track $index) { -->
+              @for (item of prescriptions; track $index) {
               <tr class="text-left">
-                <td>Tab</td>
-                <td>Sgloken20c</td>
-                <td>50 mg</td>
-                <td>3 مرات بعد الأكل</td>
-                <td>شهر</td>
+                <td style="text-align: center">{{ item.medicine.type }}</td>
+                <td style="text-align: center">{{ item.medicine.medName }}</td>
+                <td style="text-align: center">
+                  {{ item.medicine.concentration }}
+                </td>
+                <td style="text-align: center">{{ item.dose }}</td>
+                <td style="text-align: center">{{ item.period }}</td>
               </tr>
-              <!-- } -->
+              }
             </tbody>
           </table>
         </div>
