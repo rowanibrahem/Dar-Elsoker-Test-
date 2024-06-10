@@ -72,6 +72,7 @@
               ></span>
               <h6>بيانات الدكتور</h6>
             </li>
+            @if (isDoctor) {
             <li
               class="flex gap-3 p-[10px] border-b"
               id="edit"
@@ -93,10 +94,16 @@
               ></span>
               <h6>حذف الدكتور</h6>
             </li>
+            }
           </ul>
         </div>
-        <div class="absolute top-[35px] left-[122px] w-[105px] h-[105px] bg-[#ffffff] rounded-full">
-          <span class="icon-[healthicons--doctor-male] border border-white p-4" style="width: 105px; height: 105px;"></span>
+        <div
+          class="absolute top-[35px] left-[122px] w-[105px] h-[105px] bg-[#ffffff] rounded-full"
+        >
+          <span
+            class="icon-[healthicons--doctor-male] border border-white p-4"
+            style="width: 105px; height: 105px"
+          ></span>
         </div>
       </div>
       <h2 class="mt-16 text-center font-semibold text-3xl">
@@ -123,7 +130,7 @@
         </div>
       </div>
     </div>
-    }
+    } @if (isDoctor) {
     <div class="w-[350px] text-center" role="button">
       <span
         (click)="goInfo()"
@@ -131,5 +138,6 @@
         style="width: 100px; height: 100px"
       ></span>
     </div>
+    }
   </section>
 </div>

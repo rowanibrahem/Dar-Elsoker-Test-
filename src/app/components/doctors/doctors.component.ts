@@ -29,6 +29,7 @@ import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 export class DoctorsComponent implements OnInit {
   searchvalue: string = '';
   doctorsData: any[] = [];
+  isDoctor = localStorage.getItem('_userName') === 'test-doctor' ? true : false;
   constructor(
     private _DoctorsService: DoctorsService,
     private _Router: Router,

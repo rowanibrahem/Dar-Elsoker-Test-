@@ -82,12 +82,14 @@
             </td>
             <td class="border-b-[20px] border-[#F6F6F6] px-6">
               <div class="flex flex-wrap gap-3 w-full">
-                <!-- <span
+                @if (!isDoctor) {
+                <span
                   (click)="goPatientinfo(item.id, 'FOLLOWUP')"
                   role="button"
                   class="icon-[gg--add] text-[#00C894]"
                   style="width: 30px; height: 30px"
-                ></span> -->
+                ></span>
+                }
                 <span
                   role="button"
                   (click)="goPatientDetails(item.id, 'edit')"
@@ -107,10 +109,10 @@
         </tbody>
       </table>
       @if(patientData.length == 0){
-        <div class="flex items-center justify-center h-60">
-          <nz-empty></nz-empty>
-        </div>
-        }
+      <div class="flex items-center justify-center h-60">
+        <nz-empty></nz-empty>
+      </div>
+      }
     </div>
     <!-- <div class="text-center py-[10px]">
       <pagination-controls

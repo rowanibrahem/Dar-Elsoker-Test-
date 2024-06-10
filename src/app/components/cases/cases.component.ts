@@ -31,6 +31,7 @@ export class CasesComponent implements OnInit {
   // pageSize: number = 7;
   // pageNumber: number = 1;
   // totalElements: number = 0;
+  isDoctor = localStorage.getItem('_userName') === 'test-doctor' ? true : false;
 
   ngOnInit(): void {
     if (this.status === 'redirections') {

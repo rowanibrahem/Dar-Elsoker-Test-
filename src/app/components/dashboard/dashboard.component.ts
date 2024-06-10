@@ -48,6 +48,12 @@ export class DashboardComponent implements OnInit {
       const _token = this._OAuthService.getAccessToken();
       localStorage.setItem('_token', _token);
     }
+    console.log(this._OAuthService.getIdentityClaims()['preferred_username']);
+    if (localStorage.getItem('_userName') == null) {
+      const _userName =
+        this._OAuthService.getIdentityClaims()['preferred_username'];
+      localStorage.setItem('_userName', _userName);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

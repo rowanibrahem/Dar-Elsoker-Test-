@@ -23,6 +23,7 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 export class PatientComponent implements OnInit {
   searchvalue: string = '';
   patientData: any[] = [];
+  isDoctor = localStorage.getItem('_userName') === 'test-doctor' ? true : false;
 
   constructor(
     private _PatientService: PatientService,
