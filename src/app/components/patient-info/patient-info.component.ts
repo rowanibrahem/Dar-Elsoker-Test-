@@ -36,6 +36,8 @@ export class PatientInfoComponent implements OnInit {
   ngOnInit(): void {
     if (this.status == 'info') {
       this.getPatientRecords();
+    } else if (this.status == 'FOLLOWUP') {
+      this.disaple = true;
     }
     this.getVisit();
   }
@@ -45,9 +47,7 @@ export class PatientInfoComponent implements OnInit {
   }
 
   recordForm: FormGroup = new FormGroup({
-    patient: new FormGroup({
-      id: new FormControl(this.patientId),
-    }),
+    patientId: new FormControl(this.patientId),
     type: new FormControl('FOLLOW_UP'),
     medicalRecord: new FormGroup({
       timeOfDiabetes: new FormControl(''),
@@ -81,7 +81,7 @@ export class PatientInfoComponent implements OnInit {
     const visitData = this.recordForm.value;
     console.log(this.recordForm.value);
 
-    this._CasesService.checkUP(visitData).subscribe({
+    this._CasesService.followUP(visitData).subscribe({
       next: (res) => {
         console.log(res);
         console.log(visitData);
@@ -100,8 +100,7 @@ export class PatientInfoComponent implements OnInit {
     });
   }
 
-  getPatientRecords(value: boolean = true) {
-    this.disaple = value;
+  getPatientRecords() {
     this._CasesService.getPatientMedicalRecords(this.patientId).subscribe({
       next: (res) => {
         // console.log(res);
@@ -146,8 +145,7 @@ export class PatientInfoComponent implements OnInit {
     });
   }
 
-  getVisit(value: boolean = true) {
-    this.disaple = value;
+  getVisit() {
     this._PatientService.getVisitById(this.patientId).subscribe({
       next: (res) => {
         this.patientData = res;

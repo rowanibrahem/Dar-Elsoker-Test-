@@ -44,7 +44,6 @@ export class CasesService {
   getVisitsPage(pageNum: number = 1): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}visits?page=${pageNum}`);
   }
-
   getVisitById(id: string | null): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
   }
@@ -53,7 +52,11 @@ export class CasesService {
     return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
   }
 
-  checkUP(visitData: any): Observable<any> {
+  followUP(visitData: any): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}visits`, visitData);
+  }
+
+  checkUP(visitData: any): Observable<any> {
+    return this._HttpClient.post(`${this.baseUrl}visits/check-up`, visitData);
   }
 }

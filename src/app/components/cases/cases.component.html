@@ -40,12 +40,13 @@
         (click)="FOLLOWUP()"
         class="w-[250px] h-[80px] max-sm:w-[80%] m-auto bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
       >
-        إضافه كشف
+        إعاده
       </button>
     </div>
     }
     <div
-      class="w-[90%] mx-auto relative overflow-auto max-h-[80vh] mt-12 rounded-t-lg"
+      class="w-[90%] mx-auto relative overflow-auto mt-12 rounded-t-lg"
+      [ngClass]="isDoctor ? 'max-h-[80vh]' : 'max-h-[62vh] max-sm:max-h-[50vh]'"
     >
       <table
         class="w-full m-auto shadow-md text-center rounded-lg overflow-scroll"
@@ -57,8 +58,8 @@
             <th scope="col" class="py-3">الطول</th>
             <th scope="col" class="py-3">الوزن</th>
             <th scope="col" class="py-3">الحاله</th>
-            <th scope="col" class="py-3"></th>
-            <th scope="col" class="py-3"></th>
+            <th scope="col" class="py-3">حاله الكشف</th>
+            <th scope="col" class="py-3">التحويل</th>
             <th scope="col" class="py-3"></th>
           </tr>
         </thead>
@@ -101,7 +102,7 @@
               </button>
               } @if (!isDoctor) {
               <p
-                class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                class="h-[33px] rounded-md text-sm font-bold"
                 [ngClass]="data.visitCompleted ? 'nurse-true' : 'nurse-false'"
               >
                 {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
@@ -155,22 +156,5 @@
       </div>
       }
     </div>
-    <!-- <div class="text-center py-[10px]">
-      <pagination-controls
-        id="visitsPaginate"
-        (pageChange)="pageChanged($event)"
-        (pageBoundsCorrection)="pageChanged($event)"
-        [maxSize]="7"
-        [directionLinks]="true"
-        [autoHide]="true"
-        [responsive]="true"
-        previousLabel="الصفحه السابقه"
-        nextLabel="الصفحه التاليه"
-        screenReaderPaginationLabel="Pagination"
-        screenReaderPageLabel="page"
-        screenReaderCurrentLabel="You're on page"
-      >
-      </pagination-controls>
-    </div> -->
   </section>
 </div>

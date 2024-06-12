@@ -33,6 +33,8 @@ export const authCodeFlowConfig: AuthConfig = {
   scope: 'openid profile',
 };
 
+
+
 export function initializeOAuth(oauthService: OAuthService): Promise<void> {
   return new Promise((resolve) => {
     oauthService.configure(authCodeFlowConfig);
