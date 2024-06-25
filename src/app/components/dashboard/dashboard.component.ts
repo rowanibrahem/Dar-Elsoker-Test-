@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
   searchvalue: string = '';
   isLoading: boolean = false;
   doctorId: any;
-
+  name: string = localStorage.getItem('_name')!;
   ngOnInit(): void {
     this.getDoctorData();
     this.getStatisticsData();
@@ -48,11 +48,9 @@ export class DashboardComponent implements OnInit {
       const _token = this._OAuthService.getAccessToken();
       localStorage.setItem('_token', _token);
     }
-    console.log(this._OAuthService.getIdentityClaims()['preferred_username']);
-    if (localStorage.getItem('_userName') == null) {
-      const _userName =
-        this._OAuthService.getIdentityClaims()['preferred_username'];
-      localStorage.setItem('_userName', _userName);
+    if (localStorage.getItem('_name') == null) {
+      const _name = this._OAuthService.getIdentityClaims()['name'];
+      localStorage.setItem('_name', _name);
     }
   }
 

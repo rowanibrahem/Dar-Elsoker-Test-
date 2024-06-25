@@ -6,6 +6,8 @@ import { PatientService } from '../../services/patient/patient.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-patient',
   standalone: true,
@@ -16,6 +18,7 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     RouterLink,
     NgxPaginationModule,
     NzEmptyModule,
+    NzPopconfirmModule,
   ],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.css',
@@ -23,11 +26,13 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 export class PatientComponent implements OnInit {
   searchvalue: string = '';
   patientData: any[] = [];
-  isDoctor = localStorage.getItem('_userName') === 'test-doctor' ? true : false;
+  isDoctor = localStorage.getItem('_name') === 'dr. Ghada' ? true : false;
+  name: string = localStorage.getItem('_name')!;
 
   constructor(
     private _PatientService: PatientService,
-    private _Router: Router
+    private _Router: Router,
+    private nzMessageService: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +74,7 @@ export class PatientComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.getPatient();
+        this.nzMessageService.success('تم الحذف بنجاح');
       },
       // error: (err) => {
       //   console.log(err);

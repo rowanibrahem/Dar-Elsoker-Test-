@@ -24,6 +24,7 @@ export class DoctorInfoComponent implements OnInit {
   disaple: boolean = false;
   status: string | null = this._active.snapshot.queryParamMap.get('status');
   doctorId: string | null = this._active.snapshot.queryParamMap.get('id');
+  
 
   constructor(
     private _DoctorsService: DoctorsService,

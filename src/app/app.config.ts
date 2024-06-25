@@ -27,21 +27,19 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://outh.ebdaa-business.com/realms/dar-elsokar',
   tokenEndpoint:
     'https://outh.ebdaa-business.com/realms/dar-elsokar/protocol/openid-connect/token',
-  redirectUri: window.location.origin,
+  redirectUri: window.location.origin + '/dashboard',
   clientId: 'dar-elsokar-frontend',
   responseType: 'code',
   scope: 'openid profile',
 };
 
-
-
-export function initializeOAuth(oauthService: OAuthService): Promise<void> {
-  return new Promise((resolve) => {
-    oauthService.configure(authCodeFlowConfig);
-    oauthService.setupAutomaticSilentRefresh();
-    oauthService.loadDiscoveryDocumentAndLogin();
-  });
-}
+// export function initializeOAuth(oauthService: OAuthService): Promise<void> {
+//   return new Promise((resolve) => {
+//     oauthService.configure(authCodeFlowConfig);
+//     oauthService.setupAutomaticSilentRefresh();
+//     oauthService.loadDiscoveryDocumentAndLogin();
+//   });
+// }
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -62,7 +60,7 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       useFactory: (oauthService: OAuthService) => {
         return () => {
-          initializeOAuth(oauthService);
+          // initializeOAuth(oauthService);
         };
       },
       multi: true,

@@ -28,6 +28,7 @@ export class PatientDetailsComponent implements OnInit {
     this._ActivatedRoute.snapshot.queryParamMap.get('status');
   patientData: any;
   visitData: any;
+  name: string = localStorage.getItem('_name')!
 
   ngOnInit(): void {
     this.getPatient();

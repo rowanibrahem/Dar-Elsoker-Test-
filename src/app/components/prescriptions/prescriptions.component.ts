@@ -43,7 +43,7 @@ export class PrescriptionsComponent implements OnInit {
   medicinies: any;
   prescriptions: MedicineObj[] = [];
   patientData: any = {};
-
+  name: string = localStorage.getItem('_name')!;
   constructor(
     private _PrescriptionsService: PrescriptionsService,
     private _CasesService: CasesService,
@@ -148,6 +148,7 @@ export class PrescriptionsComponent implements OnInit {
   async printFunc() {
     const customPrintOptions: PrintOptions = new PrintOptions({
       printSectionId: 'print-section',
+      // previewOnly: true,
     });
     this._printService.print(customPrintOptions);
   }

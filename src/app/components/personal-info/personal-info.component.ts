@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CasesService } from '../../services/cases/cases.service';
-import { NzMessageModule,NzMessageService } from 'ng-zorro-antd/message';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-personal-info',
@@ -23,6 +23,7 @@ export class PersonalInfoComponent {
     private _CasesService: CasesService,
     private msg: NzMessageService
   ) {}
+  name: string = localStorage.getItem('_name')!;
 
   detailsForm: FormGroup = new FormGroup({
     patient: new FormGroup({
@@ -63,7 +64,6 @@ export class PersonalInfoComponent {
     }),
   });
 
-
   goBack() {
     this._Location.back();
   }
@@ -80,7 +80,11 @@ export class PersonalInfoComponent {
       },
       error: (err) => {
         console.log(err);
-        this.msg.error(err.message);
+        for (const key in err.error) {
+          if (err.error.hasOwnProperty(key)) {
+            this.msg.error(err.error[key]);
+          }
+        }
       },
     });
   }

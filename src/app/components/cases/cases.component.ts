@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { DoctorsService } from '../../services/doctors/doctors.service';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-cases',
@@ -19,7 +20,8 @@ export class CasesComponent implements OnInit {
     private _CasesService: CasesService,
     private _DoctorsService: DoctorsService,
     private _Router: Router,
-    private _active: ActivatedRoute
+    private _active: ActivatedRoute,
+    private msg: NzMessageService
   ) {}
   status: string | null = this._active.snapshot.queryParamMap.get('status');
   doctorId!: string | null;
@@ -28,10 +30,11 @@ export class CasesComponent implements OnInit {
   visitsData: any[] = [];
   doctorData: any[] = [];
   doctorName!: string;
+  name: string = localStorage.getItem('_name')!;
   // pageSize: number = 7;
   // pageNumber: number = 1;
   // totalElements: number = 0;
-  isDoctor = localStorage.getItem('_userName') === 'test-doctor' ? true : false;
+  isDoctor = localStorage.getItem('_name') === 'dr. Ghada' ? true : false;
 
   ngOnInit(): void {
     if (this.status === 'redirections') {
@@ -73,13 +76,16 @@ export class CasesComponent implements OnInit {
   upDateVisite(id: any, value: boolean) {
     this.visitId = id;
     if (!value) {
-      let value2 = true;
       this.isLoading = true;
-      this._CasesService.updateVisit(id, value2).subscribe({
+      this._CasesService.updateVisit(id, true).subscribe({
         next: (res) => {
+          console.log(res);
+
           this.getVisitsByStatus();
           this.isLoading = false;
           this.visitId = '';
+
+          return res;
         },
       });
     }

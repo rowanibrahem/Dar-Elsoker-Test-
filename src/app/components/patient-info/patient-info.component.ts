@@ -32,14 +32,15 @@ export class PatientInfoComponent implements OnInit {
     this._ActivatedRoute.snapshot.queryParamMap.get('status');
   patientData: any;
   disaple: boolean = false;
+  name: string = localStorage.getItem('_name')!;
 
   ngOnInit(): void {
-    if (this.status == 'info') {
-      this.getPatientRecords();
-    } else if (this.status == 'FOLLOWUP') {
+    if (this.status == 'FOLLOWUP') {
       this.disaple = true;
+    } else {
+      this.getPatientRecords();
     }
-    this.getVisit();
+    // this.getVisit();
   }
 
   goBack() {
@@ -145,46 +146,46 @@ export class PatientInfoComponent implements OnInit {
     });
   }
 
-  getVisit() {
-    this._PatientService.getVisitById(this.patientId).subscribe({
-      next: (res) => {
-        this.patientData = res;
-        console.log(this.patientData);
-        this.recordForm.patchValue({
-          medicalRecord: {
-            weight: this.patientData.medicalRecord.weight,
-            height: this.patientData.medicalRecord.height,
-            timeOfDiabetes: this.patientData.medicalRecord.timeOfDiabetes,
-            medications: this.patientData.medicalRecord.medications,
-            diet: this.patientData.medicalRecord.diet,
-            bloodTestDate: this.patientData.medicalRecord.bloodTestDate,
-            fastingBloodSugar: this.patientData.medicalRecord.fastingBloodSugar,
-            fastingBloodSugarTested:
-              this.patientData.medicalRecord.fastingBloodSugarTested,
-            randomBloodSugar: this.patientData.medicalRecord.randomBloodSugar,
-            randomBloodSugarTested:
-              this.patientData.medicalRecord.randomBloodSugarTested,
-            cumulativeBloodSugar:
-              this.patientData.medicalRecord.cumulativeBloodSugar,
-            cumulativeBloodSugarTested:
-              this.patientData.medicalRecord.cumulativeBloodSugarTested,
-            kendyExamination: this.patientData.medicalRecord.kendyExamination,
-            kendyExaminationTested:
-              this.patientData.medicalRecord.kendyExaminationTested,
-            eyeExamination: this.patientData.medicalRecord.eyeExamination,
-            ecg: this.patientData.medicalRecord.ecg,
-            numbness: this.patientData.medicalRecord.numbness,
-            burnings: this.patientData.medicalRecord.burnings,
-            sting: this.patientData.medicalRecord.sting,
-            coolerLimbs: this.patientData.medicalRecord.coolerLimbs,
-            muscleStrain: this.patientData.medicalRecord.muscleStrain,
-          },
-        });
-      },
-      error: (err) => {
-        console.log(err);
-        this.msg.error(err.message);
-      },
-    });
-  }
+  // getVisit() {
+  //   this._PatientService.getVisitById(this.patientId).subscribe({
+  //     next: (res) => {
+  //       this.patientData = res;
+  //       console.log(this.patientData);
+  //       this.recordForm.patchValue({
+  //         medicalRecord: {
+  //           weight: this.patientData.medicalRecord.weight,
+  //           height: this.patientData.medicalRecord.height,
+  //           timeOfDiabetes: this.patientData.medicalRecord.timeOfDiabetes,
+  //           medications: this.patientData.medicalRecord.medications,
+  //           diet: this.patientData.medicalRecord.diet,
+  //           bloodTestDate: this.patientData.medicalRecord.bloodTestDate,
+  //           fastingBloodSugar: this.patientData.medicalRecord.fastingBloodSugar,
+  //           fastingBloodSugarTested:
+  //             this.patientData.medicalRecord.fastingBloodSugarTested,
+  //           randomBloodSugar: this.patientData.medicalRecord.randomBloodSugar,
+  //           randomBloodSugarTested:
+  //             this.patientData.medicalRecord.randomBloodSugarTested,
+  //           cumulativeBloodSugar:
+  //             this.patientData.medicalRecord.cumulativeBloodSugar,
+  //           cumulativeBloodSugarTested:
+  //             this.patientData.medicalRecord.cumulativeBloodSugarTested,
+  //           kendyExamination: this.patientData.medicalRecord.kendyExamination,
+  //           kendyExaminationTested:
+  //             this.patientData.medicalRecord.kendyExaminationTested,
+  //           eyeExamination: this.patientData.medicalRecord.eyeExamination,
+  //           ecg: this.patientData.medicalRecord.ecg,
+  //           numbness: this.patientData.medicalRecord.numbness,
+  //           burnings: this.patientData.medicalRecord.burnings,
+  //           sting: this.patientData.medicalRecord.sting,
+  //           coolerLimbs: this.patientData.medicalRecord.coolerLimbs,
+  //           muscleStrain: this.patientData.medicalRecord.muscleStrain,
+  //         },
+  //       });
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //       this.msg.error(err.message);
+  //     },
+  //   });
+  // }
 }

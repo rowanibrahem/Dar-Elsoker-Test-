@@ -12,7 +12,10 @@ import { DoctorsService } from '../../services/doctors/doctors.service';
 import { initFlowbite } from 'flowbite';
 import { Router } from '@angular/router';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
-
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-doctors',
   standalone: true,
@@ -22,6 +25,8 @@ import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
     FormsModule,
     ReactiveFormsModule,
     NzMessageModule,
+    NzPopconfirmModule,
+    NzDropDownModule,
   ],
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.css',
@@ -29,11 +34,13 @@ import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 export class DoctorsComponent implements OnInit {
   searchvalue: string = '';
   doctorsData: any[] = [];
-  isDoctor = localStorage.getItem('_userName') === 'test-doctor' ? true : false;
+  isDoctor = localStorage.getItem('_name') === 'dr. Ghada' ? true : false;
+  name: string = localStorage.getItem('_name')!;
   constructor(
     private _DoctorsService: DoctorsService,
     private _Router: Router,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private modal: NzModalService
   ) {}
   ngOnInit(): void {
     this.getAllDoctors();
@@ -52,14 +59,23 @@ export class DoctorsComponent implements OnInit {
   }
 
   deletDoctor(id: number) {
-    this._DoctorsService.deleteDoctor(id).subscribe({
-      next: (res) => {
-        this.getAllDoctors();
-        this.msg.success('تم حذف الطبيب');
+    this.modal.confirm({
+      nzTitle: 'Are you sure delete this Doctor?',
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this._DoctorsService.deleteDoctor(id).subscribe({
+          next: (res) => {
+            this.getAllDoctors();
+            this.msg.success('تم حذف الطبيب');
+          },
+          error: (err) => {
+            this.msg.error('هذا الطبيب لديه حالات محوله لا يمكن حذفه');
+          },
+        });
       },
-      error: (err) => {
-        this.msg.error('هذا الطبيب لديه حالات محوله لا يمكن حذفه');
-      },
+      nzCancelText: 'No',
     });
   }
 

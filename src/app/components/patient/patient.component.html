@@ -25,7 +25,7 @@
             style="width: 35px; height: 35px"
           ></span>
         </div>
-        <p>د/غادة احمد رءوف</p>
+        <p>{{ name }}</p>
       </div>
     </div>
   </div>
@@ -100,7 +100,10 @@
                 ></span>
                 <span
                   role="button"
-                  (click)="deletePatient(item.id)"
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="deletePatient(item.id)"
                   class="icon-[fluent--delete-24-regular] text-[#C12735]"
                   style="width: 30px; height: 30px"
                 ></span>
