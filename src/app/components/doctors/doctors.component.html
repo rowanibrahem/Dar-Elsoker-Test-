@@ -59,7 +59,7 @@
             >
               <li
                 class="flex gap-3 p-[10px] border-b"
-                (click)="getPatientRedirect('redirections', item.id)"
+                (click)="getPatientRedirect(item.id)"
               >
                 <span
                   class="icon-[tabler--table]"
@@ -78,7 +78,7 @@
                 ></span>
                 <h6>بيانات الدكتور</h6>
               </li>
-              <!-- @if (isDoctor) { -->
+              @if (isDoctor) {
               <li
                 class="flex gap-3 p-[10px] border-b"
                 id="edit"
@@ -100,7 +100,7 @@
                 ></span>
                 <h6>حذف الدكتور</h6>
               </li>
-              <!-- } -->
+              }
             </ul>
           </nz-dropdown-menu>
         </div>

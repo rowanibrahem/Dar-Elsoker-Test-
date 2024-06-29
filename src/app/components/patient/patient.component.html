@@ -100,10 +100,7 @@
                 ></span>
                 <span
                   role="button"
-                  nz-popconfirm
-                  nzPopconfirmTitle="Are you sure?"
-                  nzPopconfirmPlacement="bottom"
-                  (nzOnConfirm)="deletePatient(item.id)"
+                  (click)="deletePatient(item.id)"
                   class="icon-[fluent--delete-24-regular] text-[#C12735]"
                   style="width: 30px; height: 30px"
                 ></span>

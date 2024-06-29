@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { CasesService } from '../../services/cases/cases.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -24,7 +24,7 @@ export class CasesComponent implements OnInit {
     private msg: NzMessageService
   ) {}
   status: string | null = this._active.snapshot.queryParamMap.get('status');
-  doctorId!: string | null;
+  doctorId: string | null = this._active.snapshot.queryParamMap.get('id');
   visitId: any;
   isLoading: boolean = false;
   visitsData: any[] = [];
@@ -34,32 +34,31 @@ export class CasesComponent implements OnInit {
   // pageSize: number = 7;
   // pageNumber: number = 1;
   // totalElements: number = 0;
-  isDoctor = localStorage.getItem('_name') === 'dr. Ghada' ? true : false;
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
 
   ngOnInit(): void {
-    if (this.status === 'redirections') {
+    if (this.doctorId) {
       this.getPatientRedirect();
-    } else {
-      this.getDoctors();
-      this.getVisitsByStatus();
-      this.redirectVisit(this.visitId, event);
     }
+    this.getDoctors();
+    this.getVisitsByStatus();
   }
 
   getVisitsByStatus() {
-    this.status = this._active.snapshot.queryParamMap.get('status');
-    this._CasesService
-      .allByDateAndStatus(this.todayDate, this.status)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          this.visitsData = res;
-        },
-        // error: (err) => {
-        //   console.log(err);
-        // },
-      });
+    if (this.status) {
+      this._CasesService
+        .allByDateAndStatus(this.todayDate, this.status)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.visitsData = res;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+    }
   }
 
   // getVisit() {
@@ -82,6 +81,7 @@ export class CasesComponent implements OnInit {
           console.log(res);
 
           this.getVisitsByStatus();
+          this.getPatientRedirect();
           this.isLoading = false;
           this.visitId = '';
 
@@ -99,6 +99,9 @@ export class CasesComponent implements OnInit {
         this.doctorName = res.doctorRedirectedTo.fullName;
         console.log(this.doctorName);
       },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 
@@ -112,13 +115,17 @@ export class CasesComponent implements OnInit {
   }
 
   getPatientRedirect() {
-    this.doctorId = this._active.snapshot.queryParamMap.get('id');
-    this._DoctorsService.allDoctorRedirections(this.doctorId).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.visitsData = res;
-      },
-    });
+    if (this.doctorId) {
+      this._DoctorsService.allDoctorRedirections(this.doctorId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.visitsData = res;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   // pageChanged(event: number): void {

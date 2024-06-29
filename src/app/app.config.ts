@@ -33,13 +33,13 @@ export const authCodeFlowConfig: AuthConfig = {
   scope: 'openid profile',
 };
 
-// export function initializeOAuth(oauthService: OAuthService): Promise<void> {
-//   return new Promise((resolve) => {
-//     oauthService.configure(authCodeFlowConfig);
-//     oauthService.setupAutomaticSilentRefresh();
-//     oauthService.loadDiscoveryDocumentAndLogin();
-//   });
-// }
+export function initializeOAuth(oauthService: OAuthService): Promise<void> {
+  return new Promise((resolve) => {
+    oauthService.configure(authCodeFlowConfig);
+    oauthService.setupAutomaticSilentRefresh();
+    oauthService.loadDiscoveryDocumentAndLogin();
+  });
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -60,7 +60,7 @@ export const appConfig: ApplicationConfig = {
       provide: APP_INITIALIZER,
       useFactory: (oauthService: OAuthService) => {
         return () => {
-          // initializeOAuth(oauthService);
+          initializeOAuth(oauthService);
         };
       },
       multi: true,

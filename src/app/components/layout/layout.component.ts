@@ -46,13 +46,13 @@ export class LayoutComponent implements OnInit {
   }
 
   signOut() {
-    // this._OAuthService.logOut();
     this.modal.confirm({
-      nzTitle: 'Are you sure delete this task?',
+      nzTitle: 'Are you sure you want to log out?',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
+        this._OAuthService.logOut();
         this._Route.navigate(['/login']),
           this.nzMessageService.success('تم تسجيل الخروج');
         localStorage.clear();

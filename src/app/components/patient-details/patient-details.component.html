@@ -79,7 +79,7 @@
         >
         </span>
         <div
-          class="w-full bg-[#FDFDFD] border border-[#0000001A] rounded-lg grid grid-cols-4 gap-6 content-center py-3"
+          class="w-full bg-[#FDFDFD] border border-[#0000001A] rounded-lg grid grid-cols-5 max-md:grid-cols-3 max-sm:grid-cols-2 gap-6 content-center py-3"
         >
           <div class="mx-auto">
             <h2 class="font-normal text-base text-[#595959]">التاريخ</h2>
@@ -108,6 +108,165 @@
               style="width: 40px; height: 40px"
             ></span>
           </div>
+          @if(isDoctor){
+          <div
+            role="button"
+            (click)="printFunc()"
+            class="w-[100px] h-[50px] rounded-lg bg-[#00C894] hover:scale-[.95] text-white grid content-center mx-auto"
+          >
+            <span
+              class="icon-[material-symbols-light--prescriptions-outline] mx-auto"
+              style="width: 40px; height: 40px"
+            ></span>
+          </div>
+          }
+        </div>
+        <div
+          id="print-section"
+          class="!hidden"
+          style="
+            width: 420px;
+            height: 595px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
+          <img
+            src="./assets/بود.jpg"
+            alt="header prescriptions"
+            style="width: 100%"
+          />
+          <div style="width: 100%; height: 60%">
+            <div style="display: flex; justify-content: space-evenly">
+              <ul style="list-style: none; direction: rtl">
+                <li
+                  style="
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <span style="color: #224798; font-weight: 800">التاريخ:</span>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit.creationDateTime | date }}
+                  </p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800"
+                    >العيادة:</label
+                  >
+                  <p style="border-bottom: 1px dashed black">دار السكر</p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800"
+                    >الطبيب:</label
+                  >
+                  <p style="border-bottom: 1px dashed black">د/ غادة رءوف</p>
+                </li>
+              </ul>
+              <ul style="list-style: none; direction: rtl; padding: 0">
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800">الاسم:</label>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit?.patient?.fullName }}
+                  </p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800">السن:</label>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit?.patient?.age }}
+                  </p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800">الوزن:</label>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit?.medicalRecord?.weight }}
+                  </p>
+                </li>
+              </ul>
+              <!-- } -->
+            </div>
+
+            <table style="width: 90%; margin: auto; margin-top: 20px">
+              <thead>
+                <tr class="text-left">
+                  <th>Type</th>
+                  <th>Drug Name</th>
+                  <th>Concentration</th>
+                  <th>Times</th>
+                  <th>Period</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of visit?.prescription?.medicines; track $index) {
+                <tr class="text-left">
+                  <td style="text-align: center">
+                    {{ item?.medicine?.type }}
+                  </td>
+                  <td style="text-align: center">
+                    {{ item?.medicine?.medName }}
+                  </td>
+                  <td style="text-align: center">
+                    {{ item?.medicine?.concentration }}
+                  </td>
+                  <td style="text-align: center">{{ item.dose }}</td>
+                  <td style="text-align: center">{{ item.period }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <img
+            src="./assets/د غاده رءوف.jpg"
+            alt="footer prescriptions"
+            style="width: 100%"
+          />
         </div>
       </li>
       }

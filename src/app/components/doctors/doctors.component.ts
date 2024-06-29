@@ -34,7 +34,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class DoctorsComponent implements OnInit {
   searchvalue: string = '';
   doctorsData: any[] = [];
-  isDoctor = localStorage.getItem('_name') === 'dr. Ghada' ? true : false;
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
   name: string = localStorage.getItem('_name')!;
   constructor(
     private _DoctorsService: DoctorsService,
@@ -85,9 +86,9 @@ export class DoctorsComponent implements OnInit {
     });
   }
 
-  getPatientRedirect(status: string, id: string) {
+  getPatientRedirect(id: string) {
     this._Router.navigate(['/cases'], {
-      queryParams: { status: status, id: id },
+      queryParams: { id: id },
     });
   }
   goInfo() {

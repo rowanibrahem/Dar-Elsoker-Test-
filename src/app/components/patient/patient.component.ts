@@ -8,6 +8,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-patient',
   standalone: true,
@@ -19,6 +21,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     NgxPaginationModule,
     NzEmptyModule,
     NzPopconfirmModule,
+    NzModalModule,
   ],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.css',
@@ -26,13 +29,15 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class PatientComponent implements OnInit {
   searchvalue: string = '';
   patientData: any[] = [];
-  isDoctor = localStorage.getItem('_name') === 'dr. Ghada' ? true : false;
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
   name: string = localStorage.getItem('_name')!;
 
   constructor(
     private _PatientService: PatientService,
     private _Router: Router,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -70,15 +75,24 @@ export class PatientComponent implements OnInit {
   }
 
   deletePatient(id: number) {
-    this._PatientService.deletePatient(id).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.getPatient();
-        this.nzMessageService.success('تم الحذف بنجاح');
+    this.modal.confirm({
+      nzTitle: 'Are you sure you want to delete this patient?',
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this._PatientService.deletePatient(id).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.getPatient();
+            this.nzMessageService.success('تم الحذف بنجاح');
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
       },
-      // error: (err) => {
-      //   console.log(err);
-      // },
+      nzCancelText: 'No',
     });
   }
 

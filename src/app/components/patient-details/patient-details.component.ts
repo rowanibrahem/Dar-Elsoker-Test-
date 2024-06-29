@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxPrintModule, NgxPrintService, PrintOptions } from 'ngx-print';
 
 @Component({
   selector: 'app-patient-details',
@@ -20,6 +21,7 @@ export class PatientDetailsComponent implements OnInit {
   constructor(
     private _PatientService: PatientService,
     private _ActivatedRoute: ActivatedRoute,
+    private _printService: NgxPrintService,
     private _Router: Router
   ) {}
   patientId: string | null =
@@ -27,8 +29,11 @@ export class PatientDetailsComponent implements OnInit {
   status: string | null =
     this._ActivatedRoute.snapshot.queryParamMap.get('status');
   patientData: any;
+  prescriptions: any;
   visitData: any;
-  name: string = localStorage.getItem('_name')!
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
+  name: string = localStorage.getItem('_name')!;
 
   ngOnInit(): void {
     this.getPatient();
@@ -103,11 +108,20 @@ export class PatientDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.visitData = res;
+        this.prescriptions = res;
         console.log(this.visitData.doctorRedirectedTo.fullName);
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+
+  printFunc() {
+    const customPrintOptions: PrintOptions = new PrintOptions({
+      printSectionId: 'print-section',
+      previewOnly: true,
+    });
+    this._printService.print(customPrintOptions);
   }
 }

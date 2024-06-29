@@ -17,14 +17,14 @@ import { authCodeFlowConfig } from '../../app.config';
 })
 export class LoginComponent {
   constructor(private _Router: Router, private oauthService: OAuthService) {
-    this.configure();
+    // this.configure();
   }
 
-  configure() {
-    this.oauthService.configure(authCodeFlowConfig);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
-  }
+  // configure() {
+  //   this.oauthService.configure(authCodeFlowConfig);
+  //   this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+  //   this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  // }
 
   login() {
     // this.oauthService.initImplicitFlow();

@@ -112,12 +112,6 @@ export class PrescriptionsComponent implements OnInit {
   }
 
   print() {
-    // console.log( this.inputGroups.controls.map((value,i)=>{return{
-    //   medicineId:value.get('medicine')?.value,
-    //   dose:value.get('dose')?.value,
-    //   period:value.get('period')?.value,
-    // }}));
-
     const object = {
       medicines: this.inputGroups.controls.map((value, i) => {
         return {
@@ -127,6 +121,7 @@ export class PrescriptionsComponent implements OnInit {
         };
       }),
     };
+
     this._PrescriptionsService.addMedicine(this.visitId, object).subscribe({
       next: async (res) => {
         console.log(res);
