@@ -117,9 +117,11 @@ export class PatientDetailsComponent implements OnInit {
     });
   }
 
-  printFunc() {
+  printFunc(id: any) {
+    console.log(id);
+
     const customPrintOptions: PrintOptions = new PrintOptions({
-      printSectionId: 'print-section',
+      printSectionId: id,
       previewOnly: true,
     });
     this._printService.print(customPrintOptions);
