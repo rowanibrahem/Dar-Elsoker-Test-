@@ -10,12 +10,14 @@ import { PatientInfoComponent } from './components/patient-info/patient-info.com
 import { DoctorInfoComponent } from './components/doctor-info/doctor-info.component';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 import { PrescriptionsComponent } from './components/prescriptions/prescriptions.component';
+import { authGuard } from './guard/auth/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: LayoutComponent,
+    // canActivateChild: [authGuard],
     children: [
       // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
@@ -46,5 +48,5 @@ export const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent, title: 'تسجيل الدخول' },
-  // { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];

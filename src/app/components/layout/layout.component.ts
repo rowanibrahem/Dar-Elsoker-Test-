@@ -47,7 +47,7 @@ export class LayoutComponent implements OnInit {
 
   signOut() {
     this.modal.confirm({
-      nzTitle: 'Are you sure you want to log out?',
+      nzTitle: 'متاكد من تسجيل الخروج ؟',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,

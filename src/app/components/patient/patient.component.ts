@@ -76,7 +76,7 @@ export class PatientComponent implements OnInit {
 
   deletePatient(id: number) {
     this.modal.confirm({
-      nzTitle: 'Are you sure you want to delete this patient?',
+      nzTitle: 'متاكد من حذف هذا المريض ؟',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,

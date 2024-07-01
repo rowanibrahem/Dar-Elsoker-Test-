@@ -61,7 +61,7 @@ export class DoctorsComponent implements OnInit {
 
   deletDoctor(id: number) {
     this.modal.confirm({
-      nzTitle: 'Are you sure delete this Doctor?',
+      nzTitle: 'متاكد من حذف هذا الطبيب ؟',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,

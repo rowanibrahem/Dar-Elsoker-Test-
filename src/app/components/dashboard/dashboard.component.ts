@@ -43,15 +43,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getDoctorData();
     this.getStatisticsData();
-    initFlowbite();
-    if (localStorage.getItem('_token') == null) {
-      const _token = this._OAuthService.getAccessToken();
-      localStorage.setItem('_token', _token);
-    }
-    if (localStorage.getItem('_name') == null) {
-      const _name = this._OAuthService.getIdentityClaims()['name'];
-      localStorage.setItem('_name', _name);
-    }
+    console.log(this._OAuthService.getAccessToken());
+
+    localStorage.setItem('_token', this._OAuthService.getAccessToken() || '');
+    localStorage.setItem(
+      '_name',
+      this._OAuthService.getIdentityClaims()['name'] || ''
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {

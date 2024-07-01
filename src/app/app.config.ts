@@ -49,12 +49,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
     provideClientHydration(),
-    provideHttpClient(
-      withInterceptors([
-        loaderInterceptor,
-        // myhttpInterceptor
-      ])
-    ),
+    provideHttpClient(withInterceptors([loaderInterceptor, 
+      myhttpInterceptor
+    ])),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,
