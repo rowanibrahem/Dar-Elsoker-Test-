@@ -51,7 +51,7 @@ export class PatientInfoComponent implements OnInit {
     patientId: new FormControl(this.patientId),
     type: new FormControl('FOLLOW_UP'),
     medicalRecord: new FormGroup({
-      timeOfDiabetes: new FormControl(''),
+      durationOfDiabetes: new FormControl(''),
       height: new FormControl(''),
       weight: new FormControl(''),
       medications: new FormControl(''),
@@ -112,7 +112,7 @@ export class PatientInfoComponent implements OnInit {
           medicalRecord: {
             weight: this.patientData.medicalRecord.weight,
             height: this.patientData.medicalRecord.height,
-            timeOfDiabetes: this.patientData.medicalRecord.timeOfDiabetes,
+            durationOfDiabetes: this.patientData.medicalRecord.durationOfDiabetes,
             medications: this.patientData.medicalRecord.medications,
             diet: this.patientData.medicalRecord.diet,
             bloodTestDate: this.patientData.medicalRecord.bloodTestDate,

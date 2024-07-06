@@ -43,17 +43,20 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getDoctorData();
     this.getStatisticsData();
-    console.log(this._OAuthService.getAccessToken());
-
-    localStorage.setItem('_token', this._OAuthService.getAccessToken() || '');
-    localStorage.setItem(
-      '_name',
-      this._OAuthService.getIdentityClaims()['name'] || ''
-    );
+    this.setLocalStorage();
+    console.log(this._OAuthService);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.getStatisticsData;
+  }
+
+  setLocalStorage() {
+    const token: string | null = this._OAuthService.getAccessToken() || '';
+    const name: string | null =
+      this._OAuthService.getIdentityClaims()['name'] || '';
+    localStorage.setItem('_token', token as string);
+    localStorage.setItem('_name', name as string);
   }
 
   getStatisticsData() {

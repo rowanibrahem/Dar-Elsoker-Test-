@@ -52,9 +52,10 @@ export class LayoutComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
+        this._OAuthService.revokeTokenAndLogout();
         this._OAuthService.logOut();
         this._Route.navigate(['/login']),
-          this.nzMessageService.success('تم تسجيل الخروج');
+        this.nzMessageService.success('تم تسجيل الخروج');
         localStorage.clear();
       },
       nzCancelText: 'No',

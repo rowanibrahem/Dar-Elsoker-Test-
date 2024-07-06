@@ -13,13 +13,13 @@ import { PrescriptionsComponent } from './components/prescriptions/prescriptions
 import { authGuard } from './guard/auth/auth.guard';
 
 export const routes: Routes = [
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: LayoutComponent,
     // canActivateChild: [authGuard],
     children: [
-      // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,

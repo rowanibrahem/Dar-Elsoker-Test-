@@ -37,7 +37,7 @@ export class PersonalInfoComponent {
     }),
     type: new FormControl('CHECKUP'),
     medicalRecord: new FormGroup({
-      timeOfDiabetes: new FormControl(''),
+      durationOfDiabetes: new FormControl(''),
       height: new FormControl(''),
       weight: new FormControl(''),
       medications: new FormControl(''),

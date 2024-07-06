@@ -6,7 +6,6 @@ import {
   OAuthService,
   provideOAuthClient,
 } from 'angular-oauth2-oidc';
-import { authCodeFlowConfig } from '../../app.config';
 
 @Component({
   selector: 'app-login',
@@ -16,18 +15,11 @@ import { authCodeFlowConfig } from '../../app.config';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private _Router: Router, private oauthService: OAuthService) {
-    // this.configure();
-  }
-
-  // configure() {
-  //   this.oauthService.configure(authCodeFlowConfig);
-  //   this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-  //   this.oauthService.loadDiscoveryDocumentAndTryLogin();
-  // }
+  constructor(private _Router: Router, private oauthService: OAuthService) {}
 
   login() {
-    // this.oauthService.initImplicitFlow();
+    this.oauthService.initImplicitFlow();
+    this.oauthService.initCodeFlow();
     this._Router.navigate(['/dashboard']);
   }
 }
