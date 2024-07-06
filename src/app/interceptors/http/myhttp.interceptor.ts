@@ -4,13 +4,11 @@ import { OAuthService } from 'angular-oauth2-oidc';
 
 export const myhttpInterceptor: HttpInterceptorFn = (req, next) => {
   const oAuthService = inject(OAuthService);
-
-  if (oAuthService.getAccessToken() && localStorage.getItem('_token')) {
-    const mytoken: any = {
-      token: localStorage.getItem('_token'),
-    };
+  const token = localStorage.getItem('_token');
+  
+  if (oAuthService.getAccessToken() && token) {
     req = req.clone({
-      setHeaders: mytoken,
+      setHeaders: { Authorization: `Bearer ${token}` },
     });
   }
 
