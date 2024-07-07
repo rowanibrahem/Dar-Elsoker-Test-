@@ -85,12 +85,12 @@
             <td class="font-normal text-sm py-3">
               {{ data.type === "CHECKUP" ? "كشف" : "اعاده" }}
             </td>
-            <td class="font-normal text-sm py-3">
-              @if (isDoctor) {
+            <td class="font-normal text-sm items-center">
+              @if (!isDoctor) {
               <button
-                (click)="upDateVisite(data.id, data.visitCompleted)"
+                (click)="upDateVisite(data.id, data.redirectionCompleted)"
                 class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
-                [ngClass]="data.visitCompleted ? 'true' : 'false'"
+                [ngClass]="data.redirectionCompleted ? 'true' : 'false'"
               >
                 <span>
                   @if (isLoading && visitId==data.id) {<i
@@ -98,11 +98,11 @@
                   ></i
                   >}
                 </span>
-                {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+                {{ data.redirectionCompleted ? "تم الكشف" : "لم يكشف" }}
               </button>
-              } @if (!isDoctor) {
+              } @if (isDoctor) {
               <p
-                class="h-[33px] rounded-md text-sm font-bold"
+                class="rounded-md text-sm font-bold"
                 [ngClass]="data.visitCompleted ? 'nurse-true' : 'nurse-false'"
               >
                 {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}

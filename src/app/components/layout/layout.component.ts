@@ -47,8 +47,8 @@ export class LayoutComponent implements OnInit {
 
   signOut() {
     this.modal.confirm({
-      nzTitle: 'متاكد من تسجيل الخروج ؟',
-      nzOkText: 'Yes',
+      nzTitle: 'هل انت متاكد من تسجيل الخروج ؟',
+      nzOkText: 'نعم',
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -56,9 +56,9 @@ export class LayoutComponent implements OnInit {
         this._OAuthService.logOut();
         this._Route.navigate(['/login']),
         this.nzMessageService.success('تم تسجيل الخروج');
-        localStorage.clear();
+        // localStorage.clear();
       },
-      nzCancelText: 'No',
+      nzCancelText: 'لا',
     });
   }
 }

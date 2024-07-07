@@ -74,20 +74,38 @@ export class CasesComponent implements OnInit {
 
   upDateVisite(id: any, value: boolean) {
     this.visitId = id;
-    if (!value) {
-      this.isLoading = true;
-      this._CasesService.updateVisit(id, true).subscribe({
-        next: (res) => {
-          console.log(res);
+    if (this.status) {
+      if (!value) {
+        this.isLoading = true;
+        this._CasesService.updateVisit(id, true).subscribe({
+          next: (res) => {
+            console.log(res);
 
-          this.getVisitsByStatus();
-          this.getPatientRedirect();
-          this.isLoading = false;
-          this.visitId = '';
+            this.getVisitsByStatus();
+            this.getPatientRedirect();
+            this.isLoading = false;
+            this.visitId = '';
 
-          return res;
-        },
-      });
+            return res;
+          },
+        });
+      }
+    } else {
+      if (!value) {
+        this.isLoading = true;
+        this._CasesService.updateRedirect(id, true).subscribe({
+          next: (res) => {
+            console.log(res);
+
+            this.getVisitsByStatus();
+            this.getPatientRedirect();
+            this.isLoading = false;
+            this.visitId = '';
+
+            return res;
+          },
+        });
+      }
     }
   }
 

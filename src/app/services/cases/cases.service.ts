@@ -26,6 +26,16 @@ export class CasesService {
     );
   }
 
+  updateRedirect(visitId: any, value: boolean): Observable<any> {
+    return this._HttpClient.patch(
+      `${this.baseUrl}visits/${visitId}/redirection-completed?completed=${value}`,
+      {
+        id: visitId,
+        redirectionCompleted: value,
+      }
+    );
+  }
+
   rediretToDoctor(visitId: any, doctorId: any): Observable<any> {
     return this._HttpClient.patch(
       `${this.baseUrl}visits/${visitId}/doctor-redirected-to/${doctorId}`,

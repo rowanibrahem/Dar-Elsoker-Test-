@@ -36,6 +36,7 @@ export class PersonalInfoComponent {
       age: new FormControl(0),
     }),
     type: new FormControl('CHECKUP'),
+    nurse: new FormControl(this.name),
     medicalRecord: new FormGroup({
       durationOfDiabetes: new FormControl(''),
       height: new FormControl(''),

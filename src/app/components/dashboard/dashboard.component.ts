@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _CasesService: CasesService,
     private _OAuthService: OAuthService,
-    private _Router: Router // private _Renderer2: Renderer2
+    private _Router: Router
   ) {}
   dashTable: any = [];
   statisticsData: any = {};
@@ -43,20 +43,20 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getDoctorData();
     this.getStatisticsData();
-    this.setLocalStorage();
     console.log(this._OAuthService);
+    this.name = localStorage.getItem('_name')!;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.getStatisticsData;
   }
 
-  setLocalStorage() {
-    const token: string | null = this._OAuthService.getAccessToken() || '';
-    const name: string | null =
-      this._OAuthService.getIdentityClaims()['name'] || '';
-    localStorage.setItem('_token', token as string);
-    localStorage.setItem('_name', name as string);
+  ngAfterViewChecked(): void {
+    if (this.name != localStorage.getItem('_name')!) {
+      this.getDoctorData();
+      this.getStatisticsData();
+      this.name = localStorage.getItem('_name')!;
+    }
   }
 
   getStatisticsData() {

@@ -38,7 +38,12 @@ export const authCodeFlowConfig: AuthConfig = {
 
 export const initializeOAuth = (oauthService: OAuthService) => {
   oauthService.configure(authCodeFlowConfig);
-  oauthService.loadDiscoveryDocumentAndTryLogin();
+  oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+    const token = oauthService.getAccessToken() || '';
+    const name = oauthService.getIdentityClaims()['name'] || '';
+    localStorage.setItem('_token', token);
+    localStorage.setItem('_name', name);
+  }).catch(console.error);
 };
 
 export const appConfig: ApplicationConfig = {

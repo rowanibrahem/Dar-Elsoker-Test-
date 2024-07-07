@@ -76,8 +76,8 @@ export class PatientComponent implements OnInit {
 
   deletePatient(id: number) {
     this.modal.confirm({
-      nzTitle: 'متاكد من حذف هذا المريض ؟',
-      nzOkText: 'Yes',
+      nzTitle: 'هل انت متاكد من حذف هذا المريض ؟',
+      nzOkText: 'نعم',
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
@@ -92,7 +92,7 @@ export class PatientComponent implements OnInit {
           },
         });
       },
-      nzCancelText: 'No',
+      nzCancelText: 'لا',
     });
   }
 

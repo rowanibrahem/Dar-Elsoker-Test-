@@ -50,6 +50,7 @@ export class PatientInfoComponent implements OnInit {
   recordForm: FormGroup = new FormGroup({
     patientId: new FormControl(this.patientId),
     type: new FormControl('FOLLOW_UP'),
+    nurse: new FormControl(this.name),
     medicalRecord: new FormGroup({
       durationOfDiabetes: new FormControl(''),
       height: new FormControl(''),
