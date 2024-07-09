@@ -55,8 +55,8 @@ export class LayoutComponent implements OnInit {
         this._OAuthService.revokeTokenAndLogout();
         this._OAuthService.logOut();
         this._Route.navigate(['/login']),
-        this.nzMessageService.success('تم تسجيل الخروج');
-        // localStorage.clear();
+          this.nzMessageService.success('تم تسجيل الخروج');
+        localStorage.clear();
       },
       nzCancelText: 'لا',
     });

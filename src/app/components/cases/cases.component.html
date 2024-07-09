@@ -86,7 +86,7 @@
               {{ data.type === "CHECKUP" ? "كشف" : "اعاده" }}
             </td>
             <td class="font-normal text-sm items-center">
-              @if (!isDoctor) {
+              @if (!status && !isDoctor) {
               <button
                 (click)="upDateVisite(data.id, data.redirectionCompleted)"
                 class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
@@ -100,7 +100,28 @@
                 </span>
                 {{ data.redirectionCompleted ? "تم الكشف" : "لم يكشف" }}
               </button>
-              } @if (isDoctor) {
+              } @if (!status && isDoctor) {
+              <p
+                class="rounded-md text-sm font-bold"
+                [ngClass]="data.visitCompleted ? 'nurse-true' : 'nurse-false'"
+              >
+                {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+              </p>
+              } @if (isDoctor && status) {
+              <button
+                (click)="upDateVisite(data.id, data.visitCompleted)"
+                class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                [ngClass]="data.visitCompleted ? 'true' : 'false'"
+              >
+                <span>
+                  @if (isLoading && visitId==data.id) {<i
+                    class="fa-solid fa-spinner fa-spin"
+                  ></i
+                  >}
+                </span>
+                {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+              </button>
+              } @if (!isDoctor && status) {
               <p
                 class="rounded-md text-sm font-bold"
                 [ngClass]="data.visitCompleted ? 'nurse-true' : 'nurse-false'"

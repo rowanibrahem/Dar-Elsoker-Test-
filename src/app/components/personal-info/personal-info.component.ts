@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -81,10 +81,15 @@ export class PersonalInfoComponent {
       },
       error: (err) => {
         console.log(err);
-        for (const key in err.error) {
-          if (err.error.hasOwnProperty(key)) {
-            this.msg.error(err.error[key]);
-          }
+        if (err.error && err.error.subErrors) {
+          const subErrors = err.error.subErrors;
+          subErrors.forEach(
+            (error: { message: string | TemplateRef<void> }) => {
+              this.msg.error(error.message);
+            }
+          );
+        } else {
+          this.msg.error(err.error.message);
         }
       },
     });

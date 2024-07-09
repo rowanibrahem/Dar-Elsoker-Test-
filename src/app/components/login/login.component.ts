@@ -18,8 +18,8 @@ export class LoginComponent {
   constructor(private _Router: Router, private oauthService: OAuthService) {}
 
   login() {
-    this.oauthService.initImplicitFlow();
     this.oauthService.initCodeFlow();
+    this.oauthService.initImplicitFlow();
     this._Router.navigate(['/dashboard']);
   }
 }
