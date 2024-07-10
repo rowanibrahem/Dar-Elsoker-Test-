@@ -6,16 +6,27 @@ import {
   OAuthService,
   provideOAuthClient,
 } from 'angular-oauth2-oidc';
+import { IsLoaderService } from '../../services/loader/is-loader.service';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [
+    NzImageModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private _Router: Router, private oauthService: OAuthService) {}
+  constructor(
+    private _Router: Router,
+    private oauthService: OAuthService,
+    private loading: IsLoaderService
+  ) {}
+
+  src = `./assets/Untitled-1-01.png`;
+  placeholder = './assets/imageedit .png';
 
   login() {
     this.oauthService.initCodeFlow();

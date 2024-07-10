@@ -1,8 +1,16 @@
 <div class="flex h-[100vh] max-md:flex-col">
   <div
-    class="img bg-[#00C894] w-1/2 max-md:w-full max-md:h-1/2 flex items-center"
+    class="bg-[#00C894] w-1/2 max-md:w-full max-md:h-1/2 grid content-center"
   >
-    <img src="./assets/Untitled-1-01.png" alt="dar-elsoker-logo" />
+    <div class="overflow-hidden w-full">
+      <img
+        nz-image
+        [nzSrc]="src"
+        [nzPlaceholder]="placeholder"
+        nzDisablePreview
+        alt="dar-elsoker-logo"
+      />
+    </div>
   </div>
   <div
     class="bg-[#F8F8F8] w-1/2 max-md:w-full max-md:h-1/2 rtl grid items-center"

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from '../../services/patient/patient.service';
 import {
@@ -142,7 +142,16 @@ export class PatientInfoComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.msg.error(err.message);
+        if (err.error && err.error.subErrors) {
+          const subErrors = err.error.subErrors;
+          subErrors.forEach(
+            (error: { message: string | TemplateRef<void> }) => {
+              this.msg.error(error.message);
+            }
+          );
+        } else {
+          this.msg.error(err.error.message);
+        }
       },
     });
   }
