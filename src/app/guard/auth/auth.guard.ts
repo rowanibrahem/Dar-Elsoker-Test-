@@ -5,10 +5,11 @@ import { OAuthService } from 'angular-oauth2-oidc';
 export const authGuard: CanActivateFn = (route, state) => {
   const oauthService = inject(OAuthService);
   const router = inject(Router);
+  const token = localStorage.getItem('_token');
 
-  return oauthService.hasValidAccessToken()
-    ? Promise.resolve(true)
-    : Promise.reject(
-        new Error('Access token not found. Redirecting to login...')
-      ).then(() => router.navigate(['/login']));
+  if (oauthService.getAccessToken() && token) {
+    return true;
+  } else {
+    return router.navigate(['/login']);
+  }
 };

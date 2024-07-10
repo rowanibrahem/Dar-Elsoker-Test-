@@ -11,6 +11,9 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { LoginComponent } from '../login/login.component';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { IsLoaderService } from '../../services/loader/is-loader.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +26,8 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     NgxPaginationModule,
     NzDatePickerModule,
     NzEmptyModule,
+    LoginComponent,
+    NzImageModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -32,7 +37,8 @@ export class DashboardComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _CasesService: CasesService,
     private _OAuthService: OAuthService,
-    private _Router: Router
+    private _Router: Router,
+    public _IsLoaderService: IsLoaderService
   ) {}
   dashTable: any = [];
   statisticsData: any = {};
@@ -40,6 +46,8 @@ export class DashboardComponent implements OnInit {
   isLoading: boolean = false;
   doctorId: any;
   name: string = localStorage.getItem('_name')!;
+  token: string = localStorage.getItem('_token')!;
+
   ngOnInit(): void {
     this.getDoctorData();
     this.getStatisticsData();

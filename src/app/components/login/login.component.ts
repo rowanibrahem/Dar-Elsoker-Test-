@@ -26,7 +26,7 @@ export class LoginComponent {
   ) {}
 
   src = `./assets/Untitled-1-01.png`;
-  placeholder = './assets/imageedit .png';
+  placeholder = `./assets/imageedit .png`;
 
   login() {
     this.oauthService.initCodeFlow();
