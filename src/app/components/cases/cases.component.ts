@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { CasesService } from '../../services/cases/cases.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { DoctorsService } from '../../services/doctors/doctors.service';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+
 @Component({
   selector: 'app-cases',
   standalone: true,
-  imports: [CommonModule, NgxPaginationModule, FormsModule],
+  imports: [CommonModule, NgxPaginationModule, FormsModule, NzEmptyModule],
   templateUrl: './cases.component.html',
   styleUrl: './cases.component.css',
 })
@@ -17,43 +20,45 @@ export class CasesComponent implements OnInit {
     private _CasesService: CasesService,
     private _DoctorsService: DoctorsService,
     private _Router: Router,
-    private _active: ActivatedRoute
+    private _active: ActivatedRoute,
+    private msg: NzMessageService
   ) {}
   status: string | null = this._active.snapshot.queryParamMap.get('status');
-  doctorId!: string | null;
+  doctorId: string | null = this._active.snapshot.queryParamMap.get('id');
   visitId: any;
   isLoading: boolean = false;
   visitsData: any[] = [];
   doctorData: any[] = [];
   doctorName!: string;
+  name: string = localStorage.getItem('_name')!;
   // pageSize: number = 7;
   // pageNumber: number = 1;
   // totalElements: number = 0;
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
 
   ngOnInit(): void {
-    if (this.status === 'redirections') {
+    if (this.doctorId) {
       this.getPatientRedirect();
-    } else {
-      this.getDoctors();
-      this.getVisitsByStatus();
-      this.redirectVisit(this.visitId, event);
     }
+    this.getDoctors();
+    this.getVisitsByStatus();
   }
 
   getVisitsByStatus() {
-    this.status = this._active.snapshot.queryParamMap.get('status');
-    this._CasesService
-      .allByDateAndStatus(this.todayDate, this.status)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-
-          this.visitsData = res;
-        },
-        // error: (err) => {
-        //   console.log(err);
-        // },
-      });
+    if (this.status) {
+      this._CasesService
+        .allByDateAndStatus(this.todayDate, this.status)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.visitsData = res;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+    }
   }
 
   // getVisit() {
@@ -69,16 +74,38 @@ export class CasesComponent implements OnInit {
 
   upDateVisite(id: any, value: boolean) {
     this.visitId = id;
-    if (!value) {
-      let value2 = true;
-      this.isLoading = true;
-      this._CasesService.updateVisit(id, value2).subscribe({
-        next: (res) => {
-          this.getVisitsByStatus();
-          this.isLoading = false;
-          this.visitId = '';
-        },
-      });
+    if (this.status) {
+      if (!value) {
+        this.isLoading = true;
+        this._CasesService.updateVisit(id, true).subscribe({
+          next: (res) => {
+            console.log(res);
+
+            this.getVisitsByStatus();
+            this.getPatientRedirect();
+            this.isLoading = false;
+            this.visitId = '';
+
+            return res;
+          },
+        });
+      }
+    } else {
+      if (!value) {
+        this.isLoading = true;
+        this._CasesService.updateRedirect(id, true).subscribe({
+          next: (res) => {
+            console.log(res);
+
+            this.getVisitsByStatus();
+            this.getPatientRedirect();
+            this.isLoading = false;
+            this.visitId = '';
+
+            return res;
+          },
+        });
+      }
     }
   }
 
@@ -89,6 +116,9 @@ export class CasesComponent implements OnInit {
       next: (res) => {
         this.doctorName = res.doctorRedirectedTo.fullName;
         console.log(this.doctorName);
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }
@@ -103,13 +133,17 @@ export class CasesComponent implements OnInit {
   }
 
   getPatientRedirect() {
-    this.doctorId = this._active.snapshot.queryParamMap.get('id');
-    this._DoctorsService.allDoctorRedirections(this.doctorId).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.visitsData = res;
-      },
-    });
+    if (this.doctorId) {
+      this._DoctorsService.allDoctorRedirections(this.doctorId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.visitsData = res;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   // pageChanged(event: number): void {

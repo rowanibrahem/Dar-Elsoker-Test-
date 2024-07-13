@@ -26,6 +26,16 @@ export class CasesService {
     );
   }
 
+  updateRedirect(visitId: any, value: boolean): Observable<any> {
+    return this._HttpClient.patch(
+      `${this.baseUrl}visits/${visitId}/redirection-completed?completed=${value}`,
+      {
+        id: visitId,
+        redirectionCompleted: value,
+      }
+    );
+  }
+
   rediretToDoctor(visitId: any, doctorId: any): Observable<any> {
     return this._HttpClient.patch(
       `${this.baseUrl}visits/${visitId}/doctor-redirected-to/${doctorId}`,
@@ -44,12 +54,19 @@ export class CasesService {
   getVisitsPage(pageNum: number = 1): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}visits?page=${pageNum}`);
   }
+  getVisitById(id: string | null): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
+  }
 
   getPatientMedicalRecords(id: string | null): Observable<any> {
     return this._HttpClient.get(`${this.baseUrl}visits/${id}`);
   }
 
-  checkUP(visitData: any): Observable<any> {
+  followUP(visitData: any): Observable<any> {
     return this._HttpClient.post(`${this.baseUrl}visits`, visitData);
+  }
+
+  checkUP(visitData: any): Observable<any> {
+    return this._HttpClient.post(`${this.baseUrl}visits/check-up`, visitData);
   }
 }

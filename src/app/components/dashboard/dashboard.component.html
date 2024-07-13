@@ -1,3 +1,17 @@
+@if(!token && _IsLoaderService.isLoading){
+<div
+  class="bg-black h-[100vh] absolute w-full flex bg-opacity-50 items-center top-0 bottom-0 right-0 left-0 z-50"
+>
+  <img
+    class="w-full bg-[#00C894]"
+    nz-image
+    nzSrc="./assets/Untitled-1-01.png"
+    nzPlaceholder="./assets/imageedit .png"
+    nzDisablePreview
+    alt="dar-elsoker-logo"
+  />
+</div>
+}
 <div class="bg-[#F6F6F6;] h-[100vh]">
   <div
     class="flex justify-between flex-wrap items-center bg-white w-[99.5%] mx-auto"
@@ -37,14 +51,14 @@
             style="width: 35px; height: 35px"
           ></span>
         </div>
-        <p>د/غادة احمد رءوف</p>
+        <p>{{ name }}</p>
       </div>
     </div>
   </div>
 
   <section class="w-full">
     <div class="flex flex-wrap gap-4 py-6 w-[90%] m-auto">
-      <div class="shadow-lg rounded-xl bg-white w-[280px]">
+      <div class="shadow-lg rounded-xl bg-white w-[280px] max-sm:w-full">
         <div class="grid grid-cols-8 content-center py-2 px-2">
           <img src="./assets/simple-line-icons_people.png" alt="icons" />
           <p
@@ -65,7 +79,7 @@
         </h3>
         <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
       </div>
-      <div class="shadow-lg rounded-xl bg-white w-[280px]">
+      <div class="shadow-lg rounded-xl bg-white w-[280px] max-sm:w-full">
         <div class="grid grid-cols-8 content-center py-2 px-2">
           <img src="./assets/lets-icons_done-ring-round.svg" alt="icons" />
           <p
@@ -86,7 +100,7 @@
         </h3>
         <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
       </div>
-      <div class="shadow-lg rounded-xl bg-white w-[280px]">
+      <div class="shadow-lg rounded-xl bg-white w-[280px] max-sm:w-full">
         <div class="grid grid-cols-8 content-center py-2 px-2">
           <img src="./assets/mingcute_transfer-line.svg" alt="icons" />
           <p
@@ -166,5 +180,10 @@
         </tbody>
       </table>
     </div>
+    @if(dashTable.length == 0){
+    <div class="flex items-center justify-center h-60">
+      <nz-empty></nz-empty>
+    </div>
+    }
   </section>
 </div>

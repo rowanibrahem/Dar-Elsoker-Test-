@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from '../../services/patient/patient.service';
 import {
@@ -32,12 +32,15 @@ export class PatientInfoComponent implements OnInit {
     this._ActivatedRoute.snapshot.queryParamMap.get('status');
   patientData: any;
   disaple: boolean = false;
+  name: string = localStorage.getItem('_name')!;
 
   ngOnInit(): void {
-    if (this.status == 'info') {
+    if (this.status == 'FOLLOWUP') {
+      this.disaple = true;
+    } else {
       this.getPatientRecords();
     }
-    this.getVisit();
+    // this.getVisit();
   }
 
   goBack() {
@@ -45,12 +48,11 @@ export class PatientInfoComponent implements OnInit {
   }
 
   recordForm: FormGroup = new FormGroup({
-    patient: new FormGroup({
-      id: new FormControl(this.patientId),
-    }),
+    patientId: new FormControl(this.patientId),
     type: new FormControl('FOLLOW_UP'),
+    nurse: new FormControl(this.name),
     medicalRecord: new FormGroup({
-      timeOfDiabetes: new FormControl(''),
+      durationOfDiabetes: new FormControl(''),
       height: new FormControl(''),
       weight: new FormControl(''),
       medications: new FormControl(''),
@@ -81,7 +83,7 @@ export class PatientInfoComponent implements OnInit {
     const visitData = this.recordForm.value;
     console.log(this.recordForm.value);
 
-    this._CasesService.checkUP(visitData).subscribe({
+    this._CasesService.followUP(visitData).subscribe({
       next: (res) => {
         console.log(res);
         console.log(visitData);
@@ -100,8 +102,7 @@ export class PatientInfoComponent implements OnInit {
     });
   }
 
-  getPatientRecords(value: boolean = true) {
-    this.disaple = value;
+  getPatientRecords() {
     this._CasesService.getPatientMedicalRecords(this.patientId).subscribe({
       next: (res) => {
         // console.log(res);
@@ -112,7 +113,7 @@ export class PatientInfoComponent implements OnInit {
           medicalRecord: {
             weight: this.patientData.medicalRecord.weight,
             height: this.patientData.medicalRecord.height,
-            timeOfDiabetes: this.patientData.medicalRecord.timeOfDiabetes,
+            durationOfDiabetes: this.patientData.medicalRecord.durationOfDiabetes,
             medications: this.patientData.medicalRecord.medications,
             diet: this.patientData.medicalRecord.diet,
             bloodTestDate: this.patientData.medicalRecord.bloodTestDate,
@@ -141,52 +142,60 @@ export class PatientInfoComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.msg.error(err.message);
+        if (err.error && err.error.subErrors) {
+          const subErrors = err.error.subErrors;
+          subErrors.forEach(
+            (error: { message: string | TemplateRef<void> }) => {
+              this.msg.error(error.message);
+            }
+          );
+        } else {
+          this.msg.error(err.error.message);
+        }
       },
     });
   }
 
-  getVisit(value: boolean = true) {
-    this.disaple = value;
-    this._PatientService.getVisitById(this.patientId).subscribe({
-      next: (res) => {
-        this.patientData = res;
-        console.log(this.patientData);
-        this.recordForm.patchValue({
-          medicalRecord: {
-            weight: this.patientData.medicalRecord.weight,
-            height: this.patientData.medicalRecord.height,
-            timeOfDiabetes: this.patientData.medicalRecord.timeOfDiabetes,
-            medications: this.patientData.medicalRecord.medications,
-            diet: this.patientData.medicalRecord.diet,
-            bloodTestDate: this.patientData.medicalRecord.bloodTestDate,
-            fastingBloodSugar: this.patientData.medicalRecord.fastingBloodSugar,
-            fastingBloodSugarTested:
-              this.patientData.medicalRecord.fastingBloodSugarTested,
-            randomBloodSugar: this.patientData.medicalRecord.randomBloodSugar,
-            randomBloodSugarTested:
-              this.patientData.medicalRecord.randomBloodSugarTested,
-            cumulativeBloodSugar:
-              this.patientData.medicalRecord.cumulativeBloodSugar,
-            cumulativeBloodSugarTested:
-              this.patientData.medicalRecord.cumulativeBloodSugarTested,
-            kendyExamination: this.patientData.medicalRecord.kendyExamination,
-            kendyExaminationTested:
-              this.patientData.medicalRecord.kendyExaminationTested,
-            eyeExamination: this.patientData.medicalRecord.eyeExamination,
-            ecg: this.patientData.medicalRecord.ecg,
-            numbness: this.patientData.medicalRecord.numbness,
-            burnings: this.patientData.medicalRecord.burnings,
-            sting: this.patientData.medicalRecord.sting,
-            coolerLimbs: this.patientData.medicalRecord.coolerLimbs,
-            muscleStrain: this.patientData.medicalRecord.muscleStrain,
-          },
-        });
-      },
-      error: (err) => {
-        console.log(err);
-        this.msg.error(err.message);
-      },
-    });
-  }
+  // getVisit() {
+  //   this._PatientService.getVisitById(this.patientId).subscribe({
+  //     next: (res) => {
+  //       this.patientData = res;
+  //       console.log(this.patientData);
+  //       this.recordForm.patchValue({
+  //         medicalRecord: {
+  //           weight: this.patientData.medicalRecord.weight,
+  //           height: this.patientData.medicalRecord.height,
+  //           timeOfDiabetes: this.patientData.medicalRecord.timeOfDiabetes,
+  //           medications: this.patientData.medicalRecord.medications,
+  //           diet: this.patientData.medicalRecord.diet,
+  //           bloodTestDate: this.patientData.medicalRecord.bloodTestDate,
+  //           fastingBloodSugar: this.patientData.medicalRecord.fastingBloodSugar,
+  //           fastingBloodSugarTested:
+  //             this.patientData.medicalRecord.fastingBloodSugarTested,
+  //           randomBloodSugar: this.patientData.medicalRecord.randomBloodSugar,
+  //           randomBloodSugarTested:
+  //             this.patientData.medicalRecord.randomBloodSugarTested,
+  //           cumulativeBloodSugar:
+  //             this.patientData.medicalRecord.cumulativeBloodSugar,
+  //           cumulativeBloodSugarTested:
+  //             this.patientData.medicalRecord.cumulativeBloodSugarTested,
+  //           kendyExamination: this.patientData.medicalRecord.kendyExamination,
+  //           kendyExaminationTested:
+  //             this.patientData.medicalRecord.kendyExaminationTested,
+  //           eyeExamination: this.patientData.medicalRecord.eyeExamination,
+  //           ecg: this.patientData.medicalRecord.ecg,
+  //           numbness: this.patientData.medicalRecord.numbness,
+  //           burnings: this.patientData.medicalRecord.burnings,
+  //           sting: this.patientData.medicalRecord.sting,
+  //           coolerLimbs: this.patientData.medicalRecord.coolerLimbs,
+  //           muscleStrain: this.patientData.medicalRecord.muscleStrain,
+  //         },
+  //       });
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //       this.msg.error(err.message);
+  //     },
+  //   });
+  // }
 }

@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { SearchPipe } from '../../pipes/search.pipe';
+import { SearchPipe } from '../../pipes/search/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { PatientService } from '../../services/patient/patient.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-patient',
   standalone: true,
@@ -15,6 +19,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     RouterLink,
     NgxPaginationModule,
+    NzEmptyModule,
+    NzPopconfirmModule,
+    NzModalModule,
   ],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.css',
@@ -22,10 +29,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class PatientComponent implements OnInit {
   searchvalue: string = '';
   patientData: any[] = [];
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
+  name: string = localStorage.getItem('_name')!;
 
   constructor(
     private _PatientService: PatientService,
-    private _Router: Router
+    private _Router: Router,
+    private nzMessageService: NzMessageService,
+    private modal: NzModalService
   ) {}
 
   ngOnInit(): void {
@@ -63,14 +75,24 @@ export class PatientComponent implements OnInit {
   }
 
   deletePatient(id: number) {
-    this._PatientService.deletePatient(id).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.getPatient();
+    this.modal.confirm({
+      nzTitle: 'هل انت متاكد من حذف هذا المريض ؟',
+      nzOkText: 'نعم',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this._PatientService.deletePatient(id).subscribe({
+          next: (res) => {
+            console.log(res);
+            this.getPatient();
+            this.nzMessageService.success('تم الحذف بنجاح');
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
       },
-      // error: (err) => {
-      //   console.log(err);
-      // },
+      nzCancelText: 'لا',
     });
   }
 

@@ -21,24 +21,30 @@ import { myhttpInterceptor } from './interceptors/http/myhttp.interceptor';
 import { loaderInterceptor } from './interceptors/loader/loader.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
 export const authCodeFlowConfig: AuthConfig = {
-  issuer: 'http://localhost:8080/realms/dar-elsoker',
+  issuer: 'https://outh.ebdaa-business.com/realms/dar-elsokar',
   tokenEndpoint:
-    'http://localhost:8080/realms/dar-elsoker/protocol/openid-connect/token',
-  redirectUri: window.location.origin,
-  clientId: 'dar-elsoker-frontend',
+    'https://outh.ebdaa-business.com/realms/dar-elsokar/protocol/openid-connect/token',
+  postLogoutRedirectUri: 'http://localhost:4200/login',
+  redirectUri: 'http://localhost:4200/dashboard',
+  clientId: 'dar-elsokar-frontend',
   responseType: 'code',
   scope: 'openid profile',
+  sessionChecksEnabled: true,
+  showDebugInformation: true,
 };
 
-function initializeOAuth(oauthService: OAuthService): Promise<void> {
-  return new Promise((resolve) => {
-    oauthService.configure(authCodeFlowConfig);
-    oauthService.setupAutomaticSilentRefresh();
-    oauthService.loadDiscoveryDocumentAndLogin().then(() => resolve());
-  });
-}
+export const initializeOAuth = (oauthService: OAuthService) => {
+  oauthService.configure(authCodeFlowConfig);
+  oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
+    const token = oauthService.getAccessToken() || '';
+    const name = oauthService.getIdentityClaims()['name'] || '';
+    localStorage.setItem('_token', token);
+    localStorage.setItem('_name', name);
+  }).catch(console.error);
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,7 +53,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([myhttpInterceptor, loaderInterceptor])),
+    provideHttpClient(withInterceptors([loaderInterceptor, myhttpInterceptor])),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,
@@ -59,5 +65,6 @@ export const appConfig: ApplicationConfig = {
       multi: true,
       deps: [OAuthService],
     },
+    provideNzI18n(en_US),
   ],
 };

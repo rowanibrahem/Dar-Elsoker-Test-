@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxPrintModule, NgxPrintService, PrintOptions } from 'ngx-print';
 
 @Component({
   selector: 'app-patient-details',
@@ -20,6 +21,7 @@ export class PatientDetailsComponent implements OnInit {
   constructor(
     private _PatientService: PatientService,
     private _ActivatedRoute: ActivatedRoute,
+    private _printService: NgxPrintService,
     private _Router: Router
   ) {}
   patientId: string | null =
@@ -27,7 +29,11 @@ export class PatientDetailsComponent implements OnInit {
   status: string | null =
     this._ActivatedRoute.snapshot.queryParamMap.get('status');
   patientData: any;
+  prescriptions: any;
   visitData: any;
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
+  name: string = localStorage.getItem('_name')!;
 
   ngOnInit(): void {
     this.getPatient();
@@ -37,7 +43,7 @@ export class PatientDetailsComponent implements OnInit {
     this._Router.navigate(['/patient']);
   }
 
-  patientInfo(visitId:string) {
+  patientInfo(visitId: string) {
     this._Router.navigate(['/patient-info'], {
       queryParams: { id: visitId },
     });
@@ -57,10 +63,13 @@ export class PatientDetailsComponent implements OnInit {
 
   updatePatient() {
     const patientData = this.patientForm.value;
-    this._PatientService.updatePatient(patientData).subscribe({
+    this._PatientService.updatePatient(patientData, this.patientId).subscribe({
       next: (res) => {
         console.log(res);
         this.goBack();
+      },
+      error: (err) => {
+        console.log(err);
       },
     });
   }
@@ -99,11 +108,22 @@ export class PatientDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.visitData = res;
+        this.prescriptions = res;
         console.log(this.visitData.doctorRedirectedTo.fullName);
       },
       error: (err) => {
         console.log(err);
       },
     });
+  }
+
+  printFunc(id: any) {
+    console.log(id);
+
+    const customPrintOptions: PrintOptions = new PrintOptions({
+      printSectionId: id,
+      previewOnly: true,
+    });
+    this._printService.print(customPrintOptions);
   }
 }

@@ -32,7 +32,7 @@
             style="width: 35px; height: 35px"
           ></span>
         </div>
-        <p>د/غادة احمد رءوف</p>
+        <p>{{ name }}</p>
       </div>
     </div>
   </div>
@@ -47,56 +47,70 @@
           <button
             class="icon-[mingcute--more-2-fill]"
             style="width: 30px; height: 30px"
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="menu"
           ></button>
-          <ul
-            class="hidden rounded bg-[#FFFFFF] border border-[#0000001A] w-[40%] text-xs font-normal text-[#666666] z-40 overflow-hidden"
-          >
-            <li
-              class="flex gap-3 p-[10px] border-b"
-              (click)="getPatientRedirect('redirections', item.id)"
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul
+              role="button"
+              nz-menu
+              class="rounded bg-[#FFFFFF] border border-[#0000001A] w-[120px] text-xs font-normal text-[#666666] z-40"
             >
-              <span
-                class="icon-[tabler--table]"
-                style="width: 10px; height: 10px"
-              ></span>
-              <h6>سجل المرضي</h6>
-            </li>
-            <li
-              class="flex gap-3 p-[10px] border-b"
-              id="info"
-              (click)="goWithId('info', item.id)"
-            >
-              <span
-                class="icon-[fluent--text-bullet-list-square-48-filled]"
-                style="width: 10px; height: 10px"
-              ></span>
-              <h6>بيانات الدكتور</h6>
-            </li>
-            <li
-              class="flex gap-3 p-[10px] border-b"
-              id="edit"
-              (click)="goWithId('edit', item.id)"
-            >
-              <span
-                class="icon-[akar-icons--edit]"
-                style="width: 10px; height: 10px"
-              ></span>
-              <h6>تعديل البيانات</h6>
-            </li>
-            <li
-              class="flex gap-3 p-[10px] border-b"
-              (click)="deletDoctor(item.id)"
-            >
-              <span
-                class="icon-[fluent--delete-24-regular]"
-                style="width: 10px; height: 10px"
-              ></span>
-              <h6>حذف الدكتور</h6>
-            </li>
-          </ul>
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                (click)="getPatientRedirect(item.id)"
+              >
+                <span
+                  class="icon-[tabler--table]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>سجل المرضي</h6>
+              </li>
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                id="info"
+                (click)="goWithId('info', item.id)"
+              >
+                <span
+                  class="icon-[fluent--text-bullet-list-square-48-filled]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>بيانات الدكتور</h6>
+              </li>
+              @if (isDoctor) {
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                id="edit"
+                (click)="goWithId('edit', item.id)"
+              >
+                <span
+                  class="icon-[akar-icons--edit]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>تعديل البيانات</h6>
+              </li>
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                (click)="deletDoctor(item.id)"
+              >
+                <span
+                  class="icon-[fluent--delete-24-regular]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>حذف الدكتور</h6>
+              </li>
+              }
+            </ul>
+          </nz-dropdown-menu>
         </div>
-        <div class="absolute top-[35px] left-[122px] w-[105px] h-[105px] bg-[#ffffff] rounded-full">
-          <span class="icon-[healthicons--doctor-male] border border-white p-4" style="width: 105px; height: 105px;"></span>
+        <div
+          class="absolute top-[35px] left-[122px] w-[105px] h-[105px] bg-[#ffffff] rounded-full"
+        >
+          <span
+            class="icon-[healthicons--doctor-male] border border-white p-4"
+            style="width: 105px; height: 105px"
+          ></span>
         </div>
       </div>
       <h2 class="mt-16 text-center font-semibold text-3xl">
@@ -123,7 +137,7 @@
         </div>
       </div>
     </div>
-    }
+    } @if (isDoctor) {
     <div class="w-[350px] text-center" role="button">
       <span
         (click)="goInfo()"
@@ -131,5 +145,6 @@
         style="width: 100px; height: 100px"
       ></span>
     </div>
+    }
   </section>
 </div>

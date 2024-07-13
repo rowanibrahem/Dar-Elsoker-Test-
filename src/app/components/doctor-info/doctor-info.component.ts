@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, TemplateRef } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -62,50 +62,59 @@ export class DoctorInfoComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        for (const key in err.error) {
-          if (err.error.hasOwnProperty(key)) {
-            this.msg.error(err.error[key]);
-          }
+        if (err.error && err.error.subErrors) {
+          const subErrors = err.error.subErrors;
+          subErrors.forEach(
+            (error: { message: string | TemplateRef<void> }) => {
+              this.msg.error(error.message);
+            }
+          );
+        } else {
+          this.msg.error(err.error.message);
         }
       },
     });
   }
 
   updateDoctor(): void {
-    const doctorData = this.doctorForm.value;
-    this._DoctorsService.reuseDoctor(doctorData, this.doctorId).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.doctorsData = res;
-        this._Location.back();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (this.status != 'save') {
+      const doctorData = this.doctorForm.value;
+      this._DoctorsService.reuseDoctor(doctorData, this.doctorId).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.doctorsData = res;
+          this._Location.back();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   getDoctorByID(value: boolean = true) {
-    this.disaple = value;
-    this._DoctorsService.getDoctorByID(this.doctorId).subscribe({
-      next: (res) => {
-        console.log(res);
+    if (this.status != 'save') {
+      this.disaple = value;
+      this._DoctorsService.getDoctorByID(this.doctorId).subscribe({
+        next: (res) => {
+          console.log(res);
 
-        this.doctorsData = res;
-        this.doctorForm.patchValue({
-          contactInfo: {
-            firstName: this.doctorsData.contactInfo.firstName,
-            lastName: this.doctorsData.contactInfo.lastName,
-            email: this.doctorsData.contactInfo.email,
-            phone: this.doctorsData.contactInfo.phone,
-            address: this.doctorsData.contactInfo.address,
-          },
-          specialization: this.doctorsData.specialization,
-          qualification: this.doctorsData.qualification,
-        });
-        console.log(this.doctorForm);
-      },
-    });
+          this.doctorsData = res;
+          this.doctorForm.patchValue({
+            contactInfo: {
+              firstName: this.doctorsData.contactInfo.firstName,
+              lastName: this.doctorsData.contactInfo.lastName,
+              email: this.doctorsData.contactInfo.email,
+              phone: this.doctorsData.contactInfo.phone,
+              address: this.doctorsData.contactInfo.address,
+            },
+            specialization: this.doctorsData.specialization,
+            qualification: this.doctorsData.qualification,
+          });
+          console.log(this.doctorForm);
+        },
+      });
+    }
   }
 
   goBack() {

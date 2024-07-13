@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,62 +8,90 @@ import {
   Validators,
 } from '@angular/forms';
 import { CasesService } from '../../services/cases/cases.service';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-personal-info',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, NzMessageModule],
   templateUrl: './personal-info.component.html',
   styleUrl: './personal-info.component.css',
 })
 export class PersonalInfoComponent {
   constructor(
     private _Location: Location,
-    private _CasesService: CasesService
+    private _CasesService: CasesService,
+    private msg: NzMessageService
   ) {}
+  name: string = localStorage.getItem('_name')!;
 
   detailsForm: FormGroup = new FormGroup({
     patient: new FormGroup({
       contactInfo: new FormGroup({
         firstName: new FormControl(null, [Validators.required]),
         lastName: new FormControl(null, [Validators.required]),
-        // email: new FormControl(null, [Validators.required, Validators.email]),
         phone: new FormControl(null),
         address: new FormControl(null),
       }),
       age: new FormControl(0),
     }),
     type: new FormControl('CHECKUP'),
+    nurse: new FormControl(this.name),
     medicalRecord: new FormGroup({
-      timeOfDiabetes: new FormControl(0.0),
-      weight: new FormControl(0.0),
-      diet: new FormControl(null),
-      fastingBloodSugar: new FormControl(0),
-      randomBloodSugar: new FormControl(0),
-      cumulativeBloodSugar: new FormControl(0),
-      kendy_examination: new FormControl(null),
-      eye_examination: new FormControl(true),
-      ecg: new FormControl(true),
-      numbness: new FormControl(true),
-      burnings: new FormControl(true),
-      sting: new FormControl(true),
-      coolerLimbs: new FormControl(true),
-      muscleStrain: new FormControl(true),
+      durationOfDiabetes: new FormControl(''),
+      height: new FormControl(''),
+      weight: new FormControl(''),
+      medications: new FormControl(''),
+      diet: new FormControl(''),
+      bloodTestDate: new FormControl(''),
+      fastingBloodSugar: new FormControl(''),
+      fastingBloodSugarTested: new FormControl(''),
+      randomBloodSugar: new FormControl(''),
+      randomBloodSugarTested: new FormControl(''),
+      cumulativeBloodSugar: new FormControl(''),
+      cumulativeBloodSugarTested: new FormControl(''),
+      kendyExamination: new FormControl(''),
+      kendyExaminationTested: new FormControl(''),
+      kendyExaminationDate: new FormControl(''),
+      eyeExamination: new FormControl(''),
+      eyeExaminationDate: new FormControl(''),
+      ecg: new FormControl(''),
+      ecgDate: new FormControl(''),
+      numbness: new FormControl(''),
+      burnings: new FormControl(''),
+      sting: new FormControl(''),
+      coolerLimbs: new FormControl(''),
+      muscleStrain: new FormControl(''),
     }),
   });
 
-  saveVisit() {
-    const visitData = this.detailsForm.value;
-    // if (visitData != null) {
-    this._CasesService.checkUP(visitData).subscribe({
-      next: (res) => {
-        this.goBack();
-      },
-    });
-    // }
-  }
-
   goBack() {
     this._Location.back();
+  }
+
+  saveVisit() {
+    const visitData = this.detailsForm.value;
+    console.log(this.detailsForm.value);
+
+    this._CasesService.checkUP(visitData).subscribe({
+      next: (res) => {
+        console.log(res);
+        console.log(visitData);
+        this.goBack();
+      },
+      error: (err) => {
+        console.log(err);
+        if (err.error && err.error.subErrors) {
+          const subErrors = err.error.subErrors;
+          subErrors.forEach(
+            (error: { message: string | TemplateRef<void> }) => {
+              this.msg.error(error.message);
+            }
+          );
+        } else {
+          this.msg.error(err.error.message);
+        }
+      },
+    });
   }
 }

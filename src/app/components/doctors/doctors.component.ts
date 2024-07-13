@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { SearchPipe } from '../../pipes/search.pipe';
+import { SearchPipe } from '../../pipes/search/search.pipe';
 import {
   FormControl,
   FormGroup,
@@ -12,7 +12,10 @@ import { DoctorsService } from '../../services/doctors/doctors.service';
 import { initFlowbite } from 'flowbite';
 import { Router } from '@angular/router';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
-
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-doctors',
   standalone: true,
@@ -22,6 +25,8 @@ import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
     FormsModule,
     ReactiveFormsModule,
     NzMessageModule,
+    NzPopconfirmModule,
+    NzDropDownModule,
   ],
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.css',
@@ -29,10 +34,14 @@ import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 export class DoctorsComponent implements OnInit {
   searchvalue: string = '';
   doctorsData: any[] = [];
+  isDoctor =
+    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
+  name: string = localStorage.getItem('_name')!;
   constructor(
     private _DoctorsService: DoctorsService,
     private _Router: Router,
-    private msg: NzMessageService
+    private msg: NzMessageService,
+    private modal: NzModalService
   ) {}
   ngOnInit(): void {
     this.getAllDoctors();
@@ -51,14 +60,23 @@ export class DoctorsComponent implements OnInit {
   }
 
   deletDoctor(id: number) {
-    this._DoctorsService.deleteDoctor(id).subscribe({
-      next: (res) => {
-        this.getAllDoctors();
-        this.msg.success('تم حذف الطبيب');
+    this.modal.confirm({
+      nzTitle: 'هل انت متاكد من حذف هذا الطبيب ؟',
+      nzOkText: 'نعم',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        this._DoctorsService.deleteDoctor(id).subscribe({
+          next: (res) => {
+            this.getAllDoctors();
+            this.msg.success('تم حذف الطبيب');
+          },
+          error: (err) => {
+            this.msg.error('هذا الطبيب لديه حالات محوله لا يمكن حذفه');
+          },
+        });
       },
-      error: (err) => {
-        this.msg.error('هذا الطبيب لديه حالات محوله لا يمكن حذفه');
-      },
+      nzCancelText: 'لا',
     });
   }
 
@@ -68,9 +86,9 @@ export class DoctorsComponent implements OnInit {
     });
   }
 
-  getPatientRedirect(status: string, id: string) {
+  getPatientRedirect(id: string) {
     this._Router.navigate(['/cases'], {
-      queryParams: { status: status, id: id },
+      queryParams: { id: id },
     });
   }
   goInfo() {

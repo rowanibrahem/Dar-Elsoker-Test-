@@ -20,46 +20,51 @@
             style="width: 35px; height: 35px"
           ></span>
         </div>
-        <p>د/غادة احمد رءوف</p>
+        <p>{{ name }}</p>
       </div>
     </div>
   </div>
 
   <section class="w-full overflow-hidden">
-    <!-- <div class="mx-auto flex gap-4 max-sm:w-full pt-[68px]">
+    @if (!isDoctor) {
+    <div
+      class="w-[650px] m-auto flex justify-between max-sm:w-full max-sm:flex-col gap-3 pt-[68px]"
+    >
       <button
         (click)="CHECKUP()"
-        class="px-[15%] py-[18px] max-sm:w-1/2 bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
+        class="w-[250px] h-[80px] max-sm:w-[80%] m-auto bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
       >
         كشف
       </button>
       <button
         (click)="FOLLOWUP()"
-        class="px-[10%] py-[18px] m-auto max-sm:w-1/2 bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
+        class="w-[250px] h-[80px] max-sm:w-[80%] m-auto bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
       >
-        إضافه كشف
+        إعاده
       </button>
-    </div> -->
+    </div>
+    }
     <div
-      class="w-[90%] mx-auto relative overflow-y-auto max-h-[80vh] mt-12 rounded-t-lg"
+      class="w-[90%] mx-auto relative overflow-auto mt-12 rounded-t-lg"
+      [ngClass]="isDoctor ? 'max-h-[80vh]' : 'max-h-[62vh] max-sm:max-h-[50vh]'"
     >
       <table
-        class="w-full m-auto shadow-md text-center rounded-lg overflow-y-scroll"
+        class="w-full m-auto shadow-md text-center rounded-lg overflow-scroll"
       >
         <thead class="text-sm font-medium text-[#1D2433] bg-[#00C8948C]">
           <tr>
             <th scope="col" class="py-3">التسلسل</th>
             <th scope="col" class="py-3">المريض</th>
-            <th scope="col" class="py-3 w-[90px]">الطول</th>
-            <th scope="col" class="py-3 w-[90px]">الوزن</th>
-            <th scope="col" class="py-3 w-[112px]">الحاله</th>
-            <th scope="col" class="py-3"></th>
-            <th scope="col" class="py-3"></th>
+            <th scope="col" class="py-3">الطول</th>
+            <th scope="col" class="py-3">الوزن</th>
+            <th scope="col" class="py-3">الحاله</th>
+            <th scope="col" class="py-3">حاله الكشف</th>
+            <th scope="col" class="py-3">التحويل</th>
             <th scope="col" class="py-3"></th>
           </tr>
         </thead>
         <tbody class="mt-4">
-          @for (data of visitsData ; track $index) {
+          @if(visitsData.length > 0) { @for(data of visitsData ; track $index) {
           <tr class="bg-white border-b">
             <th scope="row" class="font-normal text-sm py-3">
               {{ $index + 1 }}
@@ -80,7 +85,29 @@
             <td class="font-normal text-sm py-3">
               {{ data.type === "CHECKUP" ? "كشف" : "اعاده" }}
             </td>
-            <td class="font-normal text-sm py-3">
+            <td class="font-normal text-sm items-center">
+              @if (!status && !isDoctor) {
+              <button
+                (click)="upDateVisite(data.id, data.redirectionCompleted)"
+                class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                [ngClass]="data.redirectionCompleted ? 'true' : 'false'"
+              >
+                <span>
+                  @if (isLoading && visitId==data.id) {<i
+                    class="fa-solid fa-spinner fa-spin"
+                  ></i
+                  >}
+                </span>
+                {{ data.redirectionCompleted ? "تم الكشف" : "لم يكشف" }}
+              </button>
+              } @if (!status && isDoctor) {
+              <p
+                class="rounded-md text-sm font-bold"
+                [ngClass]="data.visitCompleted ? 'nurse-true' : 'nurse-false'"
+              >
+                {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+              </p>
+              } @if (isDoctor && status) {
               <button
                 (click)="upDateVisite(data.id, data.visitCompleted)"
                 class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
@@ -94,8 +121,17 @@
                 </span>
                 {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
               </button>
+              } @if (!isDoctor && status) {
+              <p
+                class="rounded-md text-sm font-bold"
+                [ngClass]="data.visitCompleted ? 'nurse-true' : 'nurse-false'"
+              >
+                {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+              </p>
+              }
             </td>
             <td class="py-[10px]">
+              @if (isDoctor) {
               <form class="font-normal text-base rounded-lg">
                 <select
                   (change)="redirectVisit(data.id, $event)"
@@ -115,34 +151,31 @@
                   }
                 </select>
               </form>
+              } @if (!isDoctor) { @if(data.doctorRedirectedTo!=null){
+              <p class="font-normal text-sm">
+                د/ {{ data.doctorRedirectedTo.fullName }}
+              </p>
+              }@else {
+              <p class="font-normal text-sm">ـــــــــــــــــ</p>
+              } }
             </td>
+            @if (isDoctor) {
             <td (click)="goInfo(data.id, 'info')" role="button">
               <span
                 class="icon-[mingcute--more-2-fill]"
                 style="width: 30px; height: 30px"
               ></span>
             </td>
+            }
           </tr>
-          }
+          } }
         </tbody>
       </table>
+      @if(visitsData.length == 0){
+      <div class="flex items-center justify-center h-60">
+        <nz-empty></nz-empty>
+      </div>
+      }
     </div>
-    <!-- <div class="text-center py-[10px]">
-      <pagination-controls
-        id="visitsPaginate"
-        (pageChange)="pageChanged($event)"
-        (pageBoundsCorrection)="pageChanged($event)"
-        [maxSize]="7"
-        [directionLinks]="true"
-        [autoHide]="true"
-        [responsive]="true"
-        previousLabel="الصفحه السابقه"
-        nextLabel="الصفحه التاليه"
-        screenReaderPaginationLabel="Pagination"
-        screenReaderPageLabel="page"
-        screenReaderCurrentLabel="You're on page"
-      >
-      </pagination-controls>
-    </div> -->
   </section>
 </div>

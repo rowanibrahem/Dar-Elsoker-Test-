@@ -16,7 +16,7 @@
       [formGroup]="doctorForm"
       class="flex flex-wrap justify-between gap-y-8 font-normal text-base text-[#595959] text-start"
     >
-      <div
+      <!-- <div
         class="w-[25%] p-[5%] grid content-center border border-dashed border-[#979797] bg-[#F6F6F6] rounded-lg"
       >
         <label for="imageUpload" class="cursor-pointer text-center">
@@ -33,13 +33,13 @@
           accept="image/*"
           class="hidden"
         />
-      </div>
-      <div class="w-[70%] flex flex-wrap">
+      </div> -->
+      <div class="w-full flex flex-wrap">
         <h1 class="font-semibold text-2xl w-full pb-4 text-[#00C894]">
           إضافه طبيب
         </h1>
-        <div formGroupName="contactInfo" class="flex flex-wrap">
-          <div class="w-[50%]">
+        <div formGroupName="contactInfo" class="w-full flex flex-wrap gap-4">
+          <div class="w-[49%]">
             <label for="firstName" class="block pb-3">الأسم الأول</label>
             <input
               type="text"
@@ -48,7 +48,7 @@
               required
             />
           </div>
-          <div class="w-[50%]">
+          <div class="w-[49%]">
             <label for="lastName" class="block pb-3">الأسم الأخير</label>
             <input
               type="text"
@@ -57,11 +57,11 @@
               required
             />
           </div>
-          <div class="w-[50%]">
+          <div class="w-[49%]">
             <label for="email" class="block pb-3">االبريد الالكتروني</label>
             <input type="email" id="email" formControlName="email" />
           </div>
-          <div class="w-[50%]">
+          <div class="w-[49%]">
             <label for="phone" class="block pb-3">رقم التليفون</label>
             <input type="tel" id="phone" formControlName="phone" />
           </div>

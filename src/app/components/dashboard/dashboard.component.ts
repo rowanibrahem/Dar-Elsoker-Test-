@@ -1,6 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { SearchPipe } from '../../pipes/search.pipe';
+import { SearchPipe } from '../../pipes/search/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -10,6 +10,10 @@ import { initFlowbite } from 'flowbite';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { LoginComponent } from '../login/login.component';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { IsLoaderService } from '../../services/loader/is-loader.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +25,9 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     FormsModule,
     NgxPaginationModule,
     NzDatePickerModule,
+    NzEmptyModule,
+    LoginComponent,
+    NzImageModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -30,26 +37,34 @@ export class DashboardComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _CasesService: CasesService,
     private _OAuthService: OAuthService,
-    private _Router: Router // private _Renderer2: Renderer2
+    private _Router: Router,
+    public _IsLoaderService: IsLoaderService
   ) {}
   dashTable: any = [];
   statisticsData: any = {};
   searchvalue: string = '';
   isLoading: boolean = false;
   doctorId: any;
+  name: string = localStorage.getItem('_name')!;
+  token: string = localStorage.getItem('_token')!;
 
   ngOnInit(): void {
     this.getDoctorData();
     this.getStatisticsData();
-    initFlowbite();
-    if (localStorage.getItem('_token') == null) {
-      const _token = this._OAuthService.getAccessToken();
-      localStorage.setItem('_token', _token);
-    }
+    console.log(this._OAuthService);
+    this.name = localStorage.getItem('_name')!;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.getStatisticsData;
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.name != localStorage.getItem('_name')!) {
+      this.getDoctorData();
+      this.getStatisticsData();
+      this.name = localStorage.getItem('_name')!;
+    }
   }
 
   getStatisticsData() {

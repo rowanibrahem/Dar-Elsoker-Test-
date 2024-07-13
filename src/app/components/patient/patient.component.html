@@ -25,7 +25,7 @@
             style="width: 35px; height: 35px"
           ></span>
         </div>
-        <p>د/غادة احمد رءوف</p>
+        <p>{{ name }}</p>
       </div>
     </div>
   </div>
@@ -41,7 +41,9 @@
       ></span> -->
     </div>
 
-    <div class="overflow-x-auto text-right px-2 !max-h-[80vh]">
+    <div
+      class="overflow-x-auto text-right px-2 max-h-[75vh] max-sm:max-h-[60vh]"
+    >
       <table class="w-full">
         <thead class="font-medium text-xl text-[#595959]">
           <tr>
@@ -82,12 +84,14 @@
             </td>
             <td class="border-b-[20px] border-[#F6F6F6] px-6">
               <div class="flex flex-wrap gap-3 w-full">
-                <!-- <span
+                @if (!isDoctor) {
+                <span
                   (click)="goPatientinfo(item.id, 'FOLLOWUP')"
                   role="button"
                   class="icon-[gg--add] text-[#00C894]"
                   style="width: 30px; height: 30px"
-                ></span> -->
+                ></span>
+                }
                 <span
                   role="button"
                   (click)="goPatientDetails(item.id, 'edit')"
@@ -106,6 +110,11 @@
           }
         </tbody>
       </table>
+      @if(patientData.length == 0){
+      <div class="flex items-center justify-center h-60">
+        <nz-empty></nz-empty>
+      </div>
+      }
     </div>
     <!-- <div class="text-center py-[10px]">
       <pagination-controls
