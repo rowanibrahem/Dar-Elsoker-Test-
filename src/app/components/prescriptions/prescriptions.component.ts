@@ -22,6 +22,7 @@ interface MedicineObj {
   medicine: medicine;
   dose: string;
   period: string;
+  concentration: string;
 }
 
 @Component({
@@ -71,6 +72,7 @@ export class PrescriptionsComponent implements OnInit {
       medicine: null,
       dose: '',
       period: '',
+      concentration: '',
     });
   }
 
@@ -118,6 +120,7 @@ export class PrescriptionsComponent implements OnInit {
           medicineId: value.get('medicine')?.value,
           dose: value.get('dose')?.value,
           period: value.get('period')?.value,
+          concentration: value.get('concentration')?.value,
         };
       }),
     };

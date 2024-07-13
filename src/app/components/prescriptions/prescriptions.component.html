@@ -21,7 +21,7 @@
         <div formArrayName="inputs">
           @for (inputGroup of inputGroups.controls; track $index) {
           <div
-            class="flex justify-evenly py-2 w-[90%] m-auto flex-wrap gap-2"
+            class="flex justify-evenly gap-y-1 w-[90%] m-auto flex-wrap gap-2"
             formGroupName="{{ $index }}"
           >
             <nz-select
@@ -39,7 +39,7 @@
             </nz-select>
             <nz-select
               formControlName="medicine"
-              class="w-[249px]"
+              class="w-[220px]"
               (ngModelChange)="getMedicineId($event)"
               [nzSize]="'large'"
               nzShowSearch
@@ -54,6 +54,12 @@
               ></nz-option>
               }
             </nz-select>
+            <input
+              formControlName="concentration"
+              type="text"
+              class="w-[100px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
+              placeholder="التركيز"
+            />
             <input
               formControlName="dose"
               type="text"
@@ -192,9 +198,7 @@
               <tr class="text-left">
                 <td style="text-align: center">{{ item.medicine.type }}</td>
                 <td style="text-align: center">{{ item.medicine.medName }}</td>
-                <td style="text-align: center">
-                  {{ item.medicine.concentration }}
-                </td>
+                <td style="text-align: center">{{ item.concentration }}</td>
                 <td style="text-align: center">{{ item.dose }}</td>
                 <td style="text-align: center">{{ item.period }}</td>
               </tr>
