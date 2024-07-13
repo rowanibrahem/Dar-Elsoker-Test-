@@ -27,8 +27,8 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://outh.ebdaa-business.com/realms/dar-elsokar',
   tokenEndpoint:
     'https://outh.ebdaa-business.com/realms/dar-elsokar/protocol/openid-connect/token',
-  postLogoutRedirectUri: 'http://localhost:4200/login',
-  redirectUri: 'http://localhost:4200/dashboard',
+  postLogoutRedirectUri: window.location.origin + 'login',
+  redirectUri: window.location.origin + 'dashboard',
   clientId: 'dar-elsokar-frontend',
   responseType: 'code',
   scope: 'openid profile',
@@ -38,12 +38,15 @@ export const authCodeFlowConfig: AuthConfig = {
 
 export const initializeOAuth = (oauthService: OAuthService) => {
   oauthService.configure(authCodeFlowConfig);
-  oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-    const token = oauthService.getAccessToken() || '';
-    const name = oauthService.getIdentityClaims()['name'] || '';
-    localStorage.setItem('_token', token);
-    localStorage.setItem('_name', name);
-  }).catch(console.error);
+  oauthService
+    .loadDiscoveryDocumentAndTryLogin()
+    .then(() => {
+      const token = oauthService.getAccessToken() || '';
+      const name = oauthService.getIdentityClaims()['name'] || '';
+      localStorage.setItem('_token', token);
+      localStorage.setItem('_name', name);
+    })
+    .catch(console.error);
 };
 
 export const appConfig: ApplicationConfig = {
