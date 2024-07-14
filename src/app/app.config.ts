@@ -27,8 +27,8 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://outh.ebdaa-business.com/realms/dar-elsokar',
   tokenEndpoint:
     'https://outh.ebdaa-business.com/realms/dar-elsokar/protocol/openid-connect/token',
-  postLogoutRedirectUri: window.location.origin + 'login',
-  redirectUri: window.location.origin + 'dashboard',
+  postLogoutRedirectUri: window.location.origin + '/login',
+  redirectUri: window.location.origin + '/dashboard',
   clientId: 'dar-elsokar-frontend',
   responseType: 'code',
   scope: 'openid profile',
