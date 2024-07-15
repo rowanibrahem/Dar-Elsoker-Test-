@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DoctorsService } from '../../services/doctors/doctors.service';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+import { IsLoaderService } from '../../services/loader/is-loader.service';
 
 @Component({
   selector: 'app-cases',
@@ -21,6 +22,7 @@ export class CasesComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _Router: Router,
     private _active: ActivatedRoute,
+    public _IsLoaderService: IsLoaderService,
     private msg: NzMessageService
   ) {}
   status: string | null = this._active.snapshot.queryParamMap.get('status');
@@ -43,6 +45,7 @@ export class CasesComponent implements OnInit {
     }
     this.getDoctors();
     this.getVisitsByStatus();
+    this.rerenderVisits();
   }
 
   getVisitsByStatus() {
@@ -59,6 +62,11 @@ export class CasesComponent implements OnInit {
           },
         });
     }
+  }
+
+  rerenderVisits() {
+    this._IsLoaderService.isLoading = false;
+    setTimeout(this.getVisitsByStatus, 30000);
   }
 
   // getVisit() {
