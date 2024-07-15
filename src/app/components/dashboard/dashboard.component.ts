@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit {
     this.getDoctorData();
     this.getStatisticsData();
     console.log(this._OAuthService);
+    console.log(this._OAuthService.getIdentityClaims());
     this.name = localStorage.getItem('_name')!;
   }
 
