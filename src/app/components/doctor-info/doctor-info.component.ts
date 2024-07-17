@@ -21,7 +21,7 @@ import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 })
 export class DoctorInfoComponent implements OnInit {
   doctorsData: any;
-  disaple: boolean = false;
+  isDisabled: boolean = false;
   status: string | null = this._active.snapshot.queryParamMap.get('status');
   doctorId: string | null = this._active.snapshot.queryParamMap.get('id');
 
@@ -93,8 +93,10 @@ export class DoctorInfoComponent implements OnInit {
   }
 
   getDoctorByID(value: boolean = true) {
+    if (this.status === 'info') {
+      this.isDisabled = value;
+    }
     if (this.status != 'save') {
-      this.disaple = value;
       this._DoctorsService.getDoctorByID(this.doctorId).subscribe({
         next: (res) => {
           console.log(res);

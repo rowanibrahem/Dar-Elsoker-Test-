@@ -27,8 +27,10 @@ export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://outh.ebdaa-business.com/realms/dar-elsokar',
   tokenEndpoint:
     'https://outh.ebdaa-business.com/realms/dar-elsokar/protocol/openid-connect/token',
-  postLogoutRedirectUri: 'http://66.29.130.92:5055/login',
-  redirectUri: 'http://66.29.130.92:5055/dashboard',
+  // postLogoutRedirectUri: 'http://66.29.130.92:5055/login',
+  postLogoutRedirectUri: window.location.origin + '/login',
+  // redirectUri: 'http://66.29.130.92:5055/dashboard',
+  redirectUri: window.location.origin + '/dashboard',
   clientId: 'dar-elsokar-frontend',
   responseType: 'code',
   scope: 'openid profile',
@@ -56,7 +58,12 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([loaderInterceptor, myhttpInterceptor])),
+    provideHttpClient(
+      withInterceptors([
+        loaderInterceptor,
+        myhttpInterceptor,
+      ])
+    ),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,

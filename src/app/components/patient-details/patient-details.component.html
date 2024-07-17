@@ -28,24 +28,24 @@
       <div class="flex flex-wrap gap-y-3 w-[90%]" formGroupName="contactInfo">
         <div class="w-[50%]">
           <label for="firstName" class="block pb-3">الأسم الأول</label>
-          <input type="text" id="firstName" formControlName="firstName" />
+          <input [readOnly]="isDisabled" type="text" id="firstName" formControlName="firstName" />
         </div>
         <div class="w-[50%]">
           <label for="lastName" class="block pb-3">الأسم الأخير</label>
-          <input type="text" id="lastName" formControlName="lastName" />
+          <input [readOnly]="isDisabled" type="text" id="lastName" formControlName="lastName" />
         </div>
         <div class="w-[50%]">
           <label for="phone" class="block pb-3">رقم التليفون</label>
-          <input type="tel" id="phone" formControlName="phone" />
+          <input [readOnly]="isDisabled" type="tel" id="phone" formControlName="phone" />
         </div>
         <div class="w-1/2">
           <label for="address" class="block pb-3">العنوان</label>
-          <input type="text" id="address" formControlName="address" />
+          <input [readOnly]="isDisabled" type="text" id="address" formControlName="address" />
         </div>
       </div>
       <div class="w-[45%]">
         <label for="age" class="block pb-3">السن</label>
-        <input type="numder" class="py-2" id="age" formControlName="age" />
+        <input [readOnly]="isDisabled" type="numder" class="py-2" id="age" formControlName="age" />
       </div>
     </form>
     @if (status=="edit") {

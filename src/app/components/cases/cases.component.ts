@@ -39,6 +39,8 @@ export class CasesComponent implements OnInit {
   isDoctor =
     localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
 
+  timer: any;
+
   ngOnInit(): void {
     if (this.doctorId) {
       this.getPatientRedirect();
@@ -48,7 +50,12 @@ export class CasesComponent implements OnInit {
     this.rerenderVisits();
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
+  }
+
   getVisitsByStatus() {
+    this._IsLoaderService.isLoading = false;
     if (this.status) {
       this._CasesService
         .allByDateAndStatus(this.todayDate, this.status)
@@ -65,8 +72,15 @@ export class CasesComponent implements OnInit {
   }
 
   rerenderVisits() {
-    this._IsLoaderService.isLoading = false;
-    setTimeout(this.getVisitsByStatus, 30000);
+    this.getVisitsByStatus();
+    this.startVisitInterval();
+  }
+
+  startVisitInterval() {
+    this.timer = setInterval(() => {
+      this._IsLoaderService.isLoading = false;
+      this.getVisitsByStatus();
+    }, 30000);
   }
 
   // getVisit() {

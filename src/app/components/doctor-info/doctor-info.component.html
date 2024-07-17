@@ -43,6 +43,7 @@
             <label for="firstName" class="block pb-3">الأسم الأول</label>
             <input
               type="text"
+              [readOnly]="isDisabled"
               id="firstName"
               formControlName="firstName"
               required
@@ -52,6 +53,7 @@
             <label for="lastName" class="block pb-3">الأسم الأخير</label>
             <input
               type="text"
+              [readOnly]="isDisabled"
               id="lastName"
               formControlName="lastName"
               required
@@ -59,15 +61,30 @@
           </div>
           <div class="w-[49%]">
             <label for="email" class="block pb-3">االبريد الالكتروني</label>
-            <input type="email" id="email" formControlName="email" />
+            <input
+              type="email"
+              [readOnly]="isDisabled"
+              id="email"
+              formControlName="email"
+            />
           </div>
           <div class="w-[49%]">
             <label for="phone" class="block pb-3">رقم التليفون</label>
-            <input type="tel" id="phone" formControlName="phone" />
+            <input
+              type="tel"
+              [readOnly]="isDisabled"
+              id="phone"
+              formControlName="phone"
+            />
           </div>
           <div class="w-full">
             <label for="address" class="block pb-3">العنوان</label>
-            <input type="text" id="address" formControlName="address" />
+            <input
+              type="text"
+              [readOnly]="isDisabled"
+              id="address"
+              formControlName="address"
+            />
           </div>
         </div>
       </div>
@@ -75,6 +92,7 @@
         <label for="specialization" class="block pb-3">التخصص</label>
         <input
           type="text"
+          [readOnly]="isDisabled"
           id="specialization"
           formControlName="specialization"
           required

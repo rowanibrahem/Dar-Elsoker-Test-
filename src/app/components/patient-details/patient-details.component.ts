@@ -34,6 +34,7 @@ export class PatientDetailsComponent implements OnInit {
   isDoctor =
     localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
   name: string = localStorage.getItem('_name')!;
+  isDisabled: boolean = false;
 
   ngOnInit(): void {
     this.getPatient();
@@ -85,6 +86,9 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   getPatient() {
+    if (this.status === 'show') {
+      this.isDisabled = true;
+    }
     this._PatientService.getPatientById(this.patientId).subscribe({
       next: (res) => {
         console.log(res);

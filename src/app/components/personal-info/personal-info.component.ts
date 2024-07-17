@@ -33,7 +33,7 @@ export class PersonalInfoComponent {
         phone: new FormControl(null),
         address: new FormControl(null),
       }),
-      age: new FormControl(0),
+      age: new FormControl(null),
     }),
     type: new FormControl('CHECKUP'),
     nurse: new FormControl(this.name),
