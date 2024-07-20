@@ -29,7 +29,7 @@ export class DoctorInfoComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _Location: Location,
     private _active: ActivatedRoute,
-    private msg: NzMessageService
+    private msg: NzMessageService,
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class DoctorInfoComponent implements OnInit {
           subErrors.forEach(
             (error: { message: string | TemplateRef<void> }) => {
               this.msg.error(error.message);
-            }
+            },
           );
         } else {
           this.msg.error(err.error.message);

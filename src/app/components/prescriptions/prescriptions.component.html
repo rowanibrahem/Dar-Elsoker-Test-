@@ -20,59 +20,59 @@
       <form [formGroup]="form">
         <div formArrayName="inputs">
           @for (inputGroup of inputGroups.controls; track $index) {
-          <div
-            class="flex justify-evenly gap-y-1 w-[90%] m-auto flex-wrap gap-2"
-            formGroupName="{{ $index }}"
-          >
-            <nz-select
-              formControlName="type"
-              class="w-[100px]"
-              [nzSize]="'large'"
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="النوع"
-              [nzDropdownStyle]="{ direction: 'rtl' }"
+            <div
+              class="flex justify-evenly gap-y-1 w-[90%] m-auto flex-wrap gap-2"
+              formGroupName="{{ $index }}"
             >
-              <nz-option nzLabel="TAB" nzValue="TAB"></nz-option>
-              <nz-option nzLabel="injection" nzValue="injection"></nz-option>
-              <nz-option nzLabel="patch" nzValue="patch"></nz-option>
-            </nz-select>
-            <nz-select
-              formControlName="medicine"
-              class="w-[220px]"
-              (ngModelChange)="getMedicineId($event)"
-              [nzSize]="'large'"
-              nzShowSearch
-              nzAllowClear
-              nzPlaceHolder="العلاج"
-              [nzDropdownStyle]="{ direction: 'rtl' }"
-            >
-              @for (med of medicinies; track $index) {
-              <nz-option
-                nzLabel="{{ med.medName }}"
-                nzValue="{{ med.id }}"
-              ></nz-option>
-              }
-            </nz-select>
-            <input
-              formControlName="concentration"
-              type="text"
-              class="w-[100px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
-              placeholder="التركيز"
-            />
-            <input
-              formControlName="dose"
-              type="text"
-              class="w-[220px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
-              placeholder="عدد مرات"
-            />
-            <input
-              formControlName="period"
-              type="text"
-              class="w-[220px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
-              placeholder="مده العلاج"
-            />
-          </div>
+              <nz-select
+                formControlName="type"
+                class="w-[100px]"
+                [nzSize]="'large'"
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="النوع"
+                [nzDropdownStyle]="{ direction: 'rtl' }"
+              >
+                <nz-option nzLabel="TAB" nzValue="TAB"></nz-option>
+                <nz-option nzLabel="injection" nzValue="injection"></nz-option>
+                <nz-option nzLabel="patch" nzValue="patch"></nz-option>
+              </nz-select>
+              <nz-select
+                formControlName="medicine"
+                class="w-[220px]"
+                (ngModelChange)="getMedicineId($event)"
+                [nzSize]="'large'"
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="العلاج"
+                [nzDropdownStyle]="{ direction: 'rtl' }"
+              >
+                @for (med of medicinies; track $index) {
+                  <nz-option
+                    nzLabel="{{ med.medName }}"
+                    nzValue="{{ med.id }}"
+                  ></nz-option>
+                }
+              </nz-select>
+              <input
+                formControlName="concentration"
+                type="text"
+                class="w-[100px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
+                placeholder="التركيز"
+              />
+              <input
+                formControlName="dose"
+                type="text"
+                class="w-[220px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
+                placeholder="عدد مرات"
+              />
+              <input
+                formControlName="period"
+                type="text"
+                class="w-[220px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
+                placeholder="مده العلاج"
+              />
+            </div>
           }
         </div>
       </form>
@@ -195,13 +195,15 @@
             </thead>
             <tbody>
               @for (item of prescriptions; track $index) {
-              <tr class="text-left">
-                <td style="text-align: center">{{ item.medicine.type }}</td>
-                <td style="text-align: center">{{ item.medicine.medName }}</td>
-                <td style="text-align: center">{{ item.concentration }}</td>
-                <td style="text-align: center">{{ item.dose }}</td>
-                <td style="text-align: center">{{ item.period }}</td>
-              </tr>
+                <tr class="text-left">
+                  <td style="text-align: center">{{ item.medicine.type }}</td>
+                  <td style="text-align: center">
+                    {{ item.medicine.medName }}
+                  </td>
+                  <td style="text-align: center">{{ item.concentration }}</td>
+                  <td style="text-align: center">{{ item.dose }}</td>
+                  <td style="text-align: center">{{ item.period }}</td>
+                </tr>
               }
             </tbody>
           </table>

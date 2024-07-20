@@ -12,7 +12,7 @@ export class CasesService {
 
   getStatisticsByDate(date: string): Observable<any> {
     return this._HttpClient.get(
-      `${this.baseUrl}visits/statistics?date=${date}`
+      `${this.baseUrl}visits/statistics?date=${date}`,
     );
   }
 
@@ -22,7 +22,7 @@ export class CasesService {
       {
         id: visitId,
         visitCompleted: value,
-      }
+      },
     );
   }
 
@@ -32,7 +32,7 @@ export class CasesService {
       {
         id: visitId,
         redirectionCompleted: value,
-      }
+      },
     );
   }
 
@@ -41,13 +41,13 @@ export class CasesService {
       `${this.baseUrl}visits/${visitId}/doctor-redirected-to/${doctorId}`,
       {
         id: visitId,
-      }
+      },
     );
   }
 
   allByDateAndStatus(date: string, value: string | null): Observable<any> {
     return this._HttpClient.get(
-      `${this.baseUrl}visits/by-date/${date}?status=${value}`
+      `${this.baseUrl}visits/by-date/${date}?status=${value}`,
     );
   }
 

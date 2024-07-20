@@ -55,65 +55,65 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of patientData | search :searchvalue ; track $index) {
-          <tr
-            scope="row"
-            class="bg-white font-semibold text-xl border-r-4 border-[#00C894] rounded-l-lg"
-          >
-            <td class="ps-[40px] border-b-[20px] border-[#F6F6F6]">
-              {{ item.fullName }}
-            </td>
-            <td
-              class="py-8 border-b-[20px] max-w-[120px] overflow-hidden text-ellipsis border-[#F6F6F6]"
+          @for (item of patientData | search: searchvalue; track $index) {
+            <tr
+              scope="row"
+              class="bg-white font-semibold text-xl border-r-4 border-[#00C894] rounded-l-lg"
             >
-              {{ item.contactInfo.phone }}
-            </td>
-            <td class="border-b-[20px] border-[#F6F6F6]">{{ item.age }}</td>
-            <td class="border-b-[20px] border-[#F6F6F6]">
-              <div
-                (click)="goPatientDetails(item.id, 'show')"
-                role="button"
-                class="w-[200px] h-[40px] bg-[#F6F6F6] rounded-sm m-auto border border-[#00000033] flex justify-evenly items-center"
+              <td class="ps-[40px] border-b-[20px] border-[#F6F6F6]">
+                {{ item.fullName }}
+              </td>
+              <td
+                class="py-8 border-b-[20px] max-w-[120px] overflow-hidden text-ellipsis border-[#F6F6F6]"
               >
-                <span
-                  class="icon-[pepicons-pencil--file]"
-                  style="width: 30px; height: 30px"
-                ></span>
-                <p>ملف المريض</p>
-              </div>
-            </td>
-            <td class="border-b-[20px] border-[#F6F6F6] px-6">
-              <div class="flex flex-wrap gap-3 w-full">
-                @if (!isDoctor) {
-                <span
-                  (click)="goPatientinfo(item.id, 'FOLLOWUP')"
+                {{ item.contactInfo.phone }}
+              </td>
+              <td class="border-b-[20px] border-[#F6F6F6]">{{ item.age }}</td>
+              <td class="border-b-[20px] border-[#F6F6F6]">
+                <div
+                  (click)="goPatientDetails(item.id, 'show')"
                   role="button"
-                  class="icon-[gg--add] text-[#00C894]"
-                  style="width: 30px; height: 30px"
-                ></span>
-                }
-                <span
-                  role="button"
-                  (click)="goPatientDetails(item.id, 'edit')"
-                  class="icon-[akar-icons--edit] text-[#00C894]"
-                  style="width: 30px; height: 30px"
-                ></span>
-                <span
-                  role="button"
-                  (click)="deletePatient(item.id)"
-                  class="icon-[fluent--delete-24-regular] text-[#C12735]"
-                  style="width: 30px; height: 30px"
-                ></span>
-              </div>
-            </td>
-          </tr>
+                  class="w-[200px] h-[40px] bg-[#F6F6F6] rounded-sm m-auto border border-[#00000033] flex justify-evenly items-center"
+                >
+                  <span
+                    class="icon-[pepicons-pencil--file]"
+                    style="width: 30px; height: 30px"
+                  ></span>
+                  <p>ملف المريض</p>
+                </div>
+              </td>
+              <td class="border-b-[20px] border-[#F6F6F6] px-6">
+                <div class="flex flex-wrap gap-3 w-full">
+                  @if (!isDoctor) {
+                    <span
+                      (click)="goPatientinfo(item.id, 'FOLLOWUP')"
+                      role="button"
+                      class="icon-[gg--add] text-[#00C894]"
+                      style="width: 30px; height: 30px"
+                    ></span>
+                  }
+                  <span
+                    role="button"
+                    (click)="goPatientDetails(item.id, 'edit')"
+                    class="icon-[akar-icons--edit] text-[#00C894]"
+                    style="width: 30px; height: 30px"
+                  ></span>
+                  <span
+                    role="button"
+                    (click)="deletePatient(item.id)"
+                    class="icon-[fluent--delete-24-regular] text-[#C12735]"
+                    style="width: 30px; height: 30px"
+                  ></span>
+                </div>
+              </td>
+            </tr>
           }
         </tbody>
       </table>
-      @if(patientData.length == 0){
-      <div class="flex items-center justify-center h-60">
-        <nz-empty></nz-empty>
-      </div>
+      @if (patientData.length == 0) {
+        <div class="flex items-center justify-center h-60">
+          <nz-empty></nz-empty>
+        </div>
       }
     </div>
     <!-- <div class="text-center py-[10px]">

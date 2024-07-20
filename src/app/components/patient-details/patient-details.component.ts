@@ -22,7 +22,7 @@ export class PatientDetailsComponent implements OnInit {
     private _PatientService: PatientService,
     private _ActivatedRoute: ActivatedRoute,
     private _printService: NgxPrintService,
-    private _Router: Router
+    private _Router: Router,
   ) {}
   patientId: string | null =
     this._ActivatedRoute.snapshot.queryParamMap.get('id');

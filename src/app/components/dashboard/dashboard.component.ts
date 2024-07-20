@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
     private _CasesService: CasesService,
     private _OAuthService: OAuthService,
     private _Router: Router,
-    public _IsLoaderService: IsLoaderService
+    public _IsLoaderService: IsLoaderService,
   ) {}
   dashTable: any = [];
   statisticsData: any = {};
@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit {
 
   updateDocter(id: any, value: boolean) {
     this.doctorId = id;
-    let value2 = value ? false : true;
+    const value2 = value ? false : true;
     this.isLoading = true;
     this._DoctorsService.updateDoctor(id, value2).subscribe({
       next: (res) => {

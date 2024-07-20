@@ -1,16 +1,16 @@
-@if(!token && _IsLoaderService.isLoading){
-<div
-  class="bg-black h-[100vh] absolute w-full flex bg-opacity-50 items-center top-0 bottom-0 right-0 left-0 z-50"
->
-  <img
-    class="w-full bg-[#00C894]"
-    nz-image
-    nzSrc="./assets/Untitled-1-01.png"
-    nzPlaceholder="./assets/imageedit .png"
-    nzDisablePreview
-    alt="dar-elsoker-logo"
-  />
-</div>
+@if (!token && _IsLoaderService.isLoading) {
+  <div
+    class="bg-black h-[100vh] absolute w-full flex bg-opacity-50 items-center top-0 bottom-0 right-0 left-0 z-50"
+  >
+    <img
+      class="w-full bg-[#00C894]"
+      nz-image
+      nzSrc="./assets/Untitled-1-01.png"
+      nzPlaceholder="./assets/imageedit .png"
+      nzDisablePreview
+      alt="dar-elsoker-logo"
+    />
+  </div>
 }
 <div class="bg-[#F6F6F6;] h-[100vh]">
   <div
@@ -139,51 +139,50 @@
           </tr>
         </thead>
         <tbody>
-          @for (data of dashTable | search : searchvalue ; track $index) {
-          <tr class="bg-white border-b">
-            <th scope="row">
-              {{ $index + 1 }}
-            </th>
-            <td class="py-[10px] whitespace-nowrap text-ellipsis">
-              {{ data.fullName }}
-            </td>
-            <td>
-              {{ data.specialization }}
-            </td>
-            <td>
-              {{ data.contactInfo.phone }}
-            </td>
-            <td>
-              {{ data.totalRedirectedPatient }}
-            </td>
-            <td>
-              {{ data.totalCompletedRedirections }}
-            </td>
-            <td>
-              <button
-                (click)="updateDocter(data.id, data.availability)"
-                #btnAvl
-                class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
-                [ngClass]="data.availability ? 'true' : 'false'"
-              >
-                <span>
-                  @if (isLoading && doctorId==data.id) {<i
-                    class="fa-solid fa-spinner fa-spin"
-                  ></i
-                  >}
-                </span>
-                {{ data.availability ? "متاح" : "غير متاح" }}
-              </button>
-            </td>
-          </tr>
+          @for (data of dashTable | search: searchvalue; track $index) {
+            <tr class="bg-white border-b">
+              <th scope="row">
+                {{ $index + 1 }}
+              </th>
+              <td class="py-[10px] whitespace-nowrap text-ellipsis">
+                {{ data.fullName }}
+              </td>
+              <td>
+                {{ data.specialization }}
+              </td>
+              <td>
+                {{ data.contactInfo.phone }}
+              </td>
+              <td>
+                {{ data.totalRedirectedPatient }}
+              </td>
+              <td>
+                {{ data.totalCompletedRedirections }}
+              </td>
+              <td>
+                <button
+                  (click)="updateDocter(data.id, data.availability)"
+                  #btnAvl
+                  class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                  [ngClass]="data.availability ? 'true' : 'false'"
+                >
+                  <span>
+                    @if (isLoading && doctorId == data.id) {
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                    }
+                  </span>
+                  {{ data.availability ? "متاح" : "غير متاح" }}
+                </button>
+              </td>
+            </tr>
           }
         </tbody>
       </table>
     </div>
-    @if(dashTable.length == 0){
-    <div class="flex items-center justify-center h-60">
-      <nz-empty></nz-empty>
-    </div>
+    @if (dashTable.length == 0) {
+      <div class="flex items-center justify-center h-60">
+        <nz-empty></nz-empty>
+      </div>
     }
   </section>
 </div>

@@ -23,7 +23,7 @@ export class CasesComponent implements OnInit {
     private _Router: Router,
     private _active: ActivatedRoute,
     public _IsLoaderService: IsLoaderService,
-    private msg: NzMessageService
+    private msg: NzMessageService,
   ) {}
   status: string | null = this._active.snapshot.queryParamMap.get('status');
   doctorId: string | null = this._active.snapshot.queryParamMap.get('id');
@@ -132,7 +132,7 @@ export class CasesComponent implements OnInit {
   }
 
   redirectVisit(visitId: any, event: any) {
-    let doctorId = event.target.value;
+    const doctorId = event.target.value;
     console.log(doctorId);
     this._CasesService.rediretToDoctor(visitId, doctorId).subscribe({
       next: (res) => {

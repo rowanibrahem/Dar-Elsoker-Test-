@@ -18,11 +18,11 @@ export class PrescriptionsService {
     // medicineId: number,
     // dose: string,
     // period: string,
-    object:any
+    object: any,
   ): Observable<any> {
     return this._HttpClient.put(
       `${this.baseUrl}visits/${visitId}/prescription`,
-      object
+      object,
       // {
       //   medicines: [
       //     {

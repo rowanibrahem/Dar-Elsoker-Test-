@@ -102,22 +102,23 @@
         <label for="qualification" class="block pb-3">المؤهلات</label>
         <textarea id="qualification" formControlName="qualification"></textarea>
       </div>
-      @if (status ==='save') {
-      <button
-        (click)="savedoctor()"
-        type="submit"
-        class="m-auto font-bold text-2xl text-[#FFFFFF] bg-[#00C894] w-[350px] h-[80px] rounded-lg hover:scale-95"
-      >
-        إضافه
-      </button>
-      } @if (status ==='edit') {
-      <button
-        (click)="updateDoctor()"
-        type="submit"
-        class="m-auto font-bold text-2xl text-[#FFFFFF] bg-[#00C894] w-[350px] h-[80px] rounded-lg hover:scale-95"
-      >
-        تعديل
-      </button>
+      @if (status === "save") {
+        <button
+          (click)="savedoctor()"
+          type="submit"
+          class="m-auto font-bold text-2xl text-[#FFFFFF] bg-[#00C894] w-[350px] h-[80px] rounded-lg hover:scale-95"
+        >
+          إضافه
+        </button>
+      }
+      @if (status === "edit") {
+        <button
+          (click)="updateDoctor()"
+          type="submit"
+          class="m-auto font-bold text-2xl text-[#FFFFFF] bg-[#00C894] w-[350px] h-[80px] rounded-lg hover:scale-95"
+        >
+          تعديل
+        </button>
       }
     </form>
   </div>

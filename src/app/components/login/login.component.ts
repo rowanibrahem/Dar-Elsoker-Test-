@@ -12,9 +12,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    NzImageModule,
-  ],
+  imports: [NzImageModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -22,7 +20,7 @@ export class LoginComponent {
   constructor(
     private _Router: Router,
     private oauthService: OAuthService,
-    private loading: IsLoaderService
+    private loading: IsLoaderService,
   ) {}
 
   src = `./assets/Untitled-1-01.png`;

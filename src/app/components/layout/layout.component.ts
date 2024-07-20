@@ -32,7 +32,7 @@ export class LayoutComponent implements OnInit {
     private _OAuthService: OAuthService,
     private _Route: Router,
     private nzMessageService: NzMessageService,
-    private modal: NzModalService
+    private modal: NzModalService,
   ) {}
 
   govisits() {

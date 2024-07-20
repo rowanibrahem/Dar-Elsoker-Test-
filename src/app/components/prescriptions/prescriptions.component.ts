@@ -51,7 +51,7 @@ export class PrescriptionsComponent implements OnInit {
     private _Active: ActivatedRoute,
     private _printService: NgxPrintService,
     private fb: FormBuilder,
-    private msg: NzMessageService
+    private msg: NzMessageService,
   ) {}
   form: FormGroup = this.fb.group({
     inputs: this.fb.array([this.createInputGroup()]),

@@ -58,12 +58,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     importProvidersFrom(HttpClientModule),
     provideClientHydration(),
-    provideHttpClient(
-      withInterceptors([
-        loaderInterceptor,
-        myhttpInterceptor,
-      ])
-    ),
+    provideHttpClient(withInterceptors([loaderInterceptor, myhttpInterceptor])),
     provideOAuthClient(),
     {
       provide: APP_INITIALIZER,

@@ -24,7 +24,7 @@ export class PatientInfoComponent implements OnInit {
     private _PatientService: PatientService,
     private _CasesService: CasesService,
     private _ActivatedRoute: ActivatedRoute,
-    private msg: NzMessageService
+    private msg: NzMessageService,
   ) {}
   patientId: string | null =
     this._ActivatedRoute.snapshot.queryParamMap.get('id');
@@ -113,7 +113,8 @@ export class PatientInfoComponent implements OnInit {
           medicalRecord: {
             weight: this.patientData.medicalRecord.weight,
             height: this.patientData.medicalRecord.height,
-            durationOfDiabetes: this.patientData.medicalRecord.durationOfDiabetes,
+            durationOfDiabetes:
+              this.patientData.medicalRecord.durationOfDiabetes,
             medications: this.patientData.medicalRecord.medications,
             diet: this.patientData.medicalRecord.diet,
             bloodTestDate: this.patientData.medicalRecord.bloodTestDate,
@@ -147,7 +148,7 @@ export class PatientInfoComponent implements OnInit {
           subErrors.forEach(
             (error: { message: string | TemplateRef<void> }) => {
               this.msg.error(error.message);
-            }
+            },
           );
         } else {
           this.msg.error(err.error.message);

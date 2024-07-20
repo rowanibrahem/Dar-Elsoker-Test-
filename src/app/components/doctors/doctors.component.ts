@@ -41,7 +41,7 @@ export class DoctorsComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _Router: Router,
     private msg: NzMessageService,
-    private modal: NzModalService
+    private modal: NzModalService,
   ) {}
   ngOnInit(): void {
     this.getAllDoctors();

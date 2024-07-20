@@ -40,7 +40,7 @@ export class DoctorsService {
       {
         id: doctorId,
         availability: value,
-      }
+      },
     );
   }
 }

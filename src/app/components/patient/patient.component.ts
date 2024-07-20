@@ -37,7 +37,7 @@ export class PatientComponent implements OnInit {
     private _PatientService: PatientService,
     private _Router: Router,
     private nzMessageService: NzMessageService,
-    private modal: NzModalService
+    private modal: NzModalService,
   ) {}
 
   ngOnInit(): void {
