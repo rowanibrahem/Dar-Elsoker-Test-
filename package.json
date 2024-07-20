@@ -29,6 +29,7 @@
     "json-server": "^1.0.0-alpha.23",
     "keycloak-angular": "^15.1.0",
     "keycloak-js": "^23.0.7",
+    "logrocket": "^8.1.1",
     "ng-zorro-antd": "^17.3.0",
     "ngx-pagination": "^6.0.3",
     "ngx-print": "^1.5.1",
