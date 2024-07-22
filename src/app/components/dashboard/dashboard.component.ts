@@ -69,27 +69,31 @@ export class DashboardComponent implements OnInit {
   }
 
   getStatisticsData() {
-    this._CasesService.getStatisticsByDate(this.todayDate).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.statisticsData = res;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (this.token) {
+      this._CasesService.getStatisticsByDate(this.todayDate).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.statisticsData = res;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   getDoctorData() {
-    this._DoctorsService.getAllDoctor().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.dashTable = res;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (this.token) {
+      this._DoctorsService.getAllDoctor().subscribe({
+        next: (res) => {
+          console.log(res);
+          this.dashTable = res;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   updateDocter(id: any, value: boolean) {
