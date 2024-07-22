@@ -22,7 +22,7 @@ export class PatientDetailsComponent implements OnInit {
     private _PatientService: PatientService,
     private _ActivatedRoute: ActivatedRoute,
     private _printService: NgxPrintService,
-    private _Router: Router,
+    private _Router: Router
   ) {}
   patientId: string | null =
     this._ActivatedRoute.snapshot.queryParamMap.get('id');
@@ -31,8 +31,7 @@ export class PatientDetailsComponent implements OnInit {
   patientData: any;
   prescriptions: any;
   visitData: any;
-  isDoctor =
-    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
+  isDoctor = localStorage.getItem('_name') === 'د. غادة رءوف' ? true : false;
   name: string = localStorage.getItem('_name')!;
   isDisabled: boolean = false;
 

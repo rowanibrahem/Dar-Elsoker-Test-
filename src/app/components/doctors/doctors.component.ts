@@ -34,14 +34,13 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 export class DoctorsComponent implements OnInit {
   searchvalue: string = '';
   doctorsData: any[] = [];
-  isDoctor =
-    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
+  isDoctor = localStorage.getItem('_name') === 'د. غادة رءوف' ? true : false;
   name: string = localStorage.getItem('_name')!;
   constructor(
     private _DoctorsService: DoctorsService,
     private _Router: Router,
     private msg: NzMessageService,
-    private modal: NzModalService,
+    private modal: NzModalService
   ) {}
   ngOnInit(): void {
     this.getAllDoctors();

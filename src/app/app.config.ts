@@ -23,6 +23,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 
+
 export const authCodeFlowConfig: AuthConfig = {
   issuer: 'https://outh.ebdaa-business.com/realms/dar-elsokar',
   tokenEndpoint:
@@ -33,8 +34,7 @@ export const authCodeFlowConfig: AuthConfig = {
   redirectUri: window.location.origin + '/dashboard',
   clientId: 'dar-elsokar-frontend',
   responseType: 'code',
-  scope: 'openid profile',
-  sessionChecksEnabled: true,
+  scope: 'openid profile roles',
   showDebugInformation: true,
 };
 

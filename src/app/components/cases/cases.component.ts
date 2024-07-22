@@ -23,7 +23,7 @@ export class CasesComponent implements OnInit {
     private _Router: Router,
     private _active: ActivatedRoute,
     public _IsLoaderService: IsLoaderService,
-    private msg: NzMessageService,
+    private msg: NzMessageService
   ) {}
   status: string | null = this._active.snapshot.queryParamMap.get('status');
   doctorId: string | null = this._active.snapshot.queryParamMap.get('id');
@@ -36,8 +36,7 @@ export class CasesComponent implements OnInit {
   // pageSize: number = 7;
   // pageNumber: number = 1;
   // totalElements: number = 0;
-  isDoctor =
-    localStorage.getItem('_name') === 'د. غادة عبدالرؤوف' ? true : false;
+  isDoctor = localStorage.getItem('_name') === 'د. غادة رءوف' ? true : false;
 
   timer: any;
 

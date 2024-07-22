@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
     private _CasesService: CasesService,
     private _OAuthService: OAuthService,
     private _Router: Router,
-    public _IsLoaderService: IsLoaderService,
+    public _IsLoaderService: IsLoaderService
   ) {}
   dashTable: any = [];
   statisticsData: any = {};
