@@ -49,8 +49,10 @@ export class DashboardComponent implements OnInit {
   token: string = localStorage.getItem('_token')!;
 
   ngOnInit(): void {
-    this.getDoctorData();
-    this.getStatisticsData();
+    if (this.token) {
+      this.getDoctorData();
+      this.getStatisticsData();
+    }
     console.log(this._OAuthService);
     console.log(this._OAuthService.getIdentityClaims());
     this.name = localStorage.getItem('_name')!;
@@ -62,38 +64,34 @@ export class DashboardComponent implements OnInit {
 
   ngAfterViewChecked(): void {
     if (this.name != localStorage.getItem('_name')!) {
+      this.name = localStorage.getItem('_name')!;
       this.getDoctorData();
       this.getStatisticsData();
-      this.name = localStorage.getItem('_name')!;
     }
   }
 
   getStatisticsData() {
-    if (this.token) {
-      this._CasesService.getStatisticsByDate(this.todayDate).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.statisticsData = res;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+    this._CasesService.getStatisticsByDate(this.todayDate).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.statisticsData = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   getDoctorData() {
-    if (this.token) {
-      this._DoctorsService.getAllDoctor().subscribe({
-        next: (res) => {
-          console.log(res);
-          this.dashTable = res;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+    this._DoctorsService.getAllDoctor().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.dashTable = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   updateDocter(id: any, value: boolean) {
