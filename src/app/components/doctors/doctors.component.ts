@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 import { SearchPipe } from '../../pipes/search/search.pipe';
 import {
   FormControl,
@@ -44,11 +44,14 @@ export class DoctorsComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getAllDoctors();
-    initFlowbite();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getAllDoctors();
   }
 
   getAllDoctors() {
-    this._DoctorsService.getAllDoctor().subscribe({
+    this._DoctorsService.getAllDoctor(this.todayDate).subscribe({
       next: (res) => {
         this.doctorsData = res;
       },
@@ -58,7 +61,7 @@ export class DoctorsComponent implements OnInit {
     });
   }
 
-  deletDoctor(id: number) {
+  deleteDoctor(id: number) {
     this.modal.confirm({
       nzTitle: 'هل انت متاكد من حذف هذا الطبيب ؟',
       nzOkText: 'نعم',

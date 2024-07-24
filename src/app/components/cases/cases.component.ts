@@ -145,7 +145,7 @@ export class CasesComponent implements OnInit {
   }
 
   getDoctors() {
-    this._DoctorsService.getAllDoctor().subscribe({
+    this._DoctorsService.getAllDoctor(this.todayDate).subscribe({
       next: (res) => {
         console.log(res);
         this.doctorData = res;
@@ -155,15 +155,17 @@ export class CasesComponent implements OnInit {
 
   getPatientRedirect() {
     if (this.doctorId) {
-      this._DoctorsService.allDoctorRedirections(this.doctorId).subscribe({
-        next: (res) => {
-          console.log(res);
-          this.visitsData = res;
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+      this._DoctorsService
+        .allDoctorRedirections(this.doctorId, this.todayDate)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.visitsData = res;
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
     }
   }
 

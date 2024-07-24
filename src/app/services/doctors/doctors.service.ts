@@ -10,8 +10,8 @@ export class DoctorsService {
 
   baseUrl: string = `https://api-dar-elsokar.ebdaa-business.com/api/v1/`;
 
-  getAllDoctor(): Observable<any> {
-    return this._HttpClient.get(`${this.baseUrl}doctors/all`);
+  getAllDoctor(date: string): Observable<any> {
+    return this._HttpClient.get(`${this.baseUrl}doctors/by-date?date=${date}`);
   }
 
   getDoctorByID(id: string | null): Observable<any> {
@@ -30,8 +30,10 @@ export class DoctorsService {
     return this._HttpClient.delete(`${this.baseUrl}doctors/${id}`);
   }
 
-  allDoctorRedirections(id: string | null): Observable<any> {
-    return this._HttpClient.get(`${this.baseUrl}doctors/${id}/redirections`);
+  allDoctorRedirections(id: string | null, date: string): Observable<any> {
+    return this._HttpClient.get(
+      `${this.baseUrl}doctors/${id}/redirections?date=${date}`
+    );
   }
 
   updateDoctor(doctorId: any, value: boolean): Observable<any> {
@@ -40,7 +42,7 @@ export class DoctorsService {
       {
         id: doctorId,
         availability: value,
-      },
+      }
     );
   }
 }
