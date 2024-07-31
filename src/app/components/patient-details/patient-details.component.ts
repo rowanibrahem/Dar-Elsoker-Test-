@@ -9,11 +9,13 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxPrintModule, NgxPrintService, PrintOptions } from 'ngx-print';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-patient-details',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, NzModalModule],
   templateUrl: './patient-details.component.html',
   styleUrl: './patient-details.component.css',
 })
@@ -34,6 +36,7 @@ export class PatientDetailsComponent implements OnInit {
   isDoctor = localStorage.getItem('_name') === 'د. غادة رءوف' ? true : false;
   name: string = localStorage.getItem('_name')!;
   isDisabled: boolean = false;
+  isVisible = false;
 
   ngOnInit(): void {
     this.getPatient();
@@ -41,6 +44,15 @@ export class PatientDetailsComponent implements OnInit {
   }
   goBack() {
     this._Router.navigate(['/patient']);
+  }
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    // console.log('Button cancel clicked!');
+    this.isVisible = false;
   }
 
   patientInfo(visitId: string) {

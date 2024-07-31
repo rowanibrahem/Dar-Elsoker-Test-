@@ -51,7 +51,7 @@ export class PrescriptionsComponent implements OnInit {
     private _Active: ActivatedRoute,
     private _printService: NgxPrintService,
     private fb: FormBuilder,
-    private msg: NzMessageService,
+    private msg: NzMessageService
   ) {}
   form: FormGroup = this.fb.group({
     inputs: this.fb.array([this.createInputGroup()]),
@@ -134,8 +134,6 @@ export class PrescriptionsComponent implements OnInit {
         setTimeout(() => {
           this.printFunc();
         }, 1000);
-
-        // window.print();
       },
       error: (err) => {
         this.msg.error('برجاء اكمال جميع الحقول');
@@ -146,7 +144,6 @@ export class PrescriptionsComponent implements OnInit {
   async printFunc() {
     const customPrintOptions: PrintOptions = new PrintOptions({
       printSectionId: 'print-section',
-      // previewOnly: true,
     });
     this._printService.print(customPrintOptions);
   }

@@ -24,7 +24,7 @@ export class PatientInfoComponent implements OnInit {
     private _PatientService: PatientService,
     private _CasesService: CasesService,
     private _ActivatedRoute: ActivatedRoute,
-    private msg: NzMessageService,
+    private msg: NzMessageService
   ) {}
   patientId: string | null =
     this._ActivatedRoute.snapshot.queryParamMap.get('id');
@@ -148,7 +148,7 @@ export class PatientInfoComponent implements OnInit {
           subErrors.forEach(
             (error: { message: string | TemplateRef<void> }) => {
               this.msg.error(error.message);
-            },
+            }
           );
         } else {
           this.msg.error(err.error.message);
@@ -156,47 +156,4 @@ export class PatientInfoComponent implements OnInit {
       },
     });
   }
-
-  // getVisit() {
-  //   this._PatientService.getVisitById(this.patientId).subscribe({
-  //     next: (res) => {
-  //       this.patientData = res;
-  //       console.log(this.patientData);
-  //       this.recordForm.patchValue({
-  //         medicalRecord: {
-  //           weight: this.patientData.medicalRecord.weight,
-  //           height: this.patientData.medicalRecord.height,
-  //           timeOfDiabetes: this.patientData.medicalRecord.timeOfDiabetes,
-  //           medications: this.patientData.medicalRecord.medications,
-  //           diet: this.patientData.medicalRecord.diet,
-  //           bloodTestDate: this.patientData.medicalRecord.bloodTestDate,
-  //           fastingBloodSugar: this.patientData.medicalRecord.fastingBloodSugar,
-  //           fastingBloodSugarTested:
-  //             this.patientData.medicalRecord.fastingBloodSugarTested,
-  //           randomBloodSugar: this.patientData.medicalRecord.randomBloodSugar,
-  //           randomBloodSugarTested:
-  //             this.patientData.medicalRecord.randomBloodSugarTested,
-  //           cumulativeBloodSugar:
-  //             this.patientData.medicalRecord.cumulativeBloodSugar,
-  //           cumulativeBloodSugarTested:
-  //             this.patientData.medicalRecord.cumulativeBloodSugarTested,
-  //           kendyExamination: this.patientData.medicalRecord.kendyExamination,
-  //           kendyExaminationTested:
-  //             this.patientData.medicalRecord.kendyExaminationTested,
-  //           eyeExamination: this.patientData.medicalRecord.eyeExamination,
-  //           ecg: this.patientData.medicalRecord.ecg,
-  //           numbness: this.patientData.medicalRecord.numbness,
-  //           burnings: this.patientData.medicalRecord.burnings,
-  //           sting: this.patientData.medicalRecord.sting,
-  //           coolerLimbs: this.patientData.medicalRecord.coolerLimbs,
-  //           muscleStrain: this.patientData.medicalRecord.muscleStrain,
-  //         },
-  //       });
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //       this.msg.error(err.message);
-  //     },
-  //   });
-  // }
 }
