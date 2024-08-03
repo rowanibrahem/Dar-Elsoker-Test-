@@ -81,12 +81,8 @@ export class PatientInfoComponent implements OnInit {
 
   saveVisit() {
     const visitData = this.recordForm.value;
-    console.log(this.recordForm.value);
-
     this._CasesService.followUP(visitData).subscribe({
       next: (res) => {
-        console.log(res);
-        console.log(visitData);
         this.goBack();
       },
       error: (err) => {
@@ -105,10 +101,7 @@ export class PatientInfoComponent implements OnInit {
   getPatientRecords() {
     this._CasesService.getPatientMedicalRecords(this.patientId).subscribe({
       next: (res) => {
-        // console.log(res);
-
         this.patientData = res;
-        console.log(this.patientData);
         this.recordForm.patchValue({
           medicalRecord: {
             weight: this.patientData.medicalRecord.weight,

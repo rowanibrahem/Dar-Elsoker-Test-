@@ -64,7 +64,6 @@ export class PatientComponent implements OnInit {
   getPatient() {
     this._PatientService.getPatientPage().subscribe({
       next: (res) => {
-        console.log(res);
         this.patientData = res;
       },
       error: (err) => {
@@ -82,7 +81,6 @@ export class PatientComponent implements OnInit {
       nzOnOk: () => {
         this._PatientService.deletePatient(id).subscribe({
           next: (res) => {
-            console.log(res);
             this.getPatient();
             this.nzMessageService.success('تم الحذف بنجاح');
           },

@@ -60,7 +60,6 @@ export class CasesComponent implements OnInit {
         .allByDateAndStatus(this.todayDate, this.status)
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.visitsData = res;
           },
           error: (err) => {
@@ -100,13 +99,10 @@ export class CasesComponent implements OnInit {
         this.isLoading = true;
         this._CasesService.updateVisit(id, true).subscribe({
           next: (res) => {
-            console.log(res);
-
             this.getVisitsByStatus();
             this.getPatientRedirect();
             this.isLoading = false;
             this.visitId = '';
-
             return res;
           },
         });
@@ -116,14 +112,10 @@ export class CasesComponent implements OnInit {
         this.isLoading = true;
         this._CasesService.updateRedirect(id, true).subscribe({
           next: (res) => {
-            console.log(res);
-
             this.getVisitsByStatus();
             this.getPatientRedirect();
             this.isLoading = false;
             this.visitId = '';
-
-            return res;
           },
         });
       }
@@ -132,11 +124,9 @@ export class CasesComponent implements OnInit {
 
   redirectVisit(visitId: any, event: any) {
     const doctorId = event.target.value;
-    console.log(doctorId);
     this._CasesService.rediretToDoctor(visitId, doctorId).subscribe({
       next: (res) => {
         this.doctorName = res.doctorRedirectedTo.fullName;
-        console.log(this.doctorName);
       },
       error: (err) => {
         console.log(err);
@@ -147,7 +137,6 @@ export class CasesComponent implements OnInit {
   getDoctors() {
     this._DoctorsService.getAllDoctor(this.todayDate).subscribe({
       next: (res) => {
-        console.log(res);
         this.doctorData = res;
       },
     });
@@ -159,7 +148,6 @@ export class CasesComponent implements OnInit {
         .allDoctorRedirections(this.doctorId, this.todayDate)
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.visitsData = res;
           },
           error: (err) => {

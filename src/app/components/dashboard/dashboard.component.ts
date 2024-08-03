@@ -51,8 +51,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getDoctorData();
     this.getStatisticsData();
-    console.log(this._OAuthService);
-    console.log(this._OAuthService.getIdentityClaims());
+    // console.log(this._OAuthService);
+    // console.log(this._OAuthService.getIdentityClaims());
     this.name = localStorage.getItem('_name')!;
   }
 
@@ -71,7 +71,6 @@ export class DashboardComponent implements OnInit {
   getStatisticsData() {
     this._CasesService.getStatisticsByDate(this.todayDate).subscribe({
       next: (res) => {
-        console.log(res);
         this.statisticsData = res;
       },
       error: (err) => {
@@ -83,7 +82,6 @@ export class DashboardComponent implements OnInit {
   getDoctorData() {
     this._DoctorsService.getAllDoctor(this.todayDate).subscribe({
       next: (res) => {
-        console.log(res);
         this.dashTable = res;
       },
       error: (err) => {

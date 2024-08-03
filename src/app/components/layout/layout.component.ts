@@ -27,22 +27,18 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
   constructor(
     private _OAuthService: OAuthService,
     private _Route: Router,
     private nzMessageService: NzMessageService,
-    private modal: NzModalService,
+    private modal: NzModalService
   ) {}
 
   govisits() {
     this._Route.navigate(['/cases'], {
       queryParams: { status: 'ALL' },
     });
-  }
-
-  ngOnInit(): void {
-    initFlowbite();
   }
 
   signOut() {

@@ -12,11 +12,7 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(public _IsLoaderService: IsLoaderService) {}
   title = 'dar-elsoker';
-
-  ngOnInit(): void {
-    initFlowbite;
-  }
 }

@@ -51,7 +51,6 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   handleCancel(): void {
-    // console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
@@ -77,7 +76,6 @@ export class PatientDetailsComponent implements OnInit {
     const patientData = this.patientForm.value;
     this._PatientService.updatePatient(patientData, this.patientId).subscribe({
       next: (res) => {
-        console.log(res);
         this.goBack();
       },
       error: (err) => {
@@ -90,7 +88,6 @@ export class PatientDetailsComponent implements OnInit {
     const patientData = this.patientForm.value;
     this._PatientService.savePatient(patientData).subscribe({
       next: (res) => {
-        console.log(res);
         this.goBack();
       },
     });
@@ -102,7 +99,6 @@ export class PatientDetailsComponent implements OnInit {
     }
     this._PatientService.getPatientById(this.patientId).subscribe({
       next: (res) => {
-        console.log(res);
         this.patientData = res;
         this.patientForm.patchValue({
           contactInfo: {
@@ -121,10 +117,8 @@ export class PatientDetailsComponent implements OnInit {
   patientVisits() {
     this._PatientService.allPatientVisits(this.patientId).subscribe({
       next: (res) => {
-        console.log(res);
         this.visitData = res;
         this.prescriptions = res;
-        console.log(this.visitData.doctorRedirectedTo.fullName);
       },
       error: (err) => {
         console.log(err);
@@ -133,8 +127,6 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   printFunc(id: any) {
-    console.log(id);
-
     const customPrintOptions: PrintOptions = new PrintOptions({
       printSectionId: id,
       previewOnly: true,

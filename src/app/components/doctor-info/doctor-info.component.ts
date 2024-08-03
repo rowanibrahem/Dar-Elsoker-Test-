@@ -29,7 +29,7 @@ export class DoctorInfoComponent implements OnInit {
     private _DoctorsService: DoctorsService,
     private _Location: Location,
     private _active: ActivatedRoute,
-    private msg: NzMessageService,
+    private msg: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +56,6 @@ export class DoctorInfoComponent implements OnInit {
     const doctorData = this.doctorForm.value;
     this._DoctorsService.saveDoctor(doctorData).subscribe({
       next: (res) => {
-        console.log(res);
         this.doctorsData = res;
         this._Location.back();
       },
@@ -67,7 +66,7 @@ export class DoctorInfoComponent implements OnInit {
           subErrors.forEach(
             (error: { message: string | TemplateRef<void> }) => {
               this.msg.error(error.message);
-            },
+            }
           );
         } else {
           this.msg.error(err.error.message);
@@ -81,7 +80,6 @@ export class DoctorInfoComponent implements OnInit {
       const doctorData = this.doctorForm.value;
       this._DoctorsService.reuseDoctor(doctorData, this.doctorId).subscribe({
         next: (res) => {
-          console.log(res);
           this.doctorsData = res;
           this._Location.back();
         },
@@ -99,8 +97,6 @@ export class DoctorInfoComponent implements OnInit {
     if (this.status != 'save') {
       this._DoctorsService.getDoctorByID(this.doctorId).subscribe({
         next: (res) => {
-          console.log(res);
-
           this.doctorsData = res;
           this.doctorForm.patchValue({
             contactInfo: {

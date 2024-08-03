@@ -79,7 +79,6 @@ export class PrescriptionsComponent implements OnInit {
   getMedicine() {
     this._PrescriptionsService.getMedicine().subscribe({
       next: (res) => {
-        console.log(res);
         this.medicinies = res;
       },
       error: (err) => {
@@ -89,8 +88,6 @@ export class PrescriptionsComponent implements OnInit {
   }
 
   getMedicineId(event: any) {
-    console.log(event);
-
     this.medicineId = event;
   }
 
@@ -107,10 +104,6 @@ export class PrescriptionsComponent implements OnInit {
         console.log(err);
       },
     });
-  }
-
-  log(val: any) {
-    console.log(val);
   }
 
   print() {

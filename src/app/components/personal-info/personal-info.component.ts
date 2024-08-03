@@ -21,7 +21,7 @@ export class PersonalInfoComponent {
   constructor(
     private _Location: Location,
     private _CasesService: CasesService,
-    private msg: NzMessageService,
+    private msg: NzMessageService
   ) {}
   name: string = localStorage.getItem('_name')!;
 
@@ -71,12 +71,8 @@ export class PersonalInfoComponent {
 
   saveVisit() {
     const visitData = this.detailsForm.value;
-    console.log(this.detailsForm.value);
-
     this._CasesService.checkUP(visitData).subscribe({
       next: (res) => {
-        console.log(res);
-        console.log(visitData);
         this.goBack();
       },
       error: (err) => {
@@ -86,7 +82,7 @@ export class PersonalInfoComponent {
           subErrors.forEach(
             (error: { message: string | TemplateRef<void> }) => {
               this.msg.error(error.message);
-            },
+            }
           );
         } else {
           this.msg.error(err.error.message);
